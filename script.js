@@ -38,3 +38,25 @@ document.addEventListener("keydown", (event) => {
     closeModal();
   }
 });
+// === Map “camera” parallax ===
+(() => {
+  const map = document.getElementById("map");
+  if (!map) return;
+
+  const setVars = (x, y) => {
+    map.style.setProperty("--mx", `${x}%`);
+    map.style.setProperty("--my", `${y}%`);
+  };
+
+  // default center
+  setVars(50, 50);
+
+  map.addEventListener("mousemove", (e) => {
+    const r = map.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width) * 100;
+    const y = ((e.clientY - r.top) / r.height) * 100;
+    setVars(x.toFixed(2), y.toFixed(2));
+  });
+
+  map.addEventListener("mouseleave", () => setVars(50, 50));
+})();
