@@ -813,3 +813,15 @@ main {
 #map .district.locked { opacity: 1 !important; filter: grayscale(1) contrast(.9) !important; }
 #map .district.locked::before, 
 #map .district.locked::after { content: "" !important; }
+.district.locked::before {
+  content: "NO ENTRY";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 0, 0, 0.6);
+  color: white;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
