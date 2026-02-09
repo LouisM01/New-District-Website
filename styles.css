@@ -809,3 +809,7 @@ main {
   50%  { transform: translate3d(-1.2%, 0.6%, 0); }
   100% { transform: translate3d(0,0,0); }
 }
+/* FORCE MAP STYLES (wins over earlier rules) */
+#map .district.locked { opacity: 1 !important; filter: grayscale(1) contrast(.9) !important; }
+#map .district.locked::before, 
+#map .district.locked::after { content: "" !important; }
