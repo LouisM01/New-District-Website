@@ -825,3 +825,16 @@ main {
   justify-content: center;
   z-index: 999;
 }
+/* DEBUG: force locked tiles visible */
+.district.locked::before {
+  content: "NO ENTRY";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 0, 0, 0.6);
+  color: white;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
