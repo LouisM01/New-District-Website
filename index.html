@@ -7,22 +7,248 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="wrap">
-    <h1>New District Productions</h1>
-    <p>Authentic stories. Unmistakeable sense of place. Built from the ground up.</p>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="site-header">
+    <div class="logo-block">
+      <span class="logo-mark">NDP</span>
+      <div>
+        <p class="logo-title">New District Productions</p>
+        <p class="logo-subtitle">Independent Film & Story Studio</p>
+      </div>
+    </div>
+    <nav class="site-nav">
+      <a href="#landing">Landing</a>
+      <a href="#founders">Founders</a>
+      <a href="#news">Bulletin</a>
+      <a href="#projects">Film Division</a>
+      <a href="#map">District Map</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="landing" class="panel hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Open District</p>
+        <h1>Authentic stories. Unmistakeable sense of place. Built from the ground up.</h1>
+        <p class="lead">New District Productions exists to return power to the artist. We build lean, high-impact productions that live between cinema, culture, and city rhythm.</p>
+        <div class="hero-actions">
+          <button class="cta">Enter the district</button>
+          <button class="cta ghost">View the map</button>
+        </div>
+      </div>
+      <div class="hero-map">
+        <div class="map-grid">
+          <div class="map-tile open">
+            <span>Open Sector</span>
+            <p>Live productions, collaborations, and active sets.</p>
+          </div>
+          <div class="map-tile locked">
+            <span>Restricted Zone</span>
+            <p>Under construction.</p>
+          </div>
+          <div class="map-tile open">
+            <span>Storyline Hub</span>
+            <p>Campaign narratives and cinematic worlds.</p>
+          </div>
+          <div class="map-tile locked">
+            <span>Archive District</span>
+            <p>Sealed vaults.</p>
+          </div>
+        </div>
+        <div class="map-note">Map interface is live. Locked districts remain under construction.</div>
+      </div>
+    </section>
+
+    <section id="founders" class="panel founders">
+      <div class="section-header">
+        <p class="eyebrow">Meet the Founders</p>
+        <h2>Built like a crew. Led like a collective.</h2>
+      </div>
+      <div class="founder-grid">
+        <article class="founder-card">
+          <div class="image-frame" role="img" aria-label="Portrait placeholder of founder A"></div>
+          <div>
+            <h3>Riley Knox — Creative Director</h3>
+            <p>World-builder rooted in documentary realism. Riley shapes tone, scope, and the lived-in feel of every frame.</p>
+          </div>
+        </article>
+        <article class="founder-card">
+          <div class="image-frame" role="img" aria-label="Portrait placeholder of founder B"></div>
+          <div>
+            <h3>Jules Vega — Executive Producer</h3>
+            <p>Operational strategist and producer for artist-first sets. Jules keeps the budget sharp and the vision protected.</p>
+          </div>
+        </article>
+        <article class="founder-card">
+          <div class="image-frame" role="img" aria-label="Portrait placeholder of founder C"></div>
+          <div>
+            <h3>Imani Cruz — Head of Story</h3>
+            <p>Story architect focused on character, grit, and regional detail. Imani ensures every project feels like a real place.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="news" class="panel news">
+      <div class="section-header">
+        <p class="eyebrow">Latest News / Bulletin</p>
+        <h2>Dispatches from the street.</h2>
+      </div>
+      <div class="bulletin">
+        <article class="bulletin-item">
+          <p class="bulletin-date">Oct 02</p>
+          <div>
+            <h3>Location scouts locked in South Yard and Pierline.</h3>
+            <p>New District Productions exists to return power to the artist. Our crews are embedded in the neighborhoods that shape the stories.</p>
+          </div>
+        </article>
+        <article class="bulletin-item">
+          <p class="bulletin-date">Sep 18</p>
+          <div>
+            <h3>City map prototype is live — feedback requested.</h3>
+            <p>Test the new map interface and send notes. Locked regions will remain grey until production is ready.</p>
+          </div>
+        </article>
+        <article class="bulletin-item">
+          <p class="bulletin-date">Sep 01</p>
+          <div>
+            <h3>Film Division: two short-form projects entered pre-production.</h3>
+            <p>Working titles: “Alleylight” and “Cold Signal.” The mission: authentic stories, undeniable place.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="panel projects">
+      <div class="section-header">
+        <p class="eyebrow">In-House Projects (Film Division)</p>
+        <h2>Stories in motion. Built on the ground.</h2>
+      </div>
+      <div class="project-grid">
+        <article class="project-card">
+          <div class="project-thumb"></div>
+          <div>
+            <h3>Alleylight</h3>
+            <p>A nocturnal chase through the warehouse district — a character study framed by neon haze.</p>
+            <p class="project-meta">Status: Pre-production · 28 min</p>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-thumb"></div>
+          <div>
+            <h3>Cold Signal</h3>
+            <p>Two siblings navigate a blackout as rival crews hunt for a missing broadcast tape.</p>
+            <p class="project-meta">Status: Script lock · 42 min</p>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-thumb"></div>
+          <div>
+            <h3>South Yard Echo</h3>
+            <p>Short documentary on local crews reclaiming their sound after a rail strike.</p>
+            <p class="project-meta">Status: Field work · 18 min</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="map" class="panel map">
+      <div class="section-header">
+        <p class="eyebrow">New Districts</p>
+        <h2>Story-mode map — navigate what’s open, preview what’s locked.</h2>
+      </div>
+      <div class="map-layout">
+        <aside class="map-sidebar">
+          <div class="under-construction">
+            <p>Under Construction</p>
+            <span>Some districts are still sealed.</span>
+          </div>
+          <div class="map-legend">
+            <div><span class="legend-dot open"></span>Open district</div>
+            <div><span class="legend-dot locked"></span>Locked district</div>
+          </div>
+          <p class="map-guidance">Hover a block for detail. Click locked districts for access notice.</p>
+        </aside>
+        <div class="district-grid">
+          <a class="district open" href="#projects" data-name="Film Division" data-desc="Active slate of in-house films and doc work.">
+            <span>Film Division</span>
+            <small>Open · Enter</small>
+            <div class="district-hover">
+              <strong>Film Division</strong>
+              <span>Active slate of in-house films and doc work.</span>
+            </div>
+          </a>
+          <button class="district locked" data-name="Scriptwriting" data-desc="Workshops, labs, and script commissions.">
+            <span>Scriptwriting</span>
+            <small>Locked</small>
+            <div class="district-hover">
+              <strong>Scriptwriting</strong>
+              <span>Workshops, labs, and script commissions.</span>
+            </div>
+          </button>
+          <button class="district locked" data-name="Community (Skool)" data-desc="Crew network, meetups, and mentorship.">
+            <span>Community (Skool)</span>
+            <small>Locked</small>
+            <div class="district-hover">
+              <strong>Community (Skool)</strong>
+              <span>Crew network, meetups, and mentorship.</span>
+            </div>
+          </button>
+          <button class="district locked" data-name="Career Mapping" data-desc="Career roadmaps and production pathways.">
+            <span>Career Mapping</span>
+            <small>Locked</small>
+            <div class="district-hover">
+              <strong>Career Mapping</strong>
+              <span>Career roadmaps and production pathways.</span>
+            </div>
+          </button>
+          <button class="district locked" data-name="Navigating Self-Employment" data-desc="Tax, finance, and independent survival kit.">
+            <span>Navigating Self-Employment</span>
+            <small>Locked</small>
+            <div class="district-hover">
+              <strong>Navigating Self-Employment</strong>
+              <span>Tax, finance, and independent survival kit.</span>
+            </div>
+          </button>
+          <button class="district locked" data-name="Masterclasses" data-desc="Deep dives led by working directors.">
+            <span>Masterclasses</span>
+            <small>Locked</small>
+            <div class="district-hover">
+              <strong>Masterclasses</strong>
+              <span>Deep dives led by working directors.</span>
+            </div>
+          </button>
+          <button class="district locked" data-name="Custom GPT" data-desc="Artist-first research and ideation tools.">
+            <span>Custom GPT</span>
+            <small>Locked</small>
+            <div class="district-hover">
+              <strong>Custom GPT</strong>
+              <span>Artist-first research and ideation tools.</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <div class="modal" id="district-modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="true"></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <h3 id="modal-title">No Entry</h3>
+        <button class="modal-close" type="button" data-close="true" aria-label="Close modal">X</button>
+      </div>
+      <p class="modal-body">New District Productions exists to return power to the artist. Coming soon.</p>
+      <div class="modal-tag">Access denied · Under construction</div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>New District Productions exists to return power to the artist.</p>
+    <p class="footer-meta">HQ: Downtown Yard · Connect: hello@newdistrictproductions.com</p>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
-<section id="districts">
-  <h2>New Districts</h2>
-  <div class="map">
-    <div class="district open">Film Division</div>
-    <div class="district locked">Scriptwriting</div>
-    <div class="district locked">Community</div>
-    <div class="district locked">Career Mapping</div>
-    <div class="district locked">Self Employment</div>
-    <div class="district locked">Masterclasses</div>
-    <div class="district locked">Custom GPT</div>
-  </div>
-</section>
+
