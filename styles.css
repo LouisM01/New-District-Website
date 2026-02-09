@@ -546,3 +546,266 @@ main {
     grid-template-columns: 1fr;
   }
 }
+/* ================================
+   GTA / RDR MAP VIBE UPGRADE
+   Paste at end of styles.css
+================================ */
+
+/* --- MAP BACKDROP: grid + haze + scanlines + subtle motion --- */
+#map {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Ambient gradient + grid */
+#map::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  background:
+    radial-gradient(1100px 600px at var(--mx, 50%) var(--my, 50%),
+      rgba(255,255,255,0.06),
+      rgba(0,0,0,0.85) 60%,
+      rgba(0,0,0,0.95) 100%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.04) 0,
+      rgba(255,255,255,0.04) 1px,
+      transparent 1px,
+      transparent 90px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.04) 0,
+      rgba(255,255,255,0.04) 1px,
+      transparent 1px,
+      transparent 90px
+    );
+  transform: translate3d(0,0,0);
+  opacity: 0.9;
+  animation: mapDrift 18s linear infinite;
+}
+
+/* Film-grain + noise */
+#map::after {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+  animation: grainFlicker 2.2s steps(2) infinite;
+}
+
+/* Keep your actual content above the backdrop */
+#map .section-header,
+#map .map-layout,
+#map .district-grid,
+#map .map-sidebar {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- TILES: sharper, more “UI” --- */
+.district {
+  border-color: rgba(255,255,255,0.10);
+  background: rgba(10,10,10,0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    0 14px 40px rgba(0,0,0,0.55);
+  transform: translate3d(0,0,0);
+}
+
+.district span {
+  letter-spacing: 0.02em;
+}
+
+/* --- OPEN DISTRICT: clean + inviting (subtle glow/pulse) --- */
+.district.open {
+  border-color: rgba(255,255,255,0.32);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.14) inset,
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 18px 60px rgba(0,0,0,0.55);
+}
+
+.district.open::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  background:
+    radial-gradient(600px 260px at 30% 20%,
+      rgba(255,255,255,0.10),
+      transparent 60%);
+  opacity: 0.9;
+}
+
+.district.open:hover {
+  border-color: rgba(255,255,255,0.55);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.20) inset,
+    0 0 22px rgba(255,255,255,0.06),
+    0 24px 70px rgba(0,0,0,0.65);
+}
+
+.district.open small {
+  opacity: 0.95;
+}
+
+/* --- LOCKED DISTRICTS: physically unreachable (fog-of-war + blur + tape) --- */
+.district.locked {
+  opacity: 1;                 /* keep visible but “sealed” */
+  filter: grayscale(1) contrast(0.9);
+  cursor: not-allowed;
+}
+
+.district.locked > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Fog layer */
+.district.locked::before {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(300px 220px at 25% 35%, rgba(0,0,0,0.15), rgba(0,0,0,0.75) 70%),
+    radial-gradient(380px 260px at 75% 60%, rgba(0,0,0,0.08), rgba(0,0,0,0.82) 72%),
+    linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.88));
+  opacity: 0.88;
+  transform: translate3d(0,0,0);
+  animation: fogMove 14s linear infinite;
+}
+
+/* Extra mist noise */
+.district.locked::after {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  z-index: 1;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.11'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+
+/* Diagonal “NO ENTRY / RESTRICTED” tape (stronger) */
+.district.locked .district-hover::before,
+.district.locked::marker { content: ""; } /* noop; safety */
+
+.district.locked::selection { background: transparent; }
+
+.district.locked .district-hover { z-index: 3; }
+
+.district.locked::backdrop { background: transparent; }
+
+.district.locked::part(tape) {}
+
+/* Tape using a pseudo element attached to the tile itself */
+.district.locked .tape,
+.district.locked .tape2 { display: none; } /* in case */
+
+.district.locked .district-hover::after { content: ""; } /* noop */
+
+/* Actual tape */
+.district.locked .district-hover,
+.district.locked:hover .district-hover {
+  opacity: 1;                  /* locked hover info always available */
+  background: rgba(0,0,0,0.55);
+}
+
+.district.locked:hover {
+  transform: translateY(-2px);
+}
+
+/* Tape overlay element (no HTML changes required) */
+.district.locked::file-selector-button {}
+
+/* Use a pseudo for tape */
+.district.locked .district-hover strong { letter-spacing: 0.06em; }
+
+/* Tape on top of everything */
+.district.locked .district-hover::before {
+  content: "NO ENTRY \A RESTRICTED";
+  white-space: pre;
+  position: absolute;
+  left: -10%;
+  top: 18%;
+  width: 140%;
+  padding: 14px 0;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
+  background: rgba(0,0,0,0.55);
+  border-top: 1px solid rgba(255,255,255,0.18);
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+  transform: rotate(-28deg);
+  z-index: 4;
+  opacity: 0.9;
+}
+
+/* Hover reveal: still denied but clearer */
+.district.locked:hover::before { opacity: 0.72; }
+.district.locked:hover::after { opacity: 0.35; }
+.district.locked:hover { filter: grayscale(0.92) contrast(0.95); }
+
+/* --- “Alive” UI touches --- */
+.map-note,
+.map-guidance {
+  opacity: 0.9;
+}
+
+/* subtle scanline shimmer on tiles */
+.district::before {
+  /* keep existing locked fog before intact by only applying to open tiles */
+}
+.district.open::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(255,255,255,0.03),
+    transparent
+  );
+  opacity: 0.35;
+  animation: scan 5.5s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0%   { transform: translateY(-12%); opacity: 0.18; }
+  50%  { transform: translateY(12%);  opacity: 0.42; }
+  100% { transform: translateY(-12%); opacity: 0.18; }
+}
+
+@keyframes fogMove {
+  from { transform: translateX(0px) translateY(0px); }
+  to   { transform: translateX(-80px) translateY(18px); }
+}
+
+@keyframes grainFlicker {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 0.45; }
+}
+
+@keyframes mapDrift {
+  0%   { transform: translate3d(0,0,0); }
+  50%  { transform: translate3d(-1.2%, 0.6%, 0); }
+  100% { transform: translate3d(0,0,0); }
+}
