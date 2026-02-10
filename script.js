@@ -1,6 +1,4 @@
 const modal = document.getElementById("district-modal");
-const modalBody = modal?.querySelector(".modal-body");
-const modalTitle = modal?.querySelector("#modal-title");
 
 const LOCKED_MESSAGE =
   "New District Productions exists to return power to the artist. Coming soon.";
