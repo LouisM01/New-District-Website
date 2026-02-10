@@ -838,3 +838,25 @@ main {
   justify-content: center;
   z-index: 999;
 }
+/* === HARD LOCKED DISTRICT OVERLAY (FORCE) === */
+
+#map .district {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+#map .district.locked::after {
+  content: "NO ENTRY";
+  position: absolute;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.85) !important;
+  color: #fff;
+  font-size: 18px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
