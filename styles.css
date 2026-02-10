@@ -844,19 +844,70 @@ main {
   position: relative !important;
   overflow: hidden !important;
 }
+/* === FINAL LOCKED DISTRICT LOOK: fog-of-war + tape === */
 
-#map .district.locked::after {
-  content: "NO ENTRY";
-  position: absolute;
-  inset: 0;
-  z-index: 999;
-  background: rgba(0, 0, 0, 0.85) !important;
-  color: #fff;
-  font-size: 18px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
+#map .district { position: relative !important; overflow: hidden !important; }
+
+/* Locked base */
+#map .district.locked {
+  cursor: not-allowed;
+  filter: grayscale(1) contrast(0.95);
 }
+
+/* Fog layer */
+#map .district.locked::after {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  z-index: 6;
+  pointer-events: none;
+  background:
+    radial-gradient(320px 240px at 25% 35%, rgba(0,0,0,0.05), rgba(0,0,0,0.78) 70%),
+    radial-gradient(420px 280px at 80% 65%, rgba(0,0,0,0.08), rgba(0,0,0,0.88) 72%),
+    linear-gradient(135deg, rgba(0,0,0,0.62), rgba(0,0,0,0.90));
+  opacity: 0.92;
+  transform: translate3d(0,0,0);
+  animation: fogMove 14s linear infinite;
+}
+
+/* “Restricted tape” */
+#map .district.locked::before {
+  content: "RESTRICTED  •  NO ENTRY  •  COMING SOON";
+  position: absolute;
+  left: -12%;
+  top: 18%;
+  width: 130%;
+  z-index: 7;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
+  background: rgba(0,0,0,0.55);
+  border-top: 1px solid rgba(255,255,255,0.18);
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+  transform: rotate(-28deg);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* Hover: reveal info a bit more, but still denied */
+#map .district.locked:hover::after { opacity: 0.68; }
+#map .district.locked:hover::before { opacity: 0.75; }
+
+/* Open district: clean + inviting */
+#map .district.open {
+  border-color: rgba(255,255,255,0.45);
+  filter: none;
+}
+#map .district.open:hover {
+  border-color: rgba(255,255,255,0.65);
+}
+
+/* Fog animation */
+@keyframes fogMove {
+  from { transform: translateX(0px) translateY(0px); }
+  to   { transform: translateX(-80px) translateY(18px); }
+}
+
