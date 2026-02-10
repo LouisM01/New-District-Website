@@ -550,6 +550,69 @@ main {
    GTA / RDR MAP VIBE UPGRADE
    Paste at end of styles.css
 ================================ */
+.map-viewport{
+  position: relative;
+  overflow: hidden;
+}
+
+.map-art{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  /* Make sure it actually paints */
+  opacity: 1;
+  pointer-events: none;
+
+  /* Core: “monochrome map + warm city lights” */
+  background:
+    /* Epicentre glow (small, concentrated) */
+    radial-gradient(220px 220px at 50% 52%,
+      rgba(255, 199, 56, .55),
+      rgba(255, 199, 56, .18) 45%,
+      rgba(255, 199, 56, 0) 70%),
+
+    /* Secondary glow band (soft spread) */
+    radial-gradient(700px 520px at 50% 52%,
+      rgba(255, 199, 56, .16),
+      rgba(255, 199, 56, 0) 62%),
+
+    /* River (Thames-ish meander) */
+    radial-gradient(360px 220px at 44% 54%,
+      rgba(46, 46, 46, .85),
+      rgba(46, 46, 46, 0) 72%),
+    radial-gradient(420px 260px at 58% 50%,
+      rgba(46, 46, 46, .85),
+      rgba(46, 46, 46, 0) 74%),
+    radial-gradient(340px 240px at 66% 60%,
+      rgba(46, 46, 46, .85),
+      rgba(46, 46, 46, 0) 76%),
+
+    /* Subtle street-grid hint */
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,.05) 0px,
+      rgba(255,255,255,.05) 1px,
+      rgba(255,255,255,0) 1px,
+      rgba(255,255,255,0) 34px),
+    repeating-linear-gradient(90deg,
+      rgba(255,255,255,.05) 0px,
+      rgba(255,255,255,.05) 1px,
+      rgba(255,255,255,0) 1px,
+      rgba(255,255,255,0) 38px),
+
+    /* Base charcoal */
+    #2E2E2E;
+
+  /* Make it read like “map layer” */
+  filter: contrast(1.35) brightness(0.9);
+  mix-blend-mode: screen; /* key for “lights” */
+}
+
+/* Ensure your markers are ABOVE the art */
+.map-markers{
+  position: relative;
+  z-index: 2;
+}
 
 /* --- MAP BACKDROP: grid + haze + scanlines + subtle motion --- */
 #map {
