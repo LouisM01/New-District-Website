@@ -40,26 +40,118 @@ document.addEventListener("keydown", (event) => {
 });
 // === Map “camera” parallax ===
 (() => {
-  const map = document.getElementById("map");
-  if (!map) return;
+  const canvas = document.getElementById("mapCanvas");
+  if (!canvas) return;
 
-  const setVars = (x, y) => {
-    map.style.setProperty("--mx", `${x}%`);
-    map.style.setProperty("--my", `${y}%`);
+  const tooltip = document.getElementById("mapTooltip");
+  const tipTitle = document.getElementById("tipTitle");
+  const tipBody  = document.getElementById("tipBody");
+  const tipTag   = document.getElementById("tipTag");
+
+  const pins = canvas.querySelectorAll(".district-pin");
+  const buttons = document.querySelectorAll(".map-btn");
+
+  // Motion lock: max 5% drift
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+  const maxDrift = 18; // px ~ subtle, feels like 5% motion
+
+  let targetX = 0, targetY = 0;
+  let currentX = 0, currentY = 0;
+
+  const tick = () => {
+    // gentle ease
+    currentX += (targetX - currentX) * 0.10;
+    currentY += (targetY - currentY) * 0.10;
+    canvas.style.setProperty("--mx", `${currentX}px`);
+    canvas.style.setProperty("--my", `${currentY}px`);
+    requestAnimationFrame(tick);
   };
+  tick();
 
-  // default center
-  setVars(50, 50);
-
-  map.addEventListener("mousemove", (e) => {
-    const r = map.getBoundingClientRect();
-    const x = ((e.clientX - r.left) / r.width) * 100;
-    const y = ((e.clientY - r.top) / r.height) * 100;
-    setVars(x.toFixed(2), y.toFixed(2));
+  canvas.addEventListener("mousemove", (e) => {
+    const r = canvas.getBoundingClientRect();
+    const nx = (e.clientX - r.left) / r.width - 0.5;
+    const ny = (e.clientY - r.top) / r.height - 0.5;
+    targetX = clamp(nx * maxDrift * 2, -maxDrift, maxDrift);
+    targetY = clamp(ny * maxDrift * 2, -maxDrift, maxDrift);
   });
 
-  map.addEventListener("mouseleave", () => setVars(50, 50));
+  canvas.addEventListener("mouseleave", () => {
+    targetX = 0; targetY = 0;
+  });
+
+  // Tooltip
+  const showTip = (el) => {
+    const name = el.dataset.name || "District";
+    const desc = el.dataset.desc || "";
+    const locked = el.classList.contains("locked");
+
+    tipTitle.textContent = name;
+    tipBody.textContent = desc;
+    tipTag.textContent = locked ? "NO ENTRY · Coming soon" : "OPEN · Enter";
+
+    tooltip.classList.add("on");
+    tooltip.setAttribute("aria-hidden", "false");
+  };
+
+  const hideTip = () => {
+    tooltip.classList.remove("on");
+    tooltip.setAttribute("aria-hidden", "true");
+  };
+
+  pins.forEach((pin) => {
+    pin.addEventListener("mouseenter", () => showTip(pin));
+    pin.addEventListener("mouseleave", hideTip);
+
+    // Locked “micro push” resistance: allow attempt, then drift back out
+    if (pin.classList.contains("locked")) {
+      pin.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        // tiny “push in”
+        canvas.style.setProperty("--mz", "1.05");
+
+        // resistance back to 1.00 (not a hard snap)
+        setTimeout(() => canvas.style.setProperty("--mz", "1.025"), 120);
+        setTimeout(() => canvas.style.setProperty("--mz", "1.01"), 260);
+        setTimeout(() => canvas.style.setProperty("--mz", "1"), 520);
+
+        // if you have your modal already, trigger it here:
+        const modal = document.getElementById("district-modal");
+        if (modal) {
+          modal.setAttribute("aria-hidden", "false");
+          modal.classList.add("open");
+        }
+      });
+    }
+  });
+
+  // State controls: 1 (base), 2 (lights flick on), 3 (brighter + slight tension)
+  const setState = (n) => {
+    canvas.classList.remove("state-1","state-2","state-3");
+    canvas.style.setProperty("--mz", "1");
+    if (n === 1) canvas.classList.add("state-1");
+    if (n === 2) canvas.classList.add("state-2");
+    if (n === 3) canvas.classList.add("state-3");
+
+    // “city lights flick on” effect: ramp glow with tiny jitter
+    if (n === 2 || n === 3) {
+      let k = 0;
+      const burst = setInterval(() => {
+        k++;
+        canvas.style.filter = `brightness(${1 + (Math.random()*0.04)})`;
+        if (k > 10) { clearInterval(burst); canvas.style.filter = ""; }
+      }, 60);
+    }
+  };
+
+  buttons.forEach((b) => {
+    b.addEventListener("click", () => setState(Number(b.dataset.state)));
+  });
+
+  setState(1);
 })();
+
 (() => {
   const viewport = document.getElementById("mapViewport");
   const svg = document.getElementById("districtSVG");
