@@ -170,95 +170,87 @@
         <div><span class="legend-dot locked"></span>Locked district</div>
       </div>
 
-      <p class="map-guidance">
-        Hover a block for detail. Click locked districts for access notice.
-      </p>
+      <p class="map-guidance">Hover a district for detail. Click locked districts for access notice.</p>
+
+      <div class="map-controls">
+        <button class="map-btn" data-state="1" type="button">STATE 1</button>
+        <button class="map-btn" data-state="2" type="button">STATE 2</button>
+        <button class="map-btn" data-state="3" type="button">STATE 3</button>
+        <button class="map-btn ghost" data-state="0" type="button">RESET</button>
+      </div>
     </aside>
 
-    <div class="district-grid">
-      <a class="district open"
-         href="#projects"
-         data-name="Film Division"
-         data-desc="Active slate of in-house films and doc work.">
-        <span>Film Division</span>
-        <small>Open · Enter</small>
-        <div class="district-hover">
-          <strong>Film Division</strong>
-          <span>Active slate of in-house films and doc work.</span>
-        </div>
-      </a>
+    <div class="map-shell" aria-label="Interactive district map">
+      <div class="map-canvas" id="mapCanvas">
+        <!-- “River” + lights + linework are CSS-driven -->
+        <div class="map-river" aria-hidden="true"></div>
+        <div class="map-glow" aria-hidden="true"></div>
+        <div class="map-lines" aria-hidden="true"></div>
 
-      <button class="district locked"
-              type="button"
-              data-name="Scriptwriting"
-              data-desc="Workshops, labs, and script commissions.">
-        <span>Scriptwriting</span>
-        <small>Locked</small>
-        <div class="district-hover">
-          <strong>Scriptwriting</strong>
-          <span>Workshops, labs, and script commissions.</span>
-        </div>
-      </button>
+        <!-- District pins (epicentre is Film Division) -->
+        <a class="district-pin open" href="#projects"
+           style="--x:50;--y:52;"
+           data-name="Film Division"
+           data-desc="Active slate of in-house films and doc work.">
+          <span>Film Division</span>
+          <small>Open · Enter</small>
+        </a>
 
-      <button class="district locked"
-              type="button"
-              data-name="Community (Skool)"
-              data-desc="Crew network, meetups, and mentorship.">
-        <span>Community (Skool)</span>
-        <small>Locked</small>
-        <div class="district-hover">
-          <strong>Community (Skool)</strong>
-          <span>Crew network, meetups, and mentorship.</span>
-        </div>
-      </button>
+        <button class="district-pin locked" type="button"
+           style="--x:64;--y:44;"
+           data-name="Scriptwriting"
+           data-desc="Workshops, labs, and script commissions.">
+          <span>Scriptwriting</span>
+          <small>Locked</small>
+        </button>
 
-      <button class="district locked"
-              type="button"
-              data-name="Career Mapping"
-              data-desc="Career roadmaps and production pathways.">
-        <span>Career Mapping</span>
-        <small>Locked</small>
-        <div class="district-hover">
-          <strong>Career Mapping</strong>
-          <span>Career roadmaps and production pathways.</span>
-        </div>
-      </button>
+        <button class="district-pin locked" type="button"
+           style="--x:40;--y:40;"
+           data-name="Community (Skool)"
+           data-desc="Crew network, meetups, and mentorship.">
+          <span>Community (Skool)</span>
+          <small>Locked</small>
+        </button>
 
-      <button class="district locked"
-              type="button"
-              data-name="Navigating Self-Employment"
-              data-desc="Tax, finance, and independent survival kit.">
-        <span>Navigating Self-Employment</span>
-        <small>Locked</small>
-        <div class="district-hover">
-          <strong>Navigating Self-Employment</strong>
-          <span>Tax, finance, and independent survival kit.</span>
-        </div>
-      </button>
+        <button class="district-pin locked" type="button"
+           style="--x:72;--y:60;"
+           data-name="Career Mapping"
+           data-desc="Career roadmaps and production pathways.">
+          <span>Career Mapping</span>
+          <small>Locked</small>
+        </button>
 
-      <button class="district locked"
-              type="button"
-              data-name="Masterclasses"
-              data-desc="Deep dives led by working directors.">
-        <span>Masterclasses</span>
-        <small>Locked</small>
-        <div class="district-hover">
-          <strong>Masterclasses</strong>
-          <span>Deep dives led by working directors.</span>
-        </div>
-      </button>
+        <button class="district-pin locked" type="button"
+           style="--x:28;--y:60;"
+           data-name="Navigating Self-Employment"
+           data-desc="Tax, finance, and independent survival kit.">
+          <span>Navigating Self-Employment</span>
+          <small>Locked</small>
+        </button>
 
-      <button class="district locked"
-              type="button"
-              data-name="Custom GPT"
-              data-desc="Artist-first research and ideation tools.">
-        <span>Custom GPT</span>
-        <small>Locked</small>
-        <div class="district-hover">
-          <strong>Custom GPT</strong>
-          <span>Artist-first research and ideation tools.</span>
+        <button class="district-pin locked" type="button"
+           style="--x:58;--y:72;"
+           data-name="Masterclasses"
+           data-desc="Deep dives led by working directors.">
+          <span>Masterclasses</span>
+          <small>Locked</small>
+        </button>
+
+        <button class="district-pin locked" type="button"
+           style="--x:44;--y:78;"
+           data-name="Custom GPT"
+           data-desc="Artist-first research and ideation tools.">
+          <span>Custom GPT</span>
+          <small>Locked</small>
+        </button>
+
+        <!-- hover tooltip -->
+        <div class="map-tooltip" id="mapTooltip" aria-hidden="true">
+          <strong id="tipTitle">District</strong>
+          <span id="tipBody">Details…</span>
+          <em id="tipTag">NO ENTRY · Coming soon</em>
         </div>
-      </button>
+      </div>
     </div>
   </div>
 </section>
