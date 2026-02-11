@@ -1466,6 +1466,30 @@ main {
 
   filter: contrast(1.12) brightness(1.02);
 }
+/* Ensure the map is the positioning context */
+.map-viewport{
+  position: relative;
+  overflow: hidden;
+}
+
+/* Marker layer sits above the art */
+.map-markers{
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none; /* markers themselves will re-enable */
+}
+
+/* The actual district cards */
+.district-marker{
+  position: absolute;
+  left: calc(var(--x, 50) * 1%);
+  top:  calc(var(--y, 50) * 1%);
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+
+  /* keep your existing card styling if you already have it */
+}
 
 .map-markers{
   position:absolute;
