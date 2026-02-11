@@ -1564,3 +1564,19 @@ main {
 .map-viewport { position: relative; }
 .map-markers  { position: absolute; inset: 0; z-index: 6; }
 
+/* FINAL OVERRIDE — pins markers to their --x/--y and makes them clickable */
+.map-markers{
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: auto; /* IMPORTANT: if parent is none, children can't be clicked */
+}
+
+.map-markers .district-marker{
+  position: absolute;
+  left: calc(var(--x) * 1%) !important;
+  top:  calc(var(--y) * 1%) !important;
+  transform: translate(-50%, -50%) !important;
+  pointer-events: auto !important;
+  z-index: 11;
+}
