@@ -555,53 +555,6 @@ main {
   overflow: hidden;
 }
 
-.map-art{
-  position:absolute;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  opacity:1;
-
-  /* Monochrome + warm lights map */
-  background:
-    /* Epicentre glow (small + concentrated) */
-    radial-gradient(220px 220px at 50% 52%,
-      rgba(255,199,56,.55),
-      rgba(255,199,56,.18) 45%,
-      rgba(255,199,56,0) 72%),
-
-    /* Secondary warm bloom (wider, softer) */
-    radial-gradient(900px 700px at 50% 52%,
-      rgba(201,138,42,.22),
-      rgba(201,138,42,.08) 45%,
-      transparent 68%),
-
-    /* “River” – Thames-ish meander (charcoal mist cuts) */
-    radial-gradient(260px 190px at 56% 54%,
-      rgba(46,46,46,.70),
-      transparent 74%),
-    radial-gradient(300px 220px at 67% 58%,
-      rgba(46,46,46,.68),
-      transparent 76%),
-    radial-gradient(220px 160px at 44% 54%,
-      rgba(46,46,46,.66),
-      transparent 74%),
-
-    /* Street grid hint (subtle) */
-    repeating-linear-gradient(0deg,
-      rgba(255,255,255,.05) 0 1px,
-      transparent 1px 34px),
-    repeating-linear-gradient(90deg,
-      rgba(255,255,255,.04) 0 1px,
-      transparent 1px 38px),
-
-    /* Base */
-    #2E2E2E;
-
-  filter: contrast(1.18) brightness(.95);
-}
-
-
 /* Ensure your markers are ABOVE the art */
 .map-markers{
   position: relative;
@@ -1475,9 +1428,9 @@ main {
   pointer-events:none;
   opacity:1;
 
-  /* Monochrome + warm lights map */
+  /* Monochrome base + warm city lights */
   background:
-    /* Epicentre glow (small + concentrated) */
+    /* Epicentre glow (small, concentrated) */
     radial-gradient(220px 220px at 50% 52%,
       rgba(255,199,56,.55),
       rgba(255,199,56,.18) 45%,
@@ -1489,29 +1442,29 @@ main {
       rgba(201,138,42,.08) 45%,
       transparent 68%),
 
-    /* “River” – Thames-ish meander (charcoal mist cuts) */
-    radial-gradient(260px 190px at 56% 54%,
+    /* “River” (Thames-ish meander) — charcoal cuts */
+    radial-gradient(240px 170px at 44% 54%,
+      rgba(46,46,46,.75),
+      transparent 72%),
+    radial-gradient(280px 200px at 55% 50%,
       rgba(46,46,46,.70),
       transparent 74%),
-    radial-gradient(300px 220px at 67% 58%,
-      rgba(46,46,46,.68),
+    radial-gradient(340px 240px at 68% 58%,
+      rgba(46,46,46,.65),
       transparent 76%),
-    radial-gradient(220px 160px at 44% 54%,
-      rgba(46,46,46,.66),
-      transparent 74%),
 
-    /* Street grid hint (subtle) */
+    /* Street grid hint */
     repeating-linear-gradient(0deg,
-      rgba(255,255,255,.05) 0 1px,
+      rgba(255,255,255,.06) 0 1px,
       transparent 1px 34px),
     repeating-linear-gradient(90deg,
-      rgba(255,255,255,.04) 0 1px,
+      rgba(255,255,255,.05) 0 1px,
       transparent 1px 38px),
 
-    /* Base */
+    /* Base charcoal */
     #2E2E2E;
 
-  filter: contrast(1.18) brightness(.95);
+  filter: contrast(1.12) brightness(1.02);
 }
 
 .map-markers{
