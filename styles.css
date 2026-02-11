@@ -1520,10 +1520,6 @@ main {
 .district-marker.open{
   border-color: rgba(255,199,56,.35);
   box-shadow: 0 0 0 1px rgba(255,199,56,.10) inset, 0 16px 44px rgba(0,0,0,.35);
-}
-.district-marker.open .dm-meta{
-  color: rgba(255,199,56,.85);
-}
 
 .district-marker.locked{
   filter: grayscale(1);
