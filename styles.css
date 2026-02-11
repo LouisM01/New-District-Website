@@ -1603,4 +1603,7 @@ main {
   color: rgba(255,255,199,56,.0); /* placeholder */
   color: rgba(255,255,255,.45);
 }
+.map-viewport { position: relative; }
+.map-markers { position: relative; z-index: 2; }
+.map-art { z-index: 1; }
 
