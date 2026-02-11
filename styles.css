@@ -1582,5 +1582,4 @@ main {
 }
 .map-viewport { position: relative; }
 .map-markers { position: relative; z-index: 2; }
-.map-art { z-index: 1; }
 
