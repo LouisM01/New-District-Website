@@ -1481,13 +1481,6 @@ main {
 }
 
 /* The actual district cards */
-.district-marker {
-  position: absolute;
-  left: calc(var(--x) * 1%);
-  top:  calc(var(--y) * 1%);
-  transform: translate(-50%, -50%);
-  z-index: 3;
-}
 
 .map-markers{
   position:absolute;
@@ -1581,4 +1574,15 @@ main {
 }
 .map-viewport { position: relative; }
 .map-markers { position: relative; z-index: 2; }
+/* === FINAL district marker positioning (must be LAST) === */
+.map-viewport { position: relative; }
+.map-markers  { position: absolute; inset: 0; z-index: 6; }
+
+.map-markers > .district-marker{
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top:  calc(var(--y) * 1%);
+  transform: translate(-50%, -50%);
+  z-index: 7;
+}
 
