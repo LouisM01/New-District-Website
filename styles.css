@@ -1489,16 +1489,20 @@ main {
 }
 
 .district-marker{
-  position:absolute;
+  position: absolute;
   left: calc(var(--x) * 1%);
   top:  calc(var(--y) * 1%);
-  transform: translate(-50%,-50%);
-   z-index: 3;
+  transform: translate(-50%, -50%);
+  z-index: 7;
+
+  pointer-events: auto;
+
   width: 240px;
-  padding:18px 18px 16px;
-  border-radius:16px;
-  text-align:left;
-  border:1px solid rgba(255,255,255,.08);
+  padding: 18px 18px 16px;
+  border-radius: 16px;
+  text-align: left;
+
+  border: 1px solid rgba(255,255,255,.08);
   background: rgba(0,0,0,.30);
   backdrop-filter: blur(6px);
   color: rgba(255,255,255,.86);
@@ -1525,20 +1529,6 @@ main {
   filter: grayscale(1);
   opacity:.62;
   cursor:not-allowed;
-}
-.district-marker.locked::after{
-  content:"NO ENTRY";
-  position:absolute;
-  right:16px;
-  top:14px;
-  font-size:10px;
-  letter-spacing:.38em;
-  color: rgba(255,255,255,.55);
-  padding:6px 10px;
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:999px;
-  transform: rotate(-14deg);
-  background: rgba(0,0,0,.35);
 }
 
 /* Footer */
@@ -1573,12 +1563,4 @@ main {
 /* === FINAL district marker positioning (must be LAST) === */
 .map-viewport { position: relative; }
 .map-markers  { position: absolute; inset: 0; z-index: 6; }
-
-.map-markers > .district-marker{
-  position: absolute;
-  left: calc(var(--x) * 1%);
-  top:  calc(var(--y) * 1%);
-  transform: translate(-50%, -50%);
-  z-index: 7;
-}
 
