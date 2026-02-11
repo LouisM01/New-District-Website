@@ -1481,14 +1481,12 @@ main {
 }
 
 /* The actual district cards */
-.district-marker{
+.district-marker {
   position: absolute;
-  left: calc(var(--x, 50) * 1%);
-  top:  calc(var(--y, 50) * 1%);
+  left: calc(var(--x) * 1%);
+  top:  calc(var(--y) * 1%);
   transform: translate(-50%, -50%);
-  pointer-events: auto;
-
-  /* keep your existing card styling if you already have it */
+  z-index: 3;
 }
 
 .map-markers{
@@ -1502,6 +1500,7 @@ main {
   left: calc(var(--x) * 1%);
   top:  calc(var(--y) * 1%);
   transform: translate(-50%,-50%);
+   z-index: 3;
   width: 240px;
   padding:18px 18px 16px;
   border-radius:16px;
