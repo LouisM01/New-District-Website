@@ -1199,24 +1199,6 @@ main {
   transition: transform 420ms cubic-bezier(.2,.8,.2,1);
 }
 
-/* River: meandering Thames-ish line that reads from shape, not colour shouting */
-.map-river{
-  position:absolute; inset:-10%;
-  opacity:.55;
-  filter: blur(.2px);
-  background:
-    radial-gradient(60px 120px at 28% 45%, rgba(255,255,255,.10), transparent 65%),
-    radial-gradient(80px 180px at 46% 52%, rgba(255,255,255,.12), transparent 68%),
-    radial-gradient(70px 160px at 62% 58%, rgba(255,255,255,.10), transparent 70%),
-    radial-gradient(60px 140px at 76% 64%, rgba(255,255,255,.09), transparent 72%);
-  -webkit-mask:
-    radial-gradient(140px 90px at 22% 44%, #000 40%, transparent 66%),
-    radial-gradient(220px 120px at 42% 52%, #000 40%, transparent 66%),
-    radial-gradient(260px 130px at 58% 58%, #000 40%, transparent 66%),
-    radial-gradient(200px 110px at 76% 64%, #000 40%, transparent 66%);
-  mix-blend-mode: screen;
-}
-
 /* Epicentre glow: concentrated warm core (NOT a ring) */
 .map-glow{
   position:absolute; inset:0;
@@ -1442,16 +1424,16 @@ main {
       rgba(201,138,42,.08) 45%,
       transparent 68%),
 
-    /* “River” (Thames-ish meander) — charcoal cuts */
-    radial-gradient(240px 170px at 44% 54%,
-      rgba(46,46,46,.75),
-      transparent 72%),
-    radial-gradient(280px 200px at 55% 50%,
-      rgba(46,46,46,.70),
-      transparent 74%),
-    radial-gradient(340px 240px at 68% 58%,
-      rgba(46,46,46,.65),
-      transparent 76%),
+ /* River — clear meandering band (charcoal cut-through) */
+radial-gradient(300px 180px at 28% 60%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 70%),
+radial-gradient(320px 190px at 38% 64%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 70%),
+radial-gradient(360px 210px at 50% 66%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 72%),
+radial-gradient(340px 200px at 62% 62%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 72%),
+radial-gradient(320px 190px at 72% 58%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 72%),
+
+/* soft edge glow on river banks (warm hints) */
+radial-gradient(380px 220px at 50% 66%, rgba(255,199,56,.10) 0%, transparent 70%),
+
 
     /* Street grid hint */
     repeating-linear-gradient(0deg,
@@ -1490,7 +1472,7 @@ main {
 
 .district-marker{
   position: absolute;
-   width: 240px;
+  width: 240px;
   padding: 18px 18px 16px;
   border-radius: 16px;
   text-align: left;
