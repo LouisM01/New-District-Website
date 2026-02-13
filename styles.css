@@ -1405,7 +1405,8 @@ main {
 }
 
 .map-art{
- linear-gradient(90deg, rgba(0,255,255,.35) 0 100%), 
+ outline: 6px solid cyan;
+background: rgba(0,255,255,.35) !important;
   position:absolute;
   inset:0;
   z-index:1;
