@@ -1,3 +1,4 @@
+/* CANARY 123 */
 :root {
   color-scheme: dark;
   --bg: #0a0a0a;
@@ -1409,6 +1410,7 @@ main {
   z-index:1;
   pointer-events:none;
   opacity:1;
+outline: 6px solid hotpink;
 
   /* Monochrome base + warm city lights */
   background:
