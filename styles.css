@@ -1476,6 +1476,14 @@ radial-gradient(380px 220px at 50% 66%, rgba(255,199,56,.10) 0%, transparent 70%
 
 .district-marker{
   position: absolute;
+  left: calc(var(--x) * 1%);
+  top:  calc(var(--y) * 1%);
+  transform: translate(-50%, -50%);
+  z-index: 7;
+
+  pointer-events: auto;
+
+  width: 240px;
   width: 240px;
   padding: 18px 18px 16px;
   border-radius: 16px;
