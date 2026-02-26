@@ -1403,32 +1403,31 @@ main {
   padding-top:86px; /* make space for HUD */
 }
 
-.map-art{
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 1;
-
-  /* Monochrome charcoal base */
+..map-art{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  opacity:1;
   background:
+    /* Base charcoal */
     linear-gradient(#2E2E2E, #2E2E2E),
 
     /* Epicentre glow — tight + concentrated */
     radial-gradient(220px 220px at 50% 52%,
-      rgba(255,199,56,.55),
+      rgba(255,199,56,.60),
       rgba(255,199,56,.18) 45%,
       rgba(255,199,56,0) 72%
     ),
 
     /* Secondary warm bloom */
-    radial-gradient(700px 700px at 50% 52%,
+    radial-gradient(760px 760px at 50% 52%,
       rgba(201,138,42,.22),
       rgba(201,138,42,.08) 45%,
       transparent 68%
     ),
 
-    /* River — charcoal cut-through */
+    /* River — charcoal cut-through (meander band) */
     radial-gradient(420px 260px at 30% 62%,
       rgba(20,20,20,.92) 0 42%,
       transparent 66%
@@ -1455,6 +1454,59 @@ main {
       rgba(201,138,42,.08),
       transparent 72%
     );
+}
+
+/* Street grid / texture layer */
+.map-art::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    /* thin verticals */
+    repeating-linear-gradient(90deg,
+      rgba(255,199,56,.06) 0 1px,
+      transparent 1px 22px
+    ),
+    /* thin horizontals */
+    repeating-linear-gradient(0deg,
+      rgba(255,199,56,.05) 0 1px,
+      transparent 1px 26px
+    ),
+    /* soft vignette */
+    radial-gradient(1200px 800px at 50% 50%,
+      transparent 55%,
+      rgba(0,0,0,.35) 90%
+    );
+  opacity:.55;
+  mix-blend-mode:screen;
+  filter: blur(.2px);
+}
+
+/* City lights sparkle layer */
+.map-art::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(2px 2px at 18% 28%, rgba(255,199,56,.55), transparent 60%),
+    radial-gradient(2px 2px at 22% 44%, rgba(255,199,56,.45), transparent 60%),
+    radial-gradient(2px 2px at 30% 36%, rgba(201,138,42,.40), transparent 60%),
+    radial-gradient(2px 2px at 42% 30%, rgba(255,199,56,.50), transparent 60%),
+    radial-gradient(2px 2px at 56% 34%, rgba(255,199,56,.45), transparent 60%),
+    radial-gradient(2px 2px at 62% 46%, rgba(201,138,42,.38), transparent 60%),
+    radial-gradient(2px 2px at 70% 28%, rgba(255,199,56,.55), transparent 60%),
+    radial-gradient(2px 2px at 78% 40%, rgba(255,199,56,.42), transparent 60%),
+    radial-gradient(2px 2px at 84% 32%, rgba(201,138,42,.35), transparent 60%),
+    radial-gradient(2px 2px at 88% 50%, rgba(255,199,56,.38), transparent 60%),
+
+    /* gentle overall glow haze */
+    radial-gradient(900px 700px at 50% 52%,
+      rgba(255,199,56,.10),
+      transparent 65%
+    );
+  opacity:.85;
+  mix-blend-mode:screen;
+  filter: blur(.3px);
 }
 /* Ensure the map is the positioning context */
 .map-viewport{
