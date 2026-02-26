@@ -1403,17 +1403,14 @@ main {
   padding-top:86px; /* make space for HUD */
 }
 
-..map-art{
+.map-art{
   position:absolute;
   inset:0;
   z-index:999;
   pointer-events:none;
   opacity:1;
-  background-color: #2E2E2E;
-  
-  background:
-    /* Base charcoal */
-    linear-gradient(#2E2E2E, #2E2E2E),
+
+  background-color:#2E2E2E;
 
   background:
     /* Epicentre glow — tight + concentrated */
@@ -1422,7 +1419,6 @@ main {
       rgba(255,199,56,.18) 45%,
       rgba(255,199,56,0) 72%
     ),
-
     /* Secondary warm bloom */
     radial-gradient(760px 760px at 50% 52%,
       rgba(201,138,42,.22),
