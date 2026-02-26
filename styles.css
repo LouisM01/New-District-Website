@@ -1409,6 +1409,8 @@ main {
   z-index:999;
   pointer-events:none;
   opacity:1;
+  background-color: #2E2E2E;
+  
   background:
     /* Base charcoal */
     linear-gradient(#2E2E2E, #2E2E2E),
