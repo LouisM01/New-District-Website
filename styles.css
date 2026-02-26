@@ -1,4 +1,3 @@
-/* CANARY 123 */
 :root {
   color-scheme: dark;
   --bg: #0a0a0a;
@@ -1405,52 +1404,57 @@ main {
 }
 
 .map-art{
- outline: 6px solid cyan;
-background: rgba(0,255,255,.35) !important;
-  position:absolute;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  opacity:1;
-outline: 6px solid hotpink;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 1;
 
-  /* Monochrome base + warm city lights */
+  /* Monochrome charcoal base */
   background:
-    /* Epicentre glow (small, concentrated) */
+    linear-gradient(#2E2E2E, #2E2E2E),
+
+    /* Epicentre glow — tight + concentrated */
     radial-gradient(220px 220px at 50% 52%,
       rgba(255,199,56,.55),
       rgba(255,199,56,.18) 45%,
-      rgba(255,199,56,0) 72%),
+      rgba(255,199,56,0) 72%
+    ),
 
-    /* Secondary warm bloom (wider, softer) */
-    radial-gradient(900px 700px at 50% 52%,
+    /* Secondary warm bloom */
+    radial-gradient(700px 700px at 50% 52%,
       rgba(201,138,42,.22),
       rgba(201,138,42,.08) 45%,
-      transparent 68%),
+      transparent 68%
+    ),
 
- /* River — clear meandering band (charcoal cut-through) */
-radial-gradient(300px 180px at 28% 60%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 70%),
-radial-gradient(320px 190px at 38% 64%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 70%),
-radial-gradient(360px 210px at 50% 66%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 72%),
-radial-gradient(340px 200px at 62% 62%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 72%),
-radial-gradient(320px 190px at 72% 58%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 72%),
+    /* River — charcoal cut-through */
+    radial-gradient(420px 260px at 30% 62%,
+      rgba(20,20,20,.92) 0 42%,
+      transparent 66%
+    ),
+    radial-gradient(520px 300px at 44% 58%,
+      rgba(20,20,20,.92) 0 40%,
+      transparent 70%
+    ),
+    radial-gradient(560px 320px at 60% 54%,
+      rgba(20,20,20,.92) 0 40%,
+      transparent 72%
+    ),
+    radial-gradient(520px 300px at 76% 58%,
+      rgba(20,20,20,.92) 0 40%,
+      transparent 70%
+    ),
 
-/* soft edge glow on river banks (warm hints) */
-radial-gradient(380px 220px at 50% 66%, rgba(255,199,56,.10) 0%, transparent 70%),
-
-
-    /* Street grid hint */
-    repeating-linear-gradient(0deg,
-      rgba(255,255,255,.06) 0 1px,
-      transparent 1px 34px),
-    repeating-linear-gradient(90deg,
-      rgba(255,255,255,.05) 0 1px,
-      transparent 1px 38px),
-
-    /* Base charcoal */
-    #2E2E2E;
-
-  filter: contrast(1.12) brightness(1.02);
+    /* Subtle warm river bank glow */
+    radial-gradient(520px 320px at 48% 60%,
+      rgba(255,199,56,.10),
+      transparent 70%
+    ),
+    radial-gradient(520px 320px at 66% 56%,
+      rgba(201,138,42,.08),
+      transparent 72%
+    );
 }
 /* Ensure the map is the positioning context */
 .map-viewport{
