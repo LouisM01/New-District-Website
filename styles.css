@@ -1428,19 +1428,19 @@ main {
 
     /* River — charcoal cut-through (meander band) */
     radial-gradient(420px 260px at 30% 62%,
-      rgba(20,20,20,.92) 0 42%,
+      rgba(0,0,0,.78) 0 42%,
       transparent 66%
     ),
     radial-gradient(520px 300px at 44% 58%,
-      rgba(20,20,20,.92) 0 40%,
+      rgba(0,0,0,.78) 0 40%,
       transparent 70%
     ),
     radial-gradient(560px 320px at 60% 54%,
-      rgba(20,20,20,.92) 0 40%,
+      rgba(0,0,0,.78) 0 40%,
       transparent 72%
     ),
     radial-gradient(520px 300px at 76% 58%,
-      rgba(20,20,20,.92) 0 40%,
+      rgba(0,0,0,.78) 0 40%,
       transparent 70%
     ),
 
@@ -1476,9 +1476,9 @@ main {
       transparent 55%,
       rgba(0,0,0,.35) 90%
     );
-  opacity:.55;
-  mix-blend-mode:screen;
-  filter: blur(.2px);
+  opacity:.22;
+mix-blend-mode:screen;
+filter: blur(.6px);
 }
 
 /* City lights sparkle layer */
@@ -1502,8 +1502,21 @@ main {
     radial-gradient(900px 700px at 50% 52%,
       rgba(255,199,56,.10),
       transparent 65%
+      ,
+radial-gradient(1200px 900px at 50% 50%,
+  rgba(255,199,56,.12),
+  transparent 65%
+),
+radial-gradient(900px 700px at 70% 35%,
+  rgba(201,138,42,.10),
+  transparent 70%
+),
+radial-gradient(900px 700px at 25% 70%,
+  rgba(255,199,56,.08),
+  transparent 72%
+)
     );
-  opacity:.85;
+  opacity: 0.95;;
   mix-blend-mode:screen;
   filter: blur(.3px);
 }
