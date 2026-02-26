@@ -1411,6 +1411,7 @@ main {
   opacity:1;
   background-color: #2E2E2E;
 
+  background:
     /* Epicentre glow — tight + concentrated */
     radial-gradient(220px 220px at 50% 52%,
       rgba(255,199,56,.60),
