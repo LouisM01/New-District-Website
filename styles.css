@@ -1622,16 +1622,3 @@ main {
   pointer-events: auto !important;
   z-index: 11;
 }
-/* DEPLOY TEST — remove after confirmed */
-body::before{
-  content:"DEPLOY TEST ✅";
-  position:fixed;
-  top:12px; left:12px;
-  z-index:999999;
-  padding:8px 10px;
-  font:700 12px/1.1 system-ui;
-  background:#FFC738;
-  color:#111;
-  border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,.35);
-}
