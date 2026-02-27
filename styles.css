@@ -1410,6 +1410,7 @@ main {
   background-color:#2E2E2E;
 
   background:
+    /* Glow */
     radial-gradient(circle at 50% 52%,
       rgba(255,199,56,.85) 0%,
       rgba(255,199,56,.35) 18%,
@@ -1423,18 +1424,36 @@ main {
     ),
 
     /* River */
-    radial-gradient(520px 160px at 18% 62%, rgba(0,0,0,.82) 0 28%, transparent 29%),
-    radial-gradient(560px 180px at 34% 58%, rgba(0,0,0,.82) 0 28%, transparent 29%),
-    radial-gradient(620px 200px at 50% 60%, rgba(0,0,0,.82) 0 28%, transparent 29%),
-    radial-gradient(560px 180px at 66% 56%, rgba(0,0,0,.82) 0 28%, transparent 29%),
-    radial-gradient(520px 160px at 82% 58%, rgba(0,0,0,.82) 0 28%, transparent 29%),
-    radial-gradient(420px 160px at 58% 66%, rgba(0,0,0,.55) 0 22%, transparent 23%),
+    radial-gradient(520px 160px at 18% 62%, rgba(0,0,0,.80) 0 28%, transparent 29%),
+    radial-gradient(560px 180px at 34% 58%, rgba(0,0,0,.80) 0 28%, transparent 29%),
+    radial-gradient(620px 200px at 50% 60%, rgba(0,0,0,.80) 0 28%, transparent 29%),
+    radial-gradient(560px 180px at 66% 56%, rgba(0,0,0,.80) 0 28%, transparent 29%),
+    radial-gradient(520px 160px at 82% 58%, rgba(0,0,0,.80) 0 28%, transparent 29%),
 
-    /* Warm bank hint */
+    /* Bank warmth */
     radial-gradient(380px 220px at 50% 66%,
       rgba(255,199,56,.10) 0%,
       transparent 70%
     );
+}
+.map-art::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(255,199,56,.04) 0 1px,
+      transparent 1px 40px
+    ),
+    repeating-linear-gradient(0deg,
+      rgba(255,199,56,.035) 0 1px,
+      transparent 1px 46px
+    );
+
+  opacity:.18;
 }
 /* Ensure the map is the positioning context */
 .map-viewport{
