@@ -1438,24 +1438,14 @@ main {
     );
 }
 .map-art::before{
-  content:"";
+  content:"GRID TEST";
   position:absolute;
   inset:0;
+  z-index:9999;
   pointer-events:none;
-  z-index:5;
 
-  background:
-    repeating-linear-gradient(90deg,
-      rgba(255,199,56,.06) 0 1px,
-      transparent 1px 40px
-    ),
-    repeating-linear-gradient(0deg,
-      rgba(255,199,56,.05) 0 1px,
-      transparent 1px 46px
-    );
-
-  opacity:.22;
-  mix-blend-mode:screen;
+  background: repeating-linear-gradient(90deg, #00ff00 0 6px, transparent 6px 12px);
+  opacity: 1;
 }
 /* Ensure the map is the positioning context */
 .map-viewport{
