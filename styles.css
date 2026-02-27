@@ -1407,6 +1407,7 @@ main {
   inset:0;
   z-index:1;
   pointer-events:none;
+  isolation: isolate;
   background-color:#2E2E2E;
 
   background:
@@ -1440,20 +1441,21 @@ main {
   content:"";
   position:absolute;
   inset:0;
-  z-index:2;
   pointer-events:none;
+  z-index:5;
 
   background:
     repeating-linear-gradient(90deg,
-      rgba(255,199,56,.04) 0 1px,
+      rgba(255,199,56,.06) 0 1px,
       transparent 1px 40px
     ),
     repeating-linear-gradient(0deg,
-      rgba(255,199,56,.035) 0 1px,
+      rgba(255,199,56,.05) 0 1px,
       transparent 1px 46px
     );
 
-  opacity:.18;
+  opacity:.22;
+  mix-blend-mode:screen;
 }
 /* Ensure the map is the positioning context */
 .map-viewport{
