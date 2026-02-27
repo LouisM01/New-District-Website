@@ -1410,34 +1410,29 @@ main {
   background-color:#2E2E2E;
 
   background:
-    /* Epicentre core */
     radial-gradient(circle at 50% 52%,
       rgba(255,199,56,.85) 0%,
       rgba(255,199,56,.35) 18%,
       rgba(255,199,56,.12) 35%,
       transparent 55%
     ),
-
-    /* Secondary warm bloom (wider, softer) */
     radial-gradient(900px 700px at 50% 52%,
       rgba(201,138,42,.22),
       rgba(201,138,42,.08) 45%,
       transparent 68%
     ),
-/* River — clean curved band */
-radial-gradient(120% 60% at 50% 60%,
-  transparent 0%,
-  transparent 44%,
-  rgba(0,0,0,.88) 46%,
-  rgba(0,0,0,.88) 54%,
-  transparent 56%,
-  transparent 100%
-),
-
-    /* Warm hints on the banks */
-    radial-gradient(380px 220px at 50% 66%, rgba(255,199,56,.16) 0%, transparent 70%),
-
-  filter: contrast(1.12) brightness(1.02);
+    radial-gradient(120% 60% at 50% 60%,
+      transparent 0%,
+      transparent 44%,
+      rgba(0,0,0,.88) 46%,
+      rgba(0,0,0,.88) 54%,
+      transparent 56%,
+      transparent 100%
+    ),
+    radial-gradient(380px 220px at 50% 66%,
+      rgba(255,199,56,.16) 0%,
+      transparent 70%
+    );
 }
 
 /* Put ::before OUTSIDE the .map-art block */
