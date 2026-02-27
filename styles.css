@@ -1424,10 +1424,19 @@ main {
       rgba(201,138,42,.08) 45%,
       transparent 68%
     ),
-/* RIVER DEBUG — should be obvious */
-radial-gradient(1200px 520px at 50% 62%,
-  rgba(0,0,0,.95) 0 22%,
-  transparent 46%
+/* River — crisp band (Thames-ish) */
+linear-gradient(165deg,
+  transparent 0%,
+  transparent 42%,
+  rgba(0,0,0,.80) 46%,
+  rgba(0,0,0,.80) 54%,
+  transparent 58%,
+  transparent 100%
+),
+/* River bend — pulls the band into a curve */
+radial-gradient(900px 520px at 40% 60%,
+  rgba(0,0,0,.45) 0 18%,
+  transparent 45%
 ),
     /* River — darker cut-through (must be darker than background) */
     radial-gradient(300px 180px at 28% 60%, rgba(0,0,0,.70) 0 45%, transparent 70%),
