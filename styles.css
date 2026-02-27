@@ -1424,29 +1424,30 @@ main {
       rgba(201,138,42,.08) 45%,
       transparent 68%
     ),
-/* River — crisp band (Thames-ish) */
-linear-gradient(165deg,
-  transparent 0%,
-  transparent 42%,
-  rgba(0,0,0,.80) 46%,
-  rgba(0,0,0,.80) 54%,
-  transparent 58%,
-  transparent 100%
+/* River — hard-edged meander band (READS like a river) */
+radial-gradient(520px 260px at 18% 62%,
+  rgba(0,0,0,.85) 0 38%,
+  transparent 39% 100%
 ),
-/* River bend — pulls the band into a curve */
-radial-gradient(900px 520px at 40% 60%,
-  rgba(0,0,0,.45) 0 18%,
-  transparent 45%
+radial-gradient(560px 280px at 34% 58%,
+  rgba(0,0,0,.85) 0 38%,
+  transparent 39% 100%
 ),
-    /* River — darker cut-through (must be darker than background) */
-    radial-gradient(300px 180px at 28% 60%, rgba(0,0,0,.70) 0 45%, transparent 70%),
-    radial-gradient(320px 190px at 38% 64%, rgba(0,0,0,.70) 0 45%, transparent 70%),
-    radial-gradient(360px 210px at 50% 66%, rgba(0,0,0,.70) 0 45%, transparent 72%),
-    radial-gradient(340px 200px at 62% 62%, rgba(0,0,0,.70) 0 45%, transparent 72%),
-    radial-gradient(320px 190px at 72% 58%, rgba(0,0,0,.70) 0 45%, transparent 72%),
+radial-gradient(620px 300px at 50% 60%,
+  rgba(0,0,0,.85) 0 38%,
+  transparent 39% 100%
+),
+radial-gradient(560px 280px at 66% 56%,
+  rgba(0,0,0,.85) 0 38%,
+  transparent 39% 100%
+),
+radial-gradient(520px 260px at 82% 58%,
+  rgba(0,0,0,.85) 0 38%,
+  transparent 39% 100%
+),
 
     /* Warm hints on the banks */
-    radial-gradient(380px 220px at 50% 66%, rgba(255,199,56,.10) 0%, transparent 70%),
+    radial-gradient(380px 220px at 50% 66%, rgba(255,199,56,.16) 0%, transparent 70%),
 
     /* Base */
     linear-gradient(#2E2E2E, #2E2E2E);
