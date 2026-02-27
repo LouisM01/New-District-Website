@@ -1403,18 +1403,16 @@ main {
   padding-top:86px; /* make space for HUD */
 }
 
-..map-art{
+.map-art{
   position:absolute;
   inset:0;
-  z-index:999;
+  z-index:1;              /* keep map art below markers/cards */
   pointer-events:none;
   opacity:1;
-  background-color: #2E2E2E;
-  
-  background:
-    /* Base charcoal */
-    linear-gradient(#2E2E2E, #2E2E2E),
 
+  background-color:#2E2E2E;
+
+  background:
     /* Epicentre glow — tight + concentrated */
     radial-gradient(220px 220px at 50% 52%,
       rgba(255,199,56,.60),
@@ -1431,29 +1429,29 @@ main {
 
     /* River — charcoal cut-through (meander band) */
     radial-gradient(420px 260px at 30% 62%,
-      rgba(20,20,20,.92) 0 42%,
+      rgba(0,0,0,.78) 0 42%,
       transparent 66%
     ),
     radial-gradient(520px 300px at 44% 58%,
-      rgba(20,20,20,.92) 0 40%,
+      rgba(0,0,0,.78) 0 40%,
       transparent 70%
     ),
     radial-gradient(560px 320px at 60% 54%,
-      rgba(20,20,20,.92) 0 40%,
+      rgba(0,0,0,.78) 0 40%,
       transparent 72%
     ),
     radial-gradient(520px 300px at 76% 58%,
-      rgba(20,20,20,.92) 0 40%,
+      rgba(0,0,0,.78) 0 40%,
       transparent 70%
     ),
 
     /* Subtle warm river bank glow */
     radial-gradient(520px 320px at 48% 60%,
-      rgba(255,199,56,.10),
+      rgba(255,199,56,.08),
       transparent 70%
     ),
     radial-gradient(520px 320px at 66% 56%,
-      rgba(201,138,42,.08),
+      rgba(201,138,42,.06),
       transparent 72%
     );
 }
@@ -1463,25 +1461,26 @@ main {
   content:"";
   position:absolute;
   inset:0;
+  z-index:1;
+  pointer-events:none;
+
   background:
-    /* thin verticals */
     repeating-linear-gradient(90deg,
-      rgba(255,199,56,.06) 0 1px,
-      transparent 1px 22px
-    ),
-    /* thin horizontals */
-    repeating-linear-gradient(0deg,
       rgba(255,199,56,.05) 0 1px,
-      transparent 1px 26px
+      transparent 1px 28px
     ),
-    /* soft vignette */
+    repeating-linear-gradient(0deg,
+      rgba(255,199,56,.04) 0 1px,
+      transparent 1px 32px
+    ),
     radial-gradient(1200px 800px at 50% 50%,
       transparent 55%,
-      rgba(0,0,0,.35) 90%
+      rgba(0,0,0,.40) 92%
     );
-  opacity:.55;
+
+  opacity:.22;
   mix-blend-mode:screen;
-  filter: blur(.2px);
+  filter: blur(.6px);
 }
 
 /* City lights sparkle layer */
@@ -1489,6 +1488,9 @@ main {
   content:"";
   position:absolute;
   inset:0;
+  z-index:2;
+  pointer-events:none;
+
   background:
     radial-gradient(2px 2px at 18% 28%, rgba(255,199,56,.55), transparent 60%),
     radial-gradient(2px 2px at 22% 44%, rgba(255,199,56,.45), transparent 60%),
@@ -1501,12 +1503,12 @@ main {
     radial-gradient(2px 2px at 84% 32%, rgba(201,138,42,.35), transparent 60%),
     radial-gradient(2px 2px at 88% 50%, rgba(255,199,56,.38), transparent 60%),
 
-    /* gentle overall glow haze */
-    radial-gradient(900px 700px at 50% 52%,
-      rgba(255,199,56,.10),
-      transparent 65%
-    );
-  opacity:.85;
+    /* broad city glow scatter */
+    radial-gradient(1200px 900px at 50% 50%, rgba(255,199,56,.12), transparent 65%),
+    radial-gradient(900px 700px at 70% 35%, rgba(201,138,42,.10), transparent 70%),
+    radial-gradient(900px 700px at 25% 70%, rgba(255,199,56,.08), transparent 72%);
+
+  opacity:.95;
   mix-blend-mode:screen;
   filter: blur(.3px);
 }
