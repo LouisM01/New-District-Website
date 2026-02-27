@@ -1421,15 +1421,14 @@ main {
       rgba(201,138,42,.08) 45%,
       transparent 68%
     ),
-    radial-gradient(520px 240px at 18% 62%, rgba(0,0,0,.82) 0 32%, transparent 39%),
-    radial-gradient(560px 260px at 34% 58%, rgba(0,0,0,.82) 0 32%, transparent 39%),
-    radial-gradient(620px 280px at 50% 60%, rgba(0,0,0,.82) 0 32%, transparent 39%),
-    radial-gradient(560px 260px at 66% 56%, rgba(0,0,0,.82) 0 32%, transparent 39%),
-    radial-gradient(520px 240px at 82% 58%, rgba(0,0,0,.82) 0 32%, transparent 39%),
-    radial-gradient(380px 220px at 50% 66%,
+radial-gradient(520px 160px at 18% 62%, rgba(0,0,0,.82) 0 28%, transparent 29%),
+radial-gradient(560px 180px at 34% 58%, rgba(0,0,0,.82) 0 28%, transparent 29%),
+radial-gradient(620px 200px at 50% 60%, rgba(0,0,0,.82) 0 28%, transparent 29%),
+radial-gradient(560px 180px at 66% 56%, rgba(0,0,0,.82) 0 28%, transparent 29%),
+radial-gradient(520px 160px at 82% 58%, rgba(0,0,0,.82) 0 28%, transparent 29%),
+radial-gradient(420px 160px at 58% 66%, rgba(0,0,0,.55) 0 22%, transparent 23%),
       rgba(255,199,56,.10) 0%,
       transparent 70%
-    );
 }
 /* Put ::before OUTSIDE the .map-art block */
 .map-art::before{
@@ -1509,6 +1508,7 @@ main {
 .district-marker.open{
   border-color: rgba(255,199,56,.35);
   box-shadow: 0 0 0 1px rgba(255,199,56,.10) inset, 0 16px 44px rgba(0,0,0,.35);
+}
 
 .district-marker.locked{
   filter: grayscale(1);
