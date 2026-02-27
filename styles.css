@@ -1451,6 +1451,25 @@ radial-gradient(380px 220px at 50% 66%, rgba(255,199,56,.10) 0%, transparent 70%
     #2E2E2E;
 
   filter: contrast(1.12) brightness(1.02);
+
+.map-art::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(255,199,56,.04) 0 1px,
+      transparent 1px 40px
+    ),
+    repeating-linear-gradient(0deg,
+      rgba(255,199,56,.035) 0 1px,
+      transparent 1px 46px
+    );
+
+  opacity:.18;
+}
 }
 /* Ensure the map is the positioning context */
 .map-viewport{
