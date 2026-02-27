@@ -1424,26 +1424,14 @@ main {
       rgba(201,138,42,.08) 45%,
       transparent 68%
     ),
-/* River — hard-edged meander band (READS like a river) */
-radial-gradient(520px 260px at 18% 62%,
-  rgba(0,0,0,.85) 0 38%,
-  transparent 39% 100%
-),
-radial-gradient(560px 280px at 34% 58%,
-  rgba(0,0,0,.85) 0 38%,
-  transparent 39% 100%
-),
-radial-gradient(620px 300px at 50% 60%,
-  rgba(0,0,0,.85) 0 38%,
-  transparent 39% 100%
-),
-radial-gradient(560px 280px at 66% 56%,
-  rgba(0,0,0,.85) 0 38%,
-  transparent 39% 100%
-),
-radial-gradient(520px 260px at 82% 58%,
-  rgba(0,0,0,.85) 0 38%,
-  transparent 39% 100%
+/* River — clean curved band */
+radial-gradient(120% 60% at 50% 60%,
+  transparent 0%,
+  transparent 44%,
+  rgba(0,0,0,.88) 46%,
+  rgba(0,0,0,.88) 54%,
+  transparent 56%,
+  transparent 100%
 ),
 
     /* Warm hints on the banks */
