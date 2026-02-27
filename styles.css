@@ -1424,7 +1424,11 @@ main {
       rgba(201,138,42,.08) 45%,
       transparent 68%
     ),
-
+/* RIVER DEBUG — should be obvious */
+radial-gradient(1200px 520px at 50% 62%,
+  rgba(0,0,0,.95) 0 22%,
+  transparent 46%
+),
     /* River — darker cut-through (must be darker than background) */
     radial-gradient(300px 180px at 28% 60%, rgba(0,0,0,.70) 0 45%, transparent 70%),
     radial-gradient(320px 190px at 38% 64%, rgba(0,0,0,.70) 0 45%, transparent 70%),
