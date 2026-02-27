@@ -1406,41 +1406,34 @@ main {
 .map-art{
   position:absolute;
   inset:0;
-  z-index:999;
+  z-index:1;
   pointer-events:none;
-  opacity:1;
-background-color: hotpink !important;
   background-color:#2E2E2E;
 
   background:
-    /* Epicentre glow — tight + concentrated */
-    radial-gradient(220px 220px at 50% 52%,
-      rgba(255,199,56,.60),
-      rgba(255,199,56,.18) 45%,
-      rgba(255,199,56,0) 72%
-    ),
-    /* Secondary warm bloom */
-    radial-gradient(760px 760px at 50% 52%,
-      rgba(201,138,42,.22),
-      rgba(201,138,42,.08) 45%,
-      transparent 68%
+    /* Epicentre core */
+    radial-gradient(circle at 50% 52%,
+      rgba(255,199,56,.85) 0%,
+      rgba(255,199,56,.35) 18%,
+      rgba(255,199,56,.12) 35%,
+      transparent 55%
     ),
 
     /* River — charcoal cut-through (meander band) */
     radial-gradient(420px 260px at 30% 62%,
-      rgba(0,0,0,.78) 0 42%,
+      rgba(20,20,20,.92) 0 42%,
       transparent 66%
     ),
     radial-gradient(520px 300px at 44% 58%,
-      rgba(0,0,0,.78) 0 40%,
+      rgba(20,20,20,.92) 0 40%,
       transparent 70%
     ),
     radial-gradient(560px 320px at 60% 54%,
-      rgba(0,0,0,.78) 0 40%,
+      rgba(20,20,20,.92) 0 40%,
       transparent 72%
     ),
     radial-gradient(520px 300px at 76% 58%,
-      rgba(0,0,0,.78) 0 40%,
+      rgba(20,20,20,.92) 0 40%,
       transparent 70%
     ),
 
@@ -1476,9 +1469,9 @@ background-color: hotpink !important;
       transparent 55%,
       rgba(0,0,0,.35) 90%
     );
-  opacity: 0 !important;
-mix-blend-mode:screen;
-filter: blur(.6px);
+  opacity:.55;
+  mix-blend-mode:screen;
+  filter: blur(.2px);
 }
 
 /* City lights sparkle layer */
@@ -1516,7 +1509,7 @@ radial-gradient(900px 700px at 25% 70%,
   transparent 72%
 )
     );
-  opacity: 0 !important;
+  opacity:.85;
   mix-blend-mode:screen;
   filter: blur(.3px);
 }
