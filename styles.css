@@ -1449,9 +1449,6 @@ radial-gradient(520px 260px at 82% 58%,
     /* Warm hints on the banks */
     radial-gradient(380px 220px at 50% 66%, rgba(255,199,56,.16) 0%, transparent 70%),
 
-    /* Base */
-    linear-gradient(#2E2E2E, #2E2E2E);
-
   filter: contrast(1.12) brightness(1.02);
 }
 
