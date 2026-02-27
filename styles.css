@@ -1421,16 +1421,13 @@ main {
       rgba(201,138,42,.08) 45%,
       transparent 68%
     ),
-    radial-gradient(120% 60% at 50% 60%,
-      transparent 0%,
-      transparent 44%,
-      rgba(0,0,0,.88) 46%,
-      rgba(0,0,0,.88) 54%,
-      transparent 56%,
-      transparent 100%
-    ),
+    radial-gradient(520px 240px at 18% 62%, rgba(0,0,0,.82) 0 32%, transparent 39%),
+    radial-gradient(560px 260px at 34% 58%, rgba(0,0,0,.82) 0 32%, transparent 39%),
+    radial-gradient(620px 280px at 50% 60%, rgba(0,0,0,.82) 0 32%, transparent 39%),
+    radial-gradient(560px 260px at 66% 56%, rgba(0,0,0,.82) 0 32%, transparent 39%),
+    radial-gradient(520px 240px at 82% 58%, rgba(0,0,0,.82) 0 32%, transparent 39%),
     radial-gradient(380px 220px at 50% 66%,
-      rgba(255,199,56,.16) 0%,
+      rgba(255,199,56,.10) 0%,
       transparent 70%
     );
 }
