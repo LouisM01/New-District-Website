@@ -1419,17 +1419,54 @@ main {
       transparent 55%
     ),
 
-    /* Secondary soft city glow */
-    radial-gradient(circle at 50% 52%,
-      rgba(201,138,42,.18) 0%,
-      transparent 65%
-    ),
+    /* Secondary warm bloom (wider, softer) */
+    radial-gradient(900px 700px at 50% 52%,
+      rgba(201,138,42,.22),
+      rgba(201,138,42,.08) 45%,
+      transparent 68%),
 
-    /* River band (cleaner + less aggressive) */
-    radial-gradient(ellipse at 50% 60%,
-      rgba(0,0,0,.65) 30%,
-      transparent 65%
+ /* River — clear meandering band (charcoal cut-through) */
+radial-gradient(300px 180px at 28% 60%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 70%),
+radial-gradient(320px 190px at 38% 64%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 70%),
+radial-gradient(360px 210px at 50% 66%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 72%),
+radial-gradient(340px 200px at 62% 62%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 72%),
+radial-gradient(320px 190px at 72% 58%, rgba(46,46,46,.92) 0%, rgba(46,46,46,.92) 45%, transparent 72%),
+
+/* soft edge glow on river banks (warm hints) */
+radial-gradient(380px 220px at 50% 66%, rgba(255,199,56,.10) 0%, transparent 70%),
+
+
+    /* Street grid hint */
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,.06) 0 1px,
+      transparent 1px 34px),
+    repeating-linear-gradient(90deg,
+      rgba(255,255,255,.05) 0 1px,
+      transparent 1px 38px),
+
+    /* Base charcoal */
+    #2E2E2E;
+
+  filter: contrast(1.12) brightness(1.02);
+
+.map-art::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(255,199,56,.04) 0 1px,
+      transparent 1px 40px
+    ),
+    repeating-linear-gradient(0deg,
+      rgba(255,199,56,.035) 0 1px,
+      transparent 1px 46px
     );
+
+  opacity:.18;
+}
 }
 /* Ensure the map is the positioning context */
 .map-viewport{
