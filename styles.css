@@ -1417,7 +1417,7 @@ main {
       transparent 55%
     ),
     radial-gradient(900px 700px at 50% 52%,
-      rgba(201,138,42,.22),
+      rgba(201,138,42,.22) 0%,
       rgba(201,138,42,.08) 45%,
       transparent 68%
     ),
@@ -1434,7 +1434,6 @@ main {
       transparent 70%
     );
 }
-
 /* Put ::before OUTSIDE the .map-art block */
 .map-art::before{
   content:"";
