@@ -114,3 +114,73 @@ document.addEventListener("keydown", (e) => {
   });
 
 })();
+// ── City lights scatter ──────────────────────────────────────
+(() => {
+  const shell = document.getElementById("ndpMapShell");
+  if (!shell) return;
+
+  const canvas = document.createElement("canvas");
+  canvas.setAttribute("aria-hidden", "true");
+  canvas.style.cssText = `
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  `;
+  shell.appendChild(canvas);
+
+  function drawLights() {
+    const W = shell.offsetWidth;
+    const H = shell.offsetHeight;
+    canvas.width  = W;
+    canvas.height = H;
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, W, H);
+
+    const cx = W * 0.50;
+    const cy = H * 0.52;
+    const count = 520;
+
+    for (let i = 0; i < count; i++) {
+      // Distribute — denser near centre, sparser outward
+      const angle  = Math.random() * Math.PI * 2;
+      const dist   = Math.pow(Math.random(), 0.55) * Math.max(W, H) * 0.52;
+      const x      = cx + Math.cos(angle) * dist;
+      const y      = cy + Math.sin(angle) * dist * 0.72; // flatten vertically
+
+      // Skip river band
+      const riverY = H * 0.60 + (x / W) * H * -0.15;
+      if (y > riverY - 14 && y < riverY + 14) continue;
+
+      // Size + brightness fall off with distance
+      const falloff   = 1 - (dist / (Math.max(W, H) * 0.52));
+      const size      = Math.random() * 1.8 * falloff + 0.3;
+      const alpha     = Math.random() * 0.7 * falloff + 0.08;
+
+      // Colour: warm amber → orange → occasional white-hot
+      const roll = Math.random();
+      let colour;
+      if (roll > 0.96)      colour = `rgba(255,245,200,${alpha})`; // white-hot
+      else if (roll > 0.75) colour = `rgba(255,200,80,${alpha})`;  // amber
+      else if (roll > 0.45) colour = `rgba(220,140,40,${alpha})`;  // orange-amber
+      else                  colour = `rgba(180,100,20,${alpha})`;  // deep orange
+
+      // Draw dot with soft glow
+      const grd = ctx.createRadialGradient(x, y, 0, x, y, size * 3.5);
+      grd.addColorStop(0,   colour);
+      grd.addColorStop(0.4, colour.replace(/[\d.]+\)$/, `${alpha * 0.4})`));
+      grd.addColorStop(1,   "rgba(0,0,0,0)");
+
+      ctx.beginPath();
+      ctx.arc(x, y, size * 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+    }
+  }
+
+  drawLights();
+  window.addEventListener("resize", drawLights);
+})();
