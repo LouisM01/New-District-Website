@@ -133,38 +133,73 @@
 
     <!-- Art layers (purely visual, aria-hidden) -->
     <div class="ndp-map-art" aria-hidden="true"></div>
-    <svg class="ndp-map-river" aria-hidden="true" viewBox="0 0 1100 620" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+<svg class="ndp-map-river" aria-hidden="true" viewBox="0 0 1100 620" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <filter id="riverBlur">
-      <feGaussianBlur stdDeviation="6" />
+      <feGaussianBlur stdDeviation="8" />
+    </filter>
+    <filter id="riverBlurThin">
+      <feGaussianBlur stdDeviation="3" />
     </filter>
   </defs>
-  <!-- River body — thames-ish meander, wider in centre -->
+
+  <!-- Outer soft shadow — wide blurred band for atmosphere -->
   <path
-    d="M -20 390
-       C 80 375, 140 410, 210 395
-       C 280 380, 310 355, 390 370
-       C 450 382, 480 410, 550 408
-       C 620 406, 660 375, 730 368
-       C 800 361, 860 385, 940 372
-       C 990 364, 1040 350, 1120 355"
+    d="M -20 520
+       C 60 500, 120 480, 200 455
+       C 290 425, 340 400, 420 390
+       C 490 382, 530 388, 580 375
+       C 640 360, 700 330, 790 320
+       C 870 312, 950 328, 1020 318
+       C 1060 312, 1090 305, 1120 300"
     fill="none"
-    stroke="rgba(0,0,0,0.82)"
-    stroke-width="38"
+    stroke="rgba(0,0,0,0.9)"
+    stroke-width="55"
     filter="url(#riverBlur)"
   />
-  <!-- Darker centre line for depth -->
+
+  <!-- Main river body -->
   <path
-    d="M -20 390
-       C 80 375, 140 410, 210 395
-       C 280 380, 310 355, 390 370
-       C 450 382, 480 410, 550 408
-       C 620 406, 660 375, 730 368
-       C 800 361, 860 385, 940 372
-       C 990 364, 1040 350, 1120 355"
+    d="M -20 520
+       C 60 500, 120 480, 200 455
+       C 290 425, 340 400, 420 390
+       C 490 382, 530 388, 580 375
+       C 640 360, 700 330, 790 320
+       C 870 312, 950 328, 1020 318
+       C 1060 312, 1090 305, 1120 300"
     fill="none"
-    stroke="rgba(0,0,0,0.55)"
-    stroke-width="18"
+    stroke="rgba(0,0,0,0.85)"
+    stroke-width="32"
+  />
+
+  <!-- North bank highlight — very faint warm edge -->
+  <path
+    d="M -20 508
+       C 60 488, 120 468, 200 443
+       C 290 413, 340 388, 420 378
+       C 490 370, 530 376, 580 363
+       C 640 348, 700 318, 790 308
+       C 870 300, 950 316, 1020 306
+       C 1060 300, 1090 293, 1120 288"
+    fill="none"
+    stroke="rgba(180,120,20,0.12)"
+    stroke-width="2"
+    filter="url(#riverBlurThin)"
+  />
+
+  <!-- South bank highlight -->
+  <path
+    d="M -20 534
+       C 60 514, 120 494, 200 469
+       C 290 439, 340 414, 420 404
+       C 490 396, 530 402, 580 389
+       C 640 374, 700 344, 790 334
+       C 870 326, 950 342, 1020 332
+       C 1060 326, 1090 319, 1120 314"
+    fill="none"
+    stroke="rgba(180,120,20,0.10)"
+    stroke-width="2"
+    filter="url(#riverBlurThin)"
   />
 </svg>
     <div class="ndp-map-grain" aria-hidden="true"></div>
