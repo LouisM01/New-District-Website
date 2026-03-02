@@ -550,1016 +550,443 @@ main {
    GTA / RDR MAP VIBE UPGRADE
    Paste at end of styles.css
 ================================ */
-.map-viewport{
-  position: relative;
-  overflow: hidden;
-}
+/* ============================================================
+   NEW DISTRICT — DISTRICT MAP SECTION
+   Clean rebuild. Drop this at the END of styles.css,
+   replacing all previous map-related CSS blocks.
+   ============================================================ */
 
-/* Ensure your markers are ABOVE the art */
-.map-markers{
-  position: relative;
-  z-index: 2;
-}
-
-/* --- MAP BACKDROP: grid + haze + scanlines + subtle motion --- */
+/* ── Section wrapper ─────────────────────────────────────── */
 #map {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
+  padding: 60px 6vw 80px;
+  background: #080808;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Ambient gradient + grid */
-#map::before {
-  content: "";
-  position: absolute;
-  inset: -20%;
-  z-index: 0;
-  background:
-    radial-gradient(1100px 600px at var(--mx, 50%) var(--my, 50%),
-      rgba(255,255,255,0.06),
-      rgba(0,0,0,0.85) 60%,
-      rgba(0,0,0,0.95) 100%),
-    repeating-linear-gradient(
-      0deg,
-      rgba(255,255,255,0.04) 0,
-      rgba(255,255,255,0.04) 1px,
-      transparent 1px,
-      transparent 90px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255,255,255,0.04) 0,
-      rgba(255,255,255,0.04) 1px,
-      transparent 1px,
-      transparent 90px
-    );
-  transform: translate3d(0,0,0);
-  opacity: 0.9;
-  animation: mapDrift 18s linear infinite;
+#map .section-header {
+  margin-bottom: 28px;
 }
 
-/* Film-grain + noise */
-#map::after {
-  content: "";
-  position: absolute;
-  inset: -25%;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-  opacity: 0.55;
-  animation: grainFlicker 2.2s steps(2) infinite;
-}
-
-/* Keep your actual content above the backdrop */
-#map .section-header,
-#map .map-layout,
-#map .district-grid,
-#map .map-sidebar {
-  position: relative;
-  z-index: 1;
-}
-
-/* --- TILES: sharper, more “UI” --- */
-.district {
-  border-color: rgba(255,255,255,0.10);
-  background: rgba(10,10,10,0.72);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.06) inset,
-    0 14px 40px rgba(0,0,0,0.55);
-  transform: translate3d(0,0,0);
-}
-
-.district span {
-  letter-spacing: 0.02em;
-}
-
-/* --- OPEN DISTRICT: clean + inviting (subtle glow/pulse) --- */
-.district.open {
-  border-color: rgba(255,255,255,0.32);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.14) inset,
-    0 0 0 1px rgba(255,255,255,0.08),
-    0 18px 60px rgba(0,0,0,0.55);
-}
-
-.district.open::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  pointer-events: none;
-  background:
-    radial-gradient(600px 260px at 30% 20%,
-      rgba(255,255,255,0.10),
-      transparent 60%);
-  opacity: 0.9;
-}
-
-.district.open:hover {
-  border-color: rgba(255,255,255,0.55);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.20) inset,
-    0 0 22px rgba(255,255,255,0.06),
-    0 24px 70px rgba(0,0,0,0.65);
-}
-
-.district.open small {
-  opacity: 0.95;
-}
-
-/* --- LOCKED DISTRICTS: physically unreachable (fog-of-war + blur + tape) --- */
-.district.locked {
-  opacity: 1;                 /* keep visible but “sealed” */
-  filter: grayscale(1) contrast(0.9);
-  cursor: not-allowed;
-}
-
-.district.locked > * {
-  position: relative;
-  z-index: 2;
-}
-
-/* Fog layer */
-.district.locked::before {
-  content: "";
-  position: absolute;
-  inset: -18%;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    radial-gradient(300px 220px at 25% 35%, rgba(0,0,0,0.15), rgba(0,0,0,0.75) 70%),
-    radial-gradient(380px 260px at 75% 60%, rgba(0,0,0,0.08), rgba(0,0,0,0.82) 72%),
-    linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.88));
-  opacity: 0.88;
-  transform: translate3d(0,0,0);
-  animation: fogMove 14s linear infinite;
-}
-
-/* Extra mist noise */
-.district.locked::after {
-  content: "";
-  position: absolute;
-  inset: -25%;
-  z-index: 1;
-  pointer-events: none;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.11'/%3E%3C/svg%3E");
-  mix-blend-mode: multiply;
-  opacity: 0.55;
-}
-
-/* Diagonal “NO ENTRY / RESTRICTED” tape (stronger) */
-.district.locked .district-hover::before,
-.district.locked::marker { content: ""; } /* noop; safety */
-
-.district.locked::selection { background: transparent; }
-
-.district.locked .district-hover { z-index: 3; }
-
-.district.locked::backdrop { background: transparent; }
-
-.district.locked::part(tape) {}
-
-/* Tape using a pseudo element attached to the tile itself */
-.district.locked .tape,
-.district.locked .tape2 { display: none; } /* in case */
-
-.district.locked .district-hover::after { content: ""; } /* noop */
-
-/* Actual tape */
-.district.locked .district-hover,
-.district.locked:hover .district-hover {
-  opacity: 1;                  /* locked hover info always available */
-  background: rgba(0,0,0,0.55);
-}
-
-.district.locked:hover {
-  transform: translateY(-2px);
-}
-
-/* Tape overlay element (no HTML changes required) */
-.district.locked::file-selector-button {}
-
-/* Use a pseudo for tape */
-.district.locked .district-hover strong { letter-spacing: 0.06em; }
-
-/* Tape on top of everything */
-.district.locked .district-hover::before {
-  content: "NO ENTRY \A RESTRICTED";
-  white-space: pre;
-  position: absolute;
-  left: -10%;
-  top: 18%;
-  width: 140%;
-  padding: 14px 0;
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.9);
-  background: rgba(0,0,0,0.55);
-  border-top: 1px solid rgba(255,255,255,0.18);
-  border-bottom: 1px solid rgba(255,255,255,0.18);
-  transform: rotate(-28deg);
-  z-index: 4;
-  opacity: 0.9;
-}
-
-/* Hover reveal: still denied but clearer */
-.district.locked:hover::before { opacity: 0.72; }
-.district.locked:hover::after { opacity: 0.35; }
-.district.locked:hover { filter: grayscale(0.92) contrast(0.95); }
-
-/* --- “Alive” UI touches --- */
-.map-note,
-.map-guidance {
-  opacity: 0.9;
-}
-
-/* subtle scanline shimmer on tiles */
-.district::before {
-  /* keep existing locked fog before intact by only applying to open tiles */
-}
-.district.open::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    transparent,
-    rgba(255,255,255,0.03),
-    transparent
-  );
-  opacity: 0.35;
-  animation: scan 5.5s ease-in-out infinite;
-}
-
-@keyframes scan {
-  0%   { transform: translateY(-12%); opacity: 0.18; }
-  50%  { transform: translateY(12%);  opacity: 0.42; }
-  100% { transform: translateY(-12%); opacity: 0.18; }
-}
-
-@keyframes fogMove {
-  from { transform: translateX(0px) translateY(0px); }
-  to   { transform: translateX(-80px) translateY(18px); }
-}
-
-@keyframes grainFlicker {
-  0%, 100% { opacity: 0.55; }
-  50%      { opacity: 0.45; }
-}
-
-@keyframes mapDrift {
-  0%   { transform: translate3d(0,0,0); }
-  50%  { transform: translate3d(-1.2%, 0.6%, 0); }
-  100% { transform: translate3d(0,0,0); }
-}
-/* FORCE MAP STYLES (wins over earlier rules) */
-#map .district.locked { opacity: 1 !important; filter: grayscale(1) contrast(.9) !important; }
-#map .district.locked::before, 
-#map .district.locked::after { content: "" !important; }
-.district.locked::before {
-  content: "NO ENTRY";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 0, 0, 0.6);
-  color: white;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-/* DEBUG: force locked tiles visible */
-.district.locked::before {
-  content: "NO ENTRY";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 0, 0, 0.6);
-  color: white;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-/* === HARD LOCKED DISTRICT OVERLAY (FORCE) === */
-
-#map .district {
-  position: relative !important;
-  overflow: hidden !important;
-}
-/* === FINAL LOCKED DISTRICT LOOK: fog-of-war + tape === */
-
-#map .district { position: relative !important; overflow: hidden !important; }
-
-/* Locked base */
-#map .district.locked {
-  cursor: not-allowed;
-  filter: grayscale(1) contrast(0.95);
-}
-
-/* Fog layer */
-#map .district.locked::after {
-  content: "";
-  position: absolute;
-  inset: -18%;
-  z-index: 6;
-  pointer-events: none;
-  background:
-    radial-gradient(320px 240px at 25% 35%, rgba(0,0,0,0.05), rgba(0,0,0,0.78) 70%),
-    radial-gradient(420px 280px at 80% 65%, rgba(0,0,0,0.08), rgba(0,0,0,0.88) 72%),
-    linear-gradient(135deg, rgba(0,0,0,0.62), rgba(0,0,0,0.90));
-  opacity: 0.92;
-  transform: translate3d(0,0,0);
-  animation: fogMove 14s linear infinite;
-}
-
-/* “Restricted tape” */
-#map .district.locked::before {
-  content: "RESTRICTED  •  NO ENTRY  •  COMING SOON";
-  position: absolute;
-  left: -12%;
-  top: 18%;
-  width: 130%;
-  z-index: 7;
-  padding: 12px 0;
-  text-align: center;
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.9);
-  background: rgba(0,0,0,0.55);
-  border-top: 1px solid rgba(255,255,255,0.18);
-  border-bottom: 1px solid rgba(255,255,255,0.18);
-  transform: rotate(-28deg);
-  pointer-events: none;
-  opacity: 0.9;
-}
-
-/* Hover: reveal info a bit more, but still denied */
-#map .district.locked:hover::after { opacity: 0.68; }
-#map .district.locked:hover::before { opacity: 0.75; }
-
-/* Open district: clean + inviting */
-#map .district.open {
-  border-color: rgba(255,255,255,0.45);
-  filter: none;
-}
-#map .district.open:hover {
-  border-color: rgba(255,255,255,0.65);
-}
-
-/* Fog animation */
-@keyframes fogMove {
-  from { transform: translateX(0px) translateY(0px); }
-  to   { transform: translateX(-80px) translateY(18px); }
-}
-:root{
-  --charcoal:#2E2E2E;
-  --warm-1:#FFC738; /* Primary */
-  --warm-2:#C98A2A; /* Secondary */
-  --ink:#0b0b0b;
-  --paper:#f4f4f4;
-}
-
-.map-scene{
-  position:relative;
-  padding:72px 0;
-  background: radial-gradient(1200px 800px at 50% 30%, #141414 0%, #0a0a0a 45%, #050505 100%);
-  overflow:hidden;
-}
-
-.map-hud{
-  width:min(1100px,92vw);
-  margin:0 auto 16px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:16px;
-  color:#fff;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-}
-
-.map-title__big{
-  display:block;
-  letter-spacing:.2em;
-  font-weight:800;
-  font-size:14px;
-  opacity:.9;
-}
-.map-title__small{
-  display:block;
-  letter-spacing:.45em;
-  font-size:10px;
-  opacity:.6;
-  margin-top:6px;
-}
-
-.map-controls{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.hud-btn{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.14);
-  color:#fff;
-  padding:10px 12px;
-  border-radius:10px;
-  font-size:12px;
-  letter-spacing:.12em;
-  cursor:pointer;
-  transition:transform .15s ease, background .15s ease, border-color .15s ease;
-}
-.hud-btn:hover{ transform:translateY(-1px); background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.22); }
-.hud-btn:active{ transform:translateY(0px); }
-.hud-btn--ghost{ background:transparent; }
-
-.map-legend{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:12px;
-  opacity:.75;
-}
-.legend-dot{
-  width:10px;height:10px;border-radius:50%;
-  display:inline-block;
-  margin:0 6px 0 10px;
-}
-.legend-dot--open{ background:var(--warm-1); box-shadow:0 0 10px rgba(255,199,56,.55); }
-.legend-dot--locked{ background:#666; box-shadow:none; }
-
-.map-viewport{
-  width:min(1100px,92vw);
-  height:min(620px,70vh);
-  margin:0 auto;
-  position:relative;
-  border-radius:24px;
-  overflow:hidden;
-  background: linear-gradient(180deg, rgba(46,46,46,.22), rgba(0,0,0,.65));
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow: 0 30px 80px rgba(0,0,0,.55);
-}
-
-.map-grain{
-  position:absolute; inset:0;
-  pointer-events:none;
-  opacity:.18;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(255,255,255,.05), rgba(255,255,255,.05) 1px, transparent 1px, transparent 3px),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.03), rgba(255,255,255,.03) 1px, transparent 1px, transparent 4px);
-  mix-blend-mode: overlay;
-}
-
-.map-scan{
-  position:absolute; inset:-40% -20%;
-  pointer-events:none;
-  opacity:.08;
-  background: radial-gradient(circle at 30% 30%, rgba(255,199,56,.25), transparent 55%),
-              radial-gradient(circle at 70% 60%, rgba(201,138,42,.18), transparent 50%);
-  animation: scanDrift 10s linear infinite;
-  mix-blend-mode: screen;
-}
-@keyframes scanDrift{
-  0%{ transform:translate3d(0,0,0) rotate(0deg); }
-  100%{ transform:translate3d(10%,8%,0) rotate(6deg); }
-}
-
-.map-svg{
-  position:absolute; inset:0;
-  width:100%; height:100%;
-}
-
-.map-tooltip{
-  position:absolute;
-  left:16px; bottom:16px;
-  background:rgba(0,0,0,.55);
-  border:1px solid rgba(255,255,255,.14);
-  color:#fff;
-  padding:12px 14px;
-  border-radius:14px;
-  font-size:12px;
-  letter-spacing:.02em;
-  max-width:min(420px,70%);
-  opacity:0;
-  transform:translateY(6px);
-  transition:opacity .15s ease, transform .15s ease;
-  pointer-events:none;
-}
-.map-tooltip.is-on{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.street-panel{
-  position:absolute;
-  top:16px; right:16px;
-  width:min(380px,86vw);
-  background:rgba(0,0,0,.60);
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:18px;
-  color:#fff;
-  padding:14px;
-  transform:translateX(12px);
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .2s ease, transform .2s ease;
-}
-.street-panel.is-open{
-  opacity:1;
-  transform:translateX(0);
-  pointer-events:auto;
-}
-.street-panel__head{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:10px;
-}
-.street-panel__title{
-  font-weight:900;
-  letter-spacing:.18em;
-  font-size:12px;
-}
-.street-panel__sub{
-  opacity:.65;
-  font-size:12px;
-  margin-top:6px;
-}
-.street-copy{
-  opacity:.9;
-  font-size:13px;
-  line-height:1.45;
-}
-.street-tags{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
-.tag{
-  font-size:11px;
-  padding:6px 10px;
-  border-radius:999px;
-  background:rgba(255,199,56,.10);
-  border:1px solid rgba(255,199,56,.25);
-}
-
-/* --- District interaction --- */
-.district-node{
-  cursor:pointer;
-  transform-origin:center;
-}
-.district-node.locked{
-  cursor:not-allowed;
-}
-.district-node .node{
-  transition: transform .15s ease, opacity .15s ease;
-}
-.district-node:hover .node{
-  transform:scale(1.03);
-}
-
-/* Locked feels “physically unreachable”: barrier tape + muted glow */
-.locked .node{
-  opacity:.35;
-  filter: grayscale(1);
-}
-.locked .barrier{
-  opacity:.9;
-}
-
-/* Open feels clean + inviting */
-.open .node{
-  opacity:1;
-}
-
-/* STATE handling */
-.map-viewport[data-state="1"] .street-panel{ display:none; }
-.map-viewport[data-state="2"] .street-panel{ display:none; }
-
-/* STATE 3: micro push-in (locked at 5%) with “resistance” handled in JS */
-.map-viewport.is-push{
-  outline:1px solid rgba(255,199,56,.14);
-}
-/* ===== District Map (GTA pause-menu energy) ===== */
-:root{
-  --charcoal:#2E2E2E;
-  --warm-1:#FFC738;
-  --warm-2:#C98A2A;
-}
-
-.panel.map .section-header{ margin-bottom: 20px; }
-
-.map-layout{
-  display:grid;
-  grid-template-columns: 340px 1fr;
-  gap: 28px;
-  align-items:start;
-}
-
-.map-controls{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
-.map-btn{
-  padding:10px 14px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.25);
-  color:#fff;
-  letter-spacing:.14em;
-  font-size:12px;
-  cursor:pointer;
-}
-.map-btn.ghost{ background:transparent; }
-.map-btn:hover{ border-color: rgba(255,199,56,.35); }
-
-.map-shell{
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.08);
-  background: rgba(0,0,0,.25);
-  overflow:hidden;
-  position:relative;
-  min-height: 560px;
-  box-shadow: 0 24px 90px rgba(0,0,0,.55);
-}
-
-.map-canvas{
-  position:relative;
-  height: 560px;
+/* ── HUD bar above the map ───────────────────────────────── */
+.ndp-map-hud {
   width: 100%;
-  background:
-    radial-gradient(900px 520px at 50% 55%, rgba(255,199,56,.08), transparent 60%),
-    radial-gradient(700px 420px at 50% 55%, rgba(201,138,42,.06), transparent 62%),
-    linear-gradient(180deg, rgba(255,255,255,.03), transparent 55%),
-    #0b0b0b;
-  transform: translate3d(var(--mx,0px), var(--my,0px), 0) scale(var(--mz,1));
-  transition: transform 420ms cubic-bezier(.2,.8,.2,1);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
-/* Epicentre glow: concentrated warm core (NOT a ring) */
-.map-glow{
-  position:absolute; inset:0;
-  background:
-    radial-gradient(140px 140px at 50% 52%, rgba(255,199,56,.34), transparent 62%),
-    radial-gradient(260px 260px at 50% 52%, rgba(201,138,42,.16), transparent 70%),
-    radial-gradient(520px 420px at 50% 52%, rgba(255,199,56,.06), transparent 72%);
-  opacity: var(--glow, .25);
-  transition: opacity 650ms ease;
-  pointer-events:none;
+.ndp-map-titles .ndp-map-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
 }
 
-/* Linework: monochrome street grid + a few “arteries” */
-.map-lines{
-  position:absolute; inset:0;
-  background:
-    /* subtle grid */
-    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 54px),
-    repeating-linear-gradient(0deg,  rgba(255,255,255,.04) 0 1px, transparent 1px 58px),
-    /* arterials */
-    linear-gradient(18deg, transparent 40%, rgba(255,255,255,.10) 41%, transparent 42%),
-    linear-gradient(120deg, transparent 52%, rgba(255,255,255,.10) 53%, transparent 54%);
-  opacity:.30;
-  mix-blend-mode: screen;
-  pointer-events:none;
+.ndp-map-titles .ndp-map-sub {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  margin-top: 5px;
 }
 
-/* Pins (districts) */
-.district-pin{
-  position:absolute;
-  left: calc(var(--x) * 1%);
-  top:  calc(var(--y) * 1%);
-  transform: translate(-50%,-50%);
-  width: 220px;
-  min-height: 92px;
-  padding: 16px 18px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.08);
-  background: rgba(0,0,0,.35);
-  color:#fff;
-  text-align:left;
-  cursor:pointer;
-  overflow:hidden;
-  box-shadow: 0 18px 60px rgba(0,0,0,.45);
-  transition: transform 260ms ease, border-color 260ms ease, filter 260ms ease, opacity 260ms ease;
+.ndp-map-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
-.district-pin span{ display:block; font-weight:700; font-size:16px; }
-.district-pin small{ display:block; margin-top:6px; opacity:.75; letter-spacing:.18em; font-size:11px; text-transform:uppercase; }
-
-.district-pin.open{
-  border-color: rgba(255,199,56,.35);
-  background:
-    radial-gradient(240px 120px at 20% 10%, rgba(255,199,56,.14), transparent 60%),
-    rgba(0,0,0,.38);
-}
-
-.district-pin.locked{
-  opacity:.62;
-  filter: grayscale(1) contrast(1.05);
-}
-
-/* “Physically unreachable” = barricade stripe + subtle glass */
-.district-pin.locked::after{
-  content:"NO ENTRY";
-  position:absolute;
-  right:-46px; top:14px;
-  transform: rotate(32deg);
-  width: 180px;
-  padding: 10px 0;
-  text-align:center;
+.ndp-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 9px 14px;
+  border-radius: 10px;
   font-size: 11px;
-  letter-spacing:.22em;
-  background: rgba(255,255,255,.08);
-  border-top: 1px solid rgba(255,255,255,.12);
-  border-bottom: 1px solid rgba(255,255,255,.12);
-  color: rgba(255,255,255,.78);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  font-family: inherit;
+}
+.ndp-btn:hover {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+.ndp-btn:active { transform: translateY(0); }
+.ndp-btn.is-active {
+  border-color: rgba(255, 199, 56, 0.55);
+  color: rgba(255, 199, 56, 0.9);
+  background: rgba(255, 199, 56, 0.07);
+}
+.ndp-btn.ghost {
+  background: transparent;
+  opacity: 0.6;
 }
 
-.district-pin:hover{
-  transform: translate(-50%,-50%) scale(1.03);
-  border-color: rgba(255,199,56,.45);
+.ndp-map-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
 }
 
-/* Tooltip */
-.map-tooltip{
-  position:absolute;
-  left: 20px;
-  top: 20px;
-  max-width: 320px;
-  padding: 14px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.55);
-  backdrop-filter: blur(6px);
-  opacity:0;
-  transform: translateY(-6px);
-  transition: opacity 160ms ease, transform 160ms ease;
-  pointer-events:none;
+.ndp-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 4px 0 10px;
 }
-.map-tooltip strong{ display:block; font-size:14px; margin-bottom:6px; }
-.map-tooltip span{ display:block; font-size:13px; opacity:.85; }
-.map-tooltip em{
-  display:inline-block;
-  margin-top:10px;
-  font-style:normal;
-  letter-spacing:.18em;
-  font-size:11px;
-  text-transform:uppercase;
-  color: var(--warm-1);
+.ndp-legend-dot.open {
+  background: #ffc738;
+  box-shadow: 0 0 10px rgba(255, 199, 56, 0.6);
 }
-.map-tooltip.on{ opacity:1; transform: translateY(0); }
-
-/* State lighting (city lights “flick on”) */
-.map-canvas.state-2{ --glow: .55; }
-.map-canvas.state-3{ --glow: .70; }
-
-/* Responsive */
-@media (max-width: 980px){
-  .map-layout{ grid-template-columns: 1fr; }
-  .map-shell{ min-height: 520px; }
-  .map-canvas{ height: 520px; }
-  .district-pin{ width: 200px; }
-}
-:root{
-  --charcoal:#2E2E2E;
-  --warm1:#FFC738;
-  --warm2:#C98A2A;
+.ndp-legend-dot.locked {
+  background: rgba(255, 255, 255, 0.25);
 }
 
-/* MAP SHELL */
-.map-shell{
-  position:relative;
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:22px;
-  overflow:hidden;
-  background:#0b0b0b;
-  box-shadow: 0 0 0 1px rgba(255,255,255,.03) inset;
-}
-
-.map-hud{
-  position:absolute;
-  inset:0 0 auto 0;
-  display:grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap:16px;
-  padding:22px 22px 14px;
-  z-index:5;
-  pointer-events:none;
-}
-
-.map-hud *{ pointer-events:auto; }
-
-.map-title{
-  letter-spacing:.32em;
-  font-weight:700;
-  font-size:14px;
-  color:rgba(255,255,255,.86);
-}
-.map-sub{
-  margin-top:6px;
-  letter-spacing:.45em;
-  font-size:11px;
-  color:rgba(255,255,255,.40);
-}
-
-.map-btn{
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(0,0,0,.35);
-  color:rgba(255,255,255,.75);
-  padding:10px 14px;
-  border-radius:12px;
-  letter-spacing:.16em;
-  font-size:12px;
-}
-.map-btn:hover{ border-color: rgba(255,255,255,.22); }
-.map-btn.ghost{ opacity:.75; }
-
-.map-legend{
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  gap:10px;
-}
-.legend-dot{
-  width:12px;height:12px;border-radius:999px;
-  display:inline-block;
-}
-.legend-dot.open{ background:var(--warm1); box-shadow:0 0 18px rgba(255,199,56,.25); }
-.legend-dot.locked{ background:rgba(255,255,255,.22); }
-.legend-label{
-  letter-spacing:.35em;
-  font-size:12px;
-  color:rgba(255,255,255,.45);
-  margin-right:14px;
-}
-
-/* VIEWPORT + ART */
-.map-viewport{
-  position:relative;
-  height:min(620px, 70vh);
-  padding-top:86px; /* make space for HUD */
-}
-.map-art{
-  position:absolute;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  isolation: isolate;
-  background-color:#2E2E2E;
-
-  background:
-    /* Glow */
-    radial-gradient(circle at 50% 52%,
-      rgba(255,199,56,.85) 0%,
-      rgba(255,199,56,.35) 18%,
-      rgba(255,199,56,.12) 35%,
-      transparent 55%
-    ),
-    radial-gradient(900px 700px at 50% 52%,
-      rgba(201,138,42,.22) 0%,
-      rgba(201,138,42,.08) 45%,
-      transparent 68%
-    ),
-
-    /* River */
-    radial-gradient(520px 160px at 18% 62%, rgba(0,0,0,.80) 0 28%, transparent 29%),
-    radial-gradient(560px 180px at 34% 58%, rgba(0,0,0,.80) 0 28%, transparent 29%),
-    radial-gradient(620px 200px at 50% 60%, rgba(0,0,0,.80) 0 28%, transparent 29%),
-    radial-gradient(560px 180px at 66% 56%, rgba(0,0,0,.80) 0 28%, transparent 29%),
-    radial-gradient(520px 160px at 82% 58%, rgba(0,0,0,.80) 0 28%, transparent 29%),
-
-    /* Bank warmth */
-    radial-gradient(380px 220px at 50% 66%,
-      rgba(255,199,56,.10) 0%,
-      transparent 70%
-    );
-}
-.map-art::before{
-  content:"GRID TEST";
-  position:absolute;
-  inset:0;
-  z-index:9999;
-  pointer-events:none;
-
-  background: repeating-linear-gradient(90deg, #00ff00 0 6px, transparent 6px 12px);
-  opacity: 1;
-}
-/* Ensure the map is the positioning context */
-.map-viewport{
+/* ── Map shell (the viewport container) ─────────────────── */
+.ndp-map-shell {
   position: relative;
+  width: 100%;
+  height: min(620px, 72vh);
+  border-radius: 20px;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.03) inset;
 }
 
-/* Marker layer sits above the art */
-.map-markers{
+/* ── Art layer: city atmosphere ──────────────────────────── */
+.ndp-map-art {
   position: absolute;
   inset: 0;
-  z-index: 6;
-  pointer-events: none; /* markers themselves will re-enable */
+  z-index: 1;
+  pointer-events: none;
+
+  /* Dark city base */
+  background-color: #0b0b0b;
+  /* Layered on top via pseudo-elements below */
 }
 
-/* The actual district cards */
-
-.map-markers{
-  position:absolute;
-  inset:0;
-  z-index:3;
-}
-
-.district-marker{
+/* Street grid (subtle, monochrome) */
+.ndp-map-art::before {
+  content: "";
   position: absolute;
-  left: calc(var(--x) * 1%);
-  top:  calc(var(--y) * 1%);
-  transform: translate(-50%, -50%);
-  z-index: 7;
-
-  pointer-events: auto;
-
-  width: 240px;
-  width: 240px;
-  padding: 18px 18px 16px;
-  border-radius: 16px;
-  text-align: left;
-
-  border: 1px solid rgba(255,255,255,.08);
-  background: rgba(0,0,0,.30);
-  backdrop-filter: blur(6px);
-  color: rgba(255,255,255,.86);
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(255,255,255,0.04) 0 1px,
+      transparent 1px 64px),
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,0.035) 0 1px,
+      transparent 1px 68px),
+    /* Diagonal arterials */
+    linear-gradient(22deg, transparent 38%, rgba(255,255,255,0.055) 38.5%, transparent 39.2%),
+    linear-gradient(22deg, transparent 46%, rgba(255,255,255,0.04) 46.5%, transparent 47.2%),
+    linear-gradient(110deg, transparent 28%, rgba(255,255,255,0.045) 28.6%, transparent 29.4%),
+    linear-gradient(110deg, transparent 60%, rgba(255,255,255,0.04) 60.6%, transparent 61.4%),
+    linear-gradient(155deg, transparent 55%, rgba(255,255,255,0.04) 55.5%, transparent 56.2%);
+  opacity: 0.9;
+  mix-blend-mode: screen;
 }
 
-.district-marker .dm-name{
-  display:block;
-  font-weight:700;
-  font-size:18px;
-}
-.district-marker .dm-meta{
-  display:block;
-  margin-top:10px;
-  letter-spacing:.35em;
-  font-size:11px;
-  color: rgba(255,255,255,.45);
+/* Amber glow core — the "city centre" light */
+.ndp-map-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    /* Hot core */
+    radial-gradient(80px 80px at 50% 52%,
+      rgba(255, 220, 100, 0.85) 0%,
+      rgba(255, 199, 56, 0.5) 40%,
+      transparent 72%
+    ),
+    /* Inner warm halo */
+    radial-gradient(220px 180px at 50% 52%,
+      rgba(255, 199, 56, 0.28) 0%,
+      rgba(201, 138, 42, 0.14) 50%,
+      transparent 72%
+    ),
+    /* Outer city spread */
+    radial-gradient(600px 460px at 50% 52%,
+      rgba(201, 138, 42, 0.12) 0%,
+      rgba(180, 120, 30, 0.06) 55%,
+      transparent 74%
+    ),
+    /* Deep ambient warmth */
+    radial-gradient(1000px 700px at 50% 52%,
+      rgba(160, 100, 20, 0.08) 0%,
+      transparent 70%
+    ),
+    /* River — dark band cutting across lower-centre */
+    linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0,0,0,0.0) 10%,
+      rgba(0,0,0,0.0) 90%,
+      transparent 100%
+    );
+  transition: opacity 600ms ease;
+  opacity: var(--glow-intensity, 0.7);
 }
 
-.district-marker.open{
-  border-color: rgba(255,199,56,.35);
-  box-shadow: 0 0 0 1px rgba(255,199,56,.10) inset, 0 16px 44px rgba(0,0,0,.35);
+/* River strip — sits on top of art, cuts a dark channel */
+.ndp-map-river {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 58%;
+  height: 10%;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    /* Dark water body */
+    radial-gradient(ellipse 110% 60% at 50% 50%,
+      rgba(8, 14, 22, 0.88) 30%,
+      rgba(8, 14, 22, 0.6) 60%,
+      transparent 100%
+    );
+  /* Slight curve via border-radius trick */
+  border-radius: 50%;
+  transform: scaleX(1.6) translateY(10%);
 }
 
-.district-marker.locked{
-  filter: grayscale(1);
-  opacity:.62;
-  cursor:not-allowed;
+/* Grain / film noise */
+.ndp-map-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  animation: ndpGrainFlicker 2.4s steps(2) infinite;
 }
 
-/* Footer */
-.map-footer{
-  position:absolute;
-  inset:auto 0 0 0;
-  z-index:5;
-  display:flex;
-  justify-content:space-between;
-  gap:18px;
-  padding:18px 22px;
-  background: linear-gradient(to top, rgba(0,0,0,.55), transparent);
+@keyframes ndpGrainFlicker {
+  0%, 100% { opacity: 0.18; }
+  50%       { opacity: 0.13; }
 }
-.map-note{
-  color: rgba(255,255,255,.45);
-  max-width: 48ch;
-}
-.map-detail{
-  text-align:right;
-}
-.map-detail-title{
-  display:block;
-  color: rgba(255,255,255,.65);
-}
-.map-detail-sub{
-  display:block;
-  color: rgba(255,255,199,56,.0); /* placeholder */
-  color: rgba(255,255,255,.45);
-}
-.map-viewport { position: relative; }
-.map-markers { position: relative; z-index: 2; }
-/* === FINAL district marker positioning (must be LAST) === */
-.map-viewport { position: relative; }
-.map-markers  { position: absolute; inset: 0; z-index: 6; }
 
-/* FINAL OVERRIDE — pins markers to their --x/--y and makes them clickable */
-.map-markers{
+/* Vignette edges */
+.ndp-map-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 95% 88% at 50% 50%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.55) 85%,
+    rgba(0, 0, 0, 0.82) 100%
+  );
+}
+
+/* ── District marker pins ────────────────────────────────── */
+.ndp-markers {
   position: absolute;
   inset: 0;
   z-index: 10;
-  pointer-events: auto; /* IMPORTANT: if parent is none, children can't be clicked */
 }
 
-.map-markers .district-marker{
+.ndp-district {
   position: absolute;
-  left: calc(var(--x) * 1%) !important;
-  top:  calc(var(--y) * 1%) !important;
-  transform: translate(-50%, -50%) !important;
-  pointer-events: auto !important;
-  z-index: 11;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  transform: translate(-50%, -50%);
+
+  width: 200px;
+  padding: 16px 18px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 16px 48px rgba(0,0,0,0.5);
+
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+.ndp-district:hover {
+  transform: translate(-50%, -50%) scale(1.04);
+  border-color: rgba(255, 199, 56, 0.4);
+  box-shadow:
+    0 0 0 1px rgba(255,199,56,0.08) inset,
+    0 0 28px rgba(255,199,56,0.12),
+    0 20px 60px rgba(0,0,0,0.6);
+}
+
+.ndp-district:focus-visible {
+  outline: 2px solid rgba(255, 199, 56, 0.6);
+  outline-offset: 2px;
+}
+
+/* Pin name + meta */
+.ndp-district .d-name {
+  display: block;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+
+.ndp-district .d-meta {
+  display: block;
+  margin-top: 8px;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* OPEN state */
+.ndp-district.open {
+  border-color: rgba(255, 199, 56, 0.35);
+  background:
+    radial-gradient(200px 100px at 20% 10%, rgba(255,199,56,0.13), transparent 65%),
+    rgba(0, 0, 0, 0.4);
+}
+
+.ndp-district.open .d-meta {
+  color: rgba(255, 199, 56, 0.85);
+}
+
+/* Subtle open pulse */
+.ndp-district.open::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255,199,56,0.08), transparent 65%);
+  animation: ndpOpenPulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ndpOpenPulse {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
+
+/* LOCKED state */
+.ndp-district.locked {
+  cursor: not-allowed;
+  filter: grayscale(0.85) contrast(0.9);
+  opacity: 0.65;
+}
+
+.ndp-district.locked:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.05) inset,
+    0 16px 48px rgba(0,0,0,0.5);
+}
+
+/* Diagonal restricted tape */
+.ndp-district.locked::after {
+  content: "NO ENTRY";
+  position: absolute;
+  right: -38px;
+  top: 16px;
+  width: 160px;
+  padding: 8px 0;
+  transform: rotate(32deg);
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Footer strip ────────────────────────────────────────── */
+.ndp-map-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 0 2px;
+}
+
+.ndp-map-guidance {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.02em;
+  max-width: 44ch;
+}
+
+#ndpDetail {
+  text-align: right;
+  font-size: 12px;
+}
+
+.ndp-detail-name {
+  display: block;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.ndp-detail-desc {
+  display: block;
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.38);
+  letter-spacing: 0.02em;
+}
+
+/* ── State transitions (glow intensifies) ────────────────── */
+.ndp-map-shell[data-state="1"] .ndp-map-art::after { --glow-intensity: 0.55; }
+.ndp-map-shell[data-state="2"] .ndp-map-art::after { --glow-intensity: 0.8; }
+.ndp-map-shell[data-state="3"] .ndp-map-art::after { --glow-intensity: 1.0; }
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .ndp-map-shell {
+    height: min(520px, 80vw);
+  }
+
+  .ndp-district {
+    width: 160px;
+    padding: 12px 14px;
+  }
+
+  .ndp-district .d-name {
+    font-size: 13px;
+  }
+
+  .ndp-map-hud {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
 }
