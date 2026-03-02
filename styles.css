@@ -694,20 +694,20 @@ main {
   pointer-events: none;
   z-index: 1;
   background:
-    /* Fine background grid — denser */
+  /* Primary street grid — horizontal bias like a real city */
     repeating-linear-gradient(90deg,
-      rgba(255,255,255,0.03) 0 1px,
-      transparent 1px 32px),
+      rgba(255,255,255,0.055) 0 1px,
+      transparent 1px 48px),
     repeating-linear-gradient(0deg,
       rgba(255,255,255,0.025) 0 1px,
-      transparent 1px 34px),
-    /* Tighter secondary grid */
+      transparent 1px 52px),
+    /* Secondary streets — tighter, fainter */
     repeating-linear-gradient(90deg,
-      rgba(255,255,255,0.015) 0 1px,
-      transparent 1px 8px),
+      rgba(255,255,255,0.018) 0 1px,
+      transparent 1px 12px),
     repeating-linear-gradient(0deg,
       rgba(255,255,255,0.012) 0 1px,
-      transparent 1px 8px),
+      transparent 1px 16px),
     /* Spokes radiating from centre */
     linear-gradient(0deg,   transparent 49.4%, rgba(255,200,80,0.18) 49.8%, transparent 50.2%),
     linear-gradient(20deg,  transparent 49.4%, rgba(255,200,80,0.10) 49.8%, transparent 50.2%),
@@ -790,7 +790,19 @@ main {
   0%, 100% { opacity: 0.18; }
   50%       { opacity: 0.13; }
 }
-
+/* Ground plane — map sits on a surface */
+.ndp-map-ground {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 50% at 50% 75%,
+      rgba(40, 25, 5, 0.35) 0%,
+      rgba(20, 12, 2, 0.15) 45%,
+      transparent 70%
+    );
+}
 /* Vignette edges — crushed outer darkness */
 .ndp-map-vignette {
   position: absolute;

@@ -143,82 +143,91 @@ document.addEventListener("keydown", (e) => {
     const cx = W * 0.50;
     const cy = H * 0.50;
 
-    // ── Pass 1: dense ambient scatter (820 dots) ──────────────
-    for (let i = 0; i < 820; i++) {
-      const angle  = Math.random() * Math.PI * 2;
-      const dist   = Math.pow(Math.random(), 0.5) * Math.max(W, H) * 0.54;
-      const x      = cx + Math.cos(angle) * dist;
-      const y      = cy + Math.sin(angle) * dist * 0.68;
-
-      // Skip river band
+    // River mask helper
+    const inRiver = (x, y) => {
       const riverY = H * 0.625 - (x / W) * H * 0.14;
-      if (y > riverY - 16 && y < riverY + 16) continue;
+      return y > riverY - 18 && y < riverY + 18;
+    };
 
-      const falloff = Math.max(0, 1 - dist / (Math.max(W, H) * 0.54));
-      const size    = Math.random() * 1.4 * falloff + 0.2;
-      const alpha   = Math.random() * 0.55 * falloff + 0.05;
+    // ── Pass 1: tiny crisp street-level lights (main body) ───
+    for (let i = 0; i < 1100; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const dist  = Math.pow(Math.random(), 0.48) * Math.max(W, H) * 0.52;
+      const x     = cx + Math.cos(angle) * dist;
+      const y     = cy + Math.sin(angle) * dist * 0.65;
+
+      if (x < 0 || x > W || y < 0 || y > H) continue;
+      if (inRiver(x, y)) continue;
+
+      const falloff = Math.max(0, 1 - dist / (Math.max(W, H) * 0.52));
+      const alpha   = Math.random() * 0.5 * falloff + 0.06;
+
+      // Tiny — max 1.2px radius, most much smaller
+      const size = Math.random() * 1.2 * falloff + 0.15;
 
       const roll = Math.random();
       let r, g, b;
-      if      (roll > 0.97) { r=255; g=248; b=210; } // white-hot
-      else if (roll > 0.78) { r=255; g=205; b=85;  } // bright amber
-      else if (roll > 0.50) { r=230; g=150; b=45;  } // mid amber
-      else if (roll > 0.25) { r=195; g=105; b=22;  } // deep orange
-      else                  { r=155; g=75;  b=12;  } // dark ember
+      if      (roll > 0.95) { r=255; g=245; b=200; }
+      else if (roll > 0.75) { r=255; g=200; b=75;  }
+      else if (roll > 0.48) { r=220; g=145; b=40;  }
+      else if (roll > 0.22) { r=185; g=100; b=18;  }
+      else                  { r=140; g=70;  b=8;   }
 
-      const grd = ctx.createRadialGradient(x, y, 0, x, y, size * 4);
+      // Very tight glow — barely 2x the dot size
+      const grd = ctx.createRadialGradient(x, y, 0, x, y, size * 2.2);
       grd.addColorStop(0,   `rgba(${r},${g},${b},${alpha})`);
-      grd.addColorStop(0.3, `rgba(${r},${g},${b},${alpha * 0.5})`);
+      grd.addColorStop(0.5, `rgba(${r},${g},${b},${alpha * 0.3})`);
       grd.addColorStop(1,   `rgba(0,0,0,0)`);
 
       ctx.beginPath();
-      ctx.arc(x, y, size * 4, 0, Math.PI * 2);
+      ctx.arc(x, y, size * 2.2, 0, Math.PI * 2);
       ctx.fillStyle = grd;
       ctx.fill();
     }
 
-    // ── Pass 2: bright hotspot clusters near centre ───────────
-    for (let i = 0; i < 120; i++) {
-      const angle  = Math.random() * Math.PI * 2;
-      const dist   = Math.pow(Math.random(), 1.8) * Math.max(W, H) * 0.28;
-      const x      = cx + Math.cos(angle) * dist;
-      const y      = cy + Math.sin(angle) * dist * 0.65;
+    // ── Pass 2: bare pinpricks — no glow at all ──────────────
+    for (let i = 0; i < 350; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const dist  = Math.pow(Math.random(), 0.42) * Math.max(W, H) * 0.50;
+      const x     = cx + Math.cos(angle) * dist;
+      const y     = cy + Math.sin(angle) * dist * 0.68;
 
-      const riverY = H * 0.625 - (x / W) * H * 0.14;
-      if (y > riverY - 16 && y < riverY + 16) continue;
-
-      const size  = Math.random() * 2.8 + 0.8;
-      const alpha = Math.random() * 0.75 + 0.25;
-
-      const grd = ctx.createRadialGradient(x, y, 0, x, y, size * 5);
-      grd.addColorStop(0,   `rgba(255,230,140,${alpha})`);
-      grd.addColorStop(0.2, `rgba(255,190,60,${alpha * 0.7})`);
-      grd.addColorStop(0.6, `rgba(200,120,20,${alpha * 0.25})`);
-      grd.addColorStop(1,   `rgba(0,0,0,0)`);
-
-      ctx.beginPath();
-      ctx.arc(x, y, size * 5, 0, Math.PI * 2);
-      ctx.fillStyle = grd;
-      ctx.fill();
-    }
-
-    // ── Pass 3: tiny crisp pinpricks ─────────────────────────
-    for (let i = 0; i < 200; i++) {
-      const angle  = Math.random() * Math.PI * 2;
-      const dist   = Math.pow(Math.random(), 0.4) * Math.max(W, H) * 0.50;
-      const x      = cx + Math.cos(angle) * dist;
-      const y      = cy + Math.sin(angle) * dist * 0.70;
-
-      const riverY = H * 0.625 - (x / W) * H * 0.14;
-      if (y > riverY - 10 && y < riverY + 10) continue;
+      if (x < 0 || x > W || y < 0 || y > H) continue;
+      if (inRiver(x, y)) continue;
 
       const falloff = Math.max(0, 1 - dist / (Math.max(W, H) * 0.50));
-      const alpha   = Math.random() * 0.6 * falloff + 0.1;
+      const alpha   = Math.random() * 0.65 * falloff + 0.08;
 
       ctx.beginPath();
-      ctx.arc(x, y, 0.8, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,220,120,${alpha})`;
+      ctx.arc(x, y, 0.7, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,215,100,${alpha})`;
       ctx.fill();
+    }
+
+    // ── Pass 3: street-grid aligned clusters ─────────────────
+    // Small groups of 2-4 dots mimicking block lighting
+    for (let i = 0; i < 60; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const dist  = Math.pow(Math.random(), 0.6) * Math.max(W, H) * 0.38;
+      const bx    = cx + Math.cos(angle) * dist;
+      const by    = cy + Math.sin(angle) * dist * 0.62;
+
+      if (inRiver(bx, by)) continue;
+
+      const clusterSize = Math.floor(Math.random() * 3) + 2;
+      for (let j = 0; j < clusterSize; j++) {
+        const ox = bx + (Math.random() - 0.5) * 18;
+        const oy = by + (Math.random() - 0.5) * 10;
+        if (inRiver(ox, oy)) continue;
+
+        const falloff = Math.max(0, 1 - dist / (Math.max(W, H) * 0.38));
+        const alpha   = Math.random() * 0.55 * falloff + 0.12;
+
+        ctx.beginPath();
+        ctx.arc(ox, oy, 0.9, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,200,80,${alpha})`;
+        ctx.fill();
+      }
     }
   }
 
