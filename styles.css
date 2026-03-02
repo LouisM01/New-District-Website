@@ -562,6 +562,8 @@ main {
   background: #080808;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: block;
+  position: relative;
 }
 
 #map .section-header {
@@ -660,12 +662,15 @@ main {
 /* ── Map shell (the viewport container) ─────────────────── */
 .ndp-map-shell {
   position: relative;
+  display: block;
   width: 100%;
-  height: min(620px, 72vh);
+  height: 620px;
+  min-height: 620px;
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.09);
   box-shadow: 0 32px 90px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.03) inset;
+  background: #0b0b0b;
 }
 
 /* ── Art layer: city atmosphere ──────────────────────────── */
