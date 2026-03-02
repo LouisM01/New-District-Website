@@ -686,6 +686,7 @@ main {
 }
 
 /* Street grid + radiating spokes from centre */
+/* Street grid + radiating spokes from centre */
 .ndp-map-art::before {
   content: "";
   position: absolute;
@@ -693,28 +694,37 @@ main {
   pointer-events: none;
   z-index: 1;
   background:
-    /* Fine background grid */
+    /* Fine background grid — denser */
     repeating-linear-gradient(90deg,
       rgba(255,255,255,0.03) 0 1px,
-      transparent 1px 64px),
+      transparent 1px 32px),
     repeating-linear-gradient(0deg,
       rgba(255,255,255,0.025) 0 1px,
-      transparent 1px 68px),
+      transparent 1px 34px),
+    /* Tighter secondary grid */
+    repeating-linear-gradient(90deg,
+      rgba(255,255,255,0.015) 0 1px,
+      transparent 1px 8px),
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,0.012) 0 1px,
+      transparent 1px 8px),
     /* Spokes radiating from centre */
     linear-gradient(0deg,   transparent 49.4%, rgba(255,200,80,0.18) 49.8%, transparent 50.2%),
-    linear-gradient(30deg,  transparent 49.4%, rgba(255,200,80,0.14) 49.8%, transparent 50.2%),
+    linear-gradient(20deg,  transparent 49.4%, rgba(255,200,80,0.10) 49.8%, transparent 50.2%),
+    linear-gradient(40deg,  transparent 49.4%, rgba(255,200,80,0.10) 49.8%, transparent 50.2%),
     linear-gradient(60deg,  transparent 49.4%, rgba(255,200,80,0.14) 49.8%, transparent 50.2%),
-    linear-gradient(90deg,  transparent 49.4%, rgba(255,200,80,0.18) 49.8%, transparent 50.2%),
+    linear-gradient(80deg,  transparent 49.4%, rgba(255,200,80,0.10) 49.8%, transparent 50.2%),
+    linear-gradient(100deg, transparent 49.4%, rgba(255,200,80,0.10) 49.8%, transparent 50.2%),
     linear-gradient(120deg, transparent 49.4%, rgba(255,200,80,0.14) 49.8%, transparent 50.2%),
-    linear-gradient(150deg, transparent 49.4%, rgba(255,200,80,0.14) 49.8%, transparent 50.2%),
-    /* Major arterials (thicker, brighter) */
+    linear-gradient(140deg, transparent 49.4%, rgba(255,200,80,0.10) 49.8%, transparent 50.2%),
+    linear-gradient(160deg, transparent 49.4%, rgba(255,200,80,0.10) 49.8%, transparent 50.2%),
+    /* Major arterials */
     linear-gradient(22deg,  transparent 37.8%, rgba(255,210,100,0.22) 38.2%, transparent 38.6%),
     linear-gradient(112deg, transparent 27.6%, rgba(255,210,100,0.20) 28.0%, transparent 28.4%),
     linear-gradient(158deg, transparent 54.8%, rgba(255,210,100,0.18) 55.2%, transparent 55.6%);
   opacity: 1.0;
   mix-blend-mode: screen;
 }
-
 /* Amber glow core — blazing city centre */
 .ndp-map-art::after {
   content: "";
@@ -781,20 +791,21 @@ main {
   50%       { opacity: 0.13; }
 }
 
-/* Vignette edges */
+/* Vignette edges — crushed outer darkness */
 .ndp-map-vignette {
   position: absolute;
   inset: 0;
   z-index: 5;
   pointer-events: none;
-  background: radial-gradient(
-    ellipse 95% 88% at 50% 50%,
-    transparent 55%,
-    rgba(0, 0, 0, 0.55) 85%,
-    rgba(0, 0, 0, 0.82) 100%
-  );
+  background:
+    radial-gradient(
+      ellipse 75% 70% at 50% 50%,
+      transparent 35%,
+      rgba(0, 0, 0, 0.45) 60%,
+      rgba(0, 0, 0, 0.78) 80%,
+      rgba(0, 0, 0, 0.95) 100%
+    );
 }
-
 /* ── District marker pins ────────────────────────────────── */
 .ndp-markers {
   position: absolute;
