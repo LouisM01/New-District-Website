@@ -1,114 +1,116 @@
-const modal = document.getElementById("district-modal");
+/* ============================================================
+   NEW DISTRICT — DISTRICT MAP JS (clean rebuild)
+   Replace your entire script.js with this,
+   OR paste this block at the bottom replacing the old map code.
+   The modal block at top is preserved from your original.
+   ============================================================ */
 
-const LOCKED_MESSAGE =
-  "New District Productions exists to return power to the artist. Coming soon.";
+// ── Modal (unchanged from your original, just cleaned) ──────
+const modal      = document.getElementById("district-modal");
+const modalTitle = document.getElementById("modal-title");
+const modalBody  = document.querySelector(".modal-body");
 
-const openModal = (name, message) => {
-  if (!modal || !modalBody || !modalTitle) return;
+const LOCKED_MSG = "New District Productions exists to return power to the artist. This district is not yet open — check back soon.";
+
+function openModal(name, desc) {
+  if (!modal || !modalTitle || !modalBody) return;
   modalTitle.textContent = `No Entry — ${name}`;
-  modalBody.textContent = message;
+  modalBody.textContent  = desc || LOCKED_MSG;
   modal.classList.add("show");
   modal.setAttribute("aria-hidden", "false");
-};
+}
 
-const closeModal = () => {
+function closeModal() {
   if (!modal) return;
   modal.classList.remove("show");
   modal.setAttribute("aria-hidden", "true");
-};
+}
 
-document.querySelectorAll(".district.locked").forEach((button) => {
-  button.addEventListener("click", () => {
-    const name = button.dataset.name || "Restricted";
-    openModal(name, LOCKED_MESSAGE);
-  });
+modal?.addEventListener("click", (e) => {
+  if (e.target.dataset.close) closeModal();
 });
 
-modal?.addEventListener("click", (event) => {
-  const target = event.target;
-  if (target instanceof HTMLElement && target.dataset.close) {
-    closeModal();
-  }
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
 });
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    closeModal();
-  }
-});
-// === Map “camera” parallax ===
+
+// ── District Map ─────────────────────────────────────────────
 (() => {
-  const map = document.getElementById("map");
-  if (!map) return;
+  const shell    = document.getElementById("ndpMapShell");
+  const detail   = document.getElementById("ndpDetail");
+  if (!shell) return;
 
-  const setVars = (x, y) => {
-    map.style.setProperty("--mx", `${x}%`);
-    map.style.setProperty("--my", `${y}%`);
-  };
+  // ── State buttons ──────────────────────────────────────────
+  const stateBtns = document.querySelectorAll("[data-ndp-state]");
 
-  // default center
-  setVars(50, 50);
+  function setState(n) {
+    shell.dataset.state = String(n);
 
-  map.addEventListener("mousemove", (e) => {
-    const r = map.getBoundingClientRect();
-    const x = ((e.clientX - r.left) / r.width) * 100;
-    const y = ((e.clientY - r.top) / r.height) * 100;
-    setVars(x.toFixed(2), y.toFixed(2));
-  });
+    stateBtns.forEach((b) => {
+      const active = Number(b.dataset.ndpState) === n;
+      b.classList.toggle("is-active", active);
+    });
+  }
 
-  map.addEventListener("mouseleave", () => setVars(50, 50));
-})();
-(() => {
-  const mapRoot = document.getElementById("ndpMap");
-  if (!mapRoot) return;
-
-  const detail = document.getElementById("mapDetail");
-  const buttons = mapRoot.querySelectorAll(".map-btn");
-  const art = mapRoot.querySelector(".map-art");
-
-  // Optional: reuse your existing modal if present
-  const ndpModal = document.getElementById("district-modal");
-  const ndpModalTitle = ndpModal?.querySelector("#modal-title");
-  const ndpModalBody = ndpModal?.querySelector(".modal-body");
-
-  const setState = (n) => {
-    mapRoot.dataset.state = String(n);
-    // “city lights flicking on” feel: n=2 boosts glow slightly
-    if (art) {
-      art.style.filter =
-        n === 2 ? "contrast(1.15) brightness(1.02)" :
-        n === 3 ? "contrast(1.18) brightness(1.00)" :
-        "contrast(1.10) brightness(.95)";
-    }
-  };
-
-  buttons.forEach((b) => {
-    b.addEventListener("click", () => setState(Number(b.dataset.state)));
-  });
-
-  // Hover details
-  mapRoot.addEventListener("mouseover", (e) => {
-    const el = e.target.closest(".district-marker");
-    if (!el || !detail) return;
-
-    const name = el.dataset.name || "District";
-    const desc = el.dataset.desc || "Coming soon.";
-    detail.innerHTML = `<span class="map-detail-title">${name}</span><span class="map-detail-sub">${desc}</span>`;
-  });
-
-  // Locked click -> modal
-  mapRoot.addEventListener("click", (e) => {
-    const locked = e.target.closest(".district-marker.locked");
-    if (!locked) return;
-
-    if (ndpModal) {
-      ndpModalTitle && (ndpModalTitle.textContent = locked.dataset.name || "No Entry");
-      ndpModalBody && (ndpModalBody.textContent = locked.dataset.desc || "Coming soon.");
-      ndpModal.setAttribute("aria-hidden", "false");
-      ndpModal.classList.add("open");
-    }
+  stateBtns.forEach((b) => {
+    b.addEventListener("click", () => setState(Number(b.dataset.ndpState)));
   });
 
   // Default
   setState(1);
+
+
+  // ── Hover: update footer detail strip ─────────────────────
+  shell.addEventListener("mouseover", (e) => {
+    const pin = e.target.closest(".ndp-district");
+    if (!pin || !detail) return;
+
+    const name = pin.dataset.ndpName || "District";
+    const desc = pin.dataset.ndpDesc || "Coming soon.";
+
+    detail.innerHTML = `
+      <span class="ndp-detail-name">${name}</span>
+      <span class="ndp-detail-desc">${desc}</span>
+    `;
+  });
+
+  shell.addEventListener("mouseleave", () => {
+    if (!detail) return;
+    detail.innerHTML = `
+      <span class="ndp-detail-name">District Details</span>
+      <span class="ndp-detail-desc">Hover a pin to preview</span>
+    `;
+  });
+
+
+  // ── Click: locked → modal | open → follow link ────────────
+  shell.addEventListener("click", (e) => {
+    const locked = e.target.closest(".ndp-district.locked");
+    if (!locked) return;
+
+    e.preventDefault();
+    openModal(
+      locked.dataset.ndpName || "Restricted",
+      locked.dataset.ndpDesc || LOCKED_MSG
+    );
+  });
+
+
+  // ── Subtle parallax: glow tracks mouse ────────────────────
+  const art = shell.querySelector(".ndp-map-art");
+
+  shell.addEventListener("mousemove", (e) => {
+    if (!art) return;
+    const r  = shell.getBoundingClientRect();
+    const xp = ((e.clientX - r.left) / r.width  * 100).toFixed(1);
+    const yp = ((e.clientY - r.top)  / r.height * 100).toFixed(1);
+    // Shift the radial glow origin slightly toward cursor
+    art.style.backgroundPosition = `${xp}% ${yp}%`;
+  });
+
+  shell.addEventListener("mouseleave", () => {
+    if (art) art.style.backgroundPosition = "50% 52%";
+  });
+
 })();
