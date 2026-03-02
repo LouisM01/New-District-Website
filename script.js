@@ -141,42 +141,83 @@ document.addEventListener("keydown", (e) => {
     ctx.clearRect(0, 0, W, H);
 
     const cx = W * 0.50;
-    const cy = H * 0.52;
-    const count = 520;
+    const cy = H * 0.50;
 
-    for (let i = 0; i < count; i++) {
-      // Distribute — denser near centre, sparser outward
+    // ── Pass 1: dense ambient scatter (820 dots) ──────────────
+    for (let i = 0; i < 820; i++) {
       const angle  = Math.random() * Math.PI * 2;
-      const dist   = Math.pow(Math.random(), 0.55) * Math.max(W, H) * 0.52;
+      const dist   = Math.pow(Math.random(), 0.5) * Math.max(W, H) * 0.54;
       const x      = cx + Math.cos(angle) * dist;
-      const y      = cy + Math.sin(angle) * dist * 0.72; // flatten vertically
+      const y      = cy + Math.sin(angle) * dist * 0.68;
 
       // Skip river band
-      const riverY = H * 0.60 + (x / W) * H * -0.15;
-      if (y > riverY - 14 && y < riverY + 14) continue;
+      const riverY = H * 0.625 - (x / W) * H * 0.14;
+      if (y > riverY - 16 && y < riverY + 16) continue;
 
-      // Size + brightness fall off with distance
-      const falloff   = 1 - (dist / (Math.max(W, H) * 0.52));
-      const size      = Math.random() * 1.8 * falloff + 0.3;
-      const alpha     = Math.random() * 0.7 * falloff + 0.08;
+      const falloff = Math.max(0, 1 - dist / (Math.max(W, H) * 0.54));
+      const size    = Math.random() * 1.4 * falloff + 0.2;
+      const alpha   = Math.random() * 0.55 * falloff + 0.05;
 
-      // Colour: warm amber → orange → occasional white-hot
       const roll = Math.random();
-      let colour;
-      if (roll > 0.96)      colour = `rgba(255,245,200,${alpha})`; // white-hot
-      else if (roll > 0.75) colour = `rgba(255,200,80,${alpha})`;  // amber
-      else if (roll > 0.45) colour = `rgba(220,140,40,${alpha})`;  // orange-amber
-      else                  colour = `rgba(180,100,20,${alpha})`;  // deep orange
+      let r, g, b;
+      if      (roll > 0.97) { r=255; g=248; b=210; } // white-hot
+      else if (roll > 0.78) { r=255; g=205; b=85;  } // bright amber
+      else if (roll > 0.50) { r=230; g=150; b=45;  } // mid amber
+      else if (roll > 0.25) { r=195; g=105; b=22;  } // deep orange
+      else                  { r=155; g=75;  b=12;  } // dark ember
 
-      // Draw dot with soft glow
-      const grd = ctx.createRadialGradient(x, y, 0, x, y, size * 3.5);
-      grd.addColorStop(0,   colour);
-      grd.addColorStop(0.4, colour.replace(/[\d.]+\)$/, `${alpha * 0.4})`));
-      grd.addColorStop(1,   "rgba(0,0,0,0)");
+      const grd = ctx.createRadialGradient(x, y, 0, x, y, size * 4);
+      grd.addColorStop(0,   `rgba(${r},${g},${b},${alpha})`);
+      grd.addColorStop(0.3, `rgba(${r},${g},${b},${alpha * 0.5})`);
+      grd.addColorStop(1,   `rgba(0,0,0,0)`);
 
       ctx.beginPath();
-      ctx.arc(x, y, size * 3.5, 0, Math.PI * 2);
+      ctx.arc(x, y, size * 4, 0, Math.PI * 2);
       ctx.fillStyle = grd;
+      ctx.fill();
+    }
+
+    // ── Pass 2: bright hotspot clusters near centre ───────────
+    for (let i = 0; i < 120; i++) {
+      const angle  = Math.random() * Math.PI * 2;
+      const dist   = Math.pow(Math.random(), 1.8) * Math.max(W, H) * 0.28;
+      const x      = cx + Math.cos(angle) * dist;
+      const y      = cy + Math.sin(angle) * dist * 0.65;
+
+      const riverY = H * 0.625 - (x / W) * H * 0.14;
+      if (y > riverY - 16 && y < riverY + 16) continue;
+
+      const size  = Math.random() * 2.8 + 0.8;
+      const alpha = Math.random() * 0.75 + 0.25;
+
+      const grd = ctx.createRadialGradient(x, y, 0, x, y, size * 5);
+      grd.addColorStop(0,   `rgba(255,230,140,${alpha})`);
+      grd.addColorStop(0.2, `rgba(255,190,60,${alpha * 0.7})`);
+      grd.addColorStop(0.6, `rgba(200,120,20,${alpha * 0.25})`);
+      grd.addColorStop(1,   `rgba(0,0,0,0)`);
+
+      ctx.beginPath();
+      ctx.arc(x, y, size * 5, 0, Math.PI * 2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+    }
+
+    // ── Pass 3: tiny crisp pinpricks ─────────────────────────
+    for (let i = 0; i < 200; i++) {
+      const angle  = Math.random() * Math.PI * 2;
+      const dist   = Math.pow(Math.random(), 0.4) * Math.max(W, H) * 0.50;
+      const x      = cx + Math.cos(angle) * dist;
+      const y      = cy + Math.sin(angle) * dist * 0.70;
+
+      const riverY = H * 0.625 - (x / W) * H * 0.14;
+      if (y > riverY - 10 && y < riverY + 10) continue;
+
+      const falloff = Math.max(0, 1 - dist / (Math.max(W, H) * 0.50));
+      const alpha   = Math.random() * 0.6 * falloff + 0.1;
+
+      ctx.beginPath();
+      ctx.arc(x, y, 0.8, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,220,120,${alpha})`;
       ctx.fill();
     }
   }
