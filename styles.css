@@ -756,28 +756,14 @@ main {
   transition: opacity 600ms ease;
   opacity: var(--glow-intensity, 1.0);
 }
-
-/* River strip — sits on top of art, cuts a dark channel */
 .ndp-map-river {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 58%;
-  height: 10%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 3;
   pointer-events: none;
-  background:
-    /* Dark water body */
-    radial-gradient(ellipse 110% 60% at 50% 50%,
-      rgba(8, 14, 22, 0.88) 30%,
-      rgba(8, 14, 22, 0.6) 60%,
-      transparent 100%
-    );
-  /* Slight curve via border-radius trick */
-  border-radius: 50%;
-  transform: scaleX(1.6) translateY(10%);
 }
-
 /* Grain / film noise */
 .ndp-map-grain {
   position: absolute;
