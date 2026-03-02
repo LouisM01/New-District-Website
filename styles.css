@@ -685,7 +685,7 @@ main {
   /* Layered on top via pseudo-elements below */
 }
 
-/* Street grid (subtle, monochrome) */
+/* Street grid + radiating spokes from centre */
 .ndp-map-art::before {
   content: "";
   position: absolute;
@@ -693,23 +693,29 @@ main {
   pointer-events: none;
   z-index: 1;
   background:
+    /* Fine background grid */
     repeating-linear-gradient(90deg,
-      rgba(255,255,255,0.04) 0 1px,
+      rgba(255,255,255,0.03) 0 1px,
       transparent 1px 64px),
     repeating-linear-gradient(0deg,
-      rgba(255,255,255,0.035) 0 1px,
+      rgba(255,255,255,0.025) 0 1px,
       transparent 1px 68px),
-    /* Diagonal arterials */
-    linear-gradient(22deg, transparent 38%, rgba(255,255,255,0.055) 38.5%, transparent 39.2%),
-    linear-gradient(22deg, transparent 46%, rgba(255,255,255,0.04) 46.5%, transparent 47.2%),
-    linear-gradient(110deg, transparent 28%, rgba(255,255,255,0.045) 28.6%, transparent 29.4%),
-    linear-gradient(110deg, transparent 60%, rgba(255,255,255,0.04) 60.6%, transparent 61.4%),
-    linear-gradient(155deg, transparent 55%, rgba(255,255,255,0.04) 55.5%, transparent 56.2%);
-  opacity: 0.9;
+    /* Spokes radiating from centre */
+    linear-gradient(0deg,   transparent 49.4%, rgba(255,200,80,0.18) 49.8%, transparent 50.2%),
+    linear-gradient(30deg,  transparent 49.4%, rgba(255,200,80,0.14) 49.8%, transparent 50.2%),
+    linear-gradient(60deg,  transparent 49.4%, rgba(255,200,80,0.14) 49.8%, transparent 50.2%),
+    linear-gradient(90deg,  transparent 49.4%, rgba(255,200,80,0.18) 49.8%, transparent 50.2%),
+    linear-gradient(120deg, transparent 49.4%, rgba(255,200,80,0.14) 49.8%, transparent 50.2%),
+    linear-gradient(150deg, transparent 49.4%, rgba(255,200,80,0.14) 49.8%, transparent 50.2%),
+    /* Major arterials (thicker, brighter) */
+    linear-gradient(22deg,  transparent 37.8%, rgba(255,210,100,0.22) 38.2%, transparent 38.6%),
+    linear-gradient(112deg, transparent 27.6%, rgba(255,210,100,0.20) 28.0%, transparent 28.4%),
+    linear-gradient(158deg, transparent 54.8%, rgba(255,210,100,0.18) 55.2%, transparent 55.6%);
+  opacity: 1.0;
   mix-blend-mode: screen;
 }
 
-/* Amber glow core — the "city centre" light */
+/* Amber glow core — blazing city centre */
 .ndp-map-art::after {
   content: "";
   position: absolute;
@@ -717,39 +723,38 @@ main {
   pointer-events: none;
   z-index: 2;
   background:
-    /* Hot core */
-    radial-gradient(80px 80px at 50% 52%,
-      rgba(255, 220, 100, 0.85) 0%,
-      rgba(255, 199, 56, 0.5) 40%,
-      transparent 72%
-    ),
-    /* Inner warm halo */
-    radial-gradient(220px 180px at 50% 52%,
-      rgba(255, 199, 56, 0.28) 0%,
-      rgba(201, 138, 42, 0.14) 50%,
-      transparent 72%
-    ),
-    /* Outer city spread */
-    radial-gradient(600px 460px at 50% 52%,
-      rgba(201, 138, 42, 0.12) 0%,
-      rgba(180, 120, 30, 0.06) 55%,
-      transparent 74%
-    ),
-    /* Deep ambient warmth */
-    radial-gradient(1000px 700px at 50% 52%,
-      rgba(160, 100, 20, 0.08) 0%,
-      transparent 70%
-    ),
-    /* River — dark band cutting across lower-centre */
-    linear-gradient(
-      to right,
-      transparent 0%,
-      rgba(0,0,0,0.0) 10%,
-      rgba(0,0,0,0.0) 90%,
+    /* Blazing hot core */
+    radial-gradient(60px 60px at 50% 52%,
+      rgba(255, 240, 180, 1.0) 0%,
+      rgba(255, 210, 80, 0.95) 30%,
+      rgba(255, 180, 40, 0.7) 60%,
       transparent 100%
+    ),
+    /* Inner burn ring */
+    radial-gradient(180px 160px at 50% 52%,
+      rgba(255, 180, 40, 0.75) 0%,
+      rgba(220, 140, 20, 0.45) 45%,
+      transparent 75%
+    ),
+    /* Mid amber halo */
+    radial-gradient(380px 320px at 50% 52%,
+      rgba(210, 130, 20, 0.45) 0%,
+      rgba(180, 100, 10, 0.2) 50%,
+      transparent 75%
+    ),
+    /* Outer city glow */
+    radial-gradient(700px 560px at 50% 52%,
+      rgba(180, 100, 10, 0.22) 0%,
+      rgba(140, 70, 5, 0.10) 55%,
+      transparent 78%
+    ),
+    /* Deep warmth bleeding to edges */
+    radial-gradient(1100px 800px at 50% 52%,
+      rgba(120, 60, 5, 0.14) 0%,
+      transparent 72%
     );
   transition: opacity 600ms ease;
-  opacity: var(--glow-intensity, 0.7);
+  opacity: var(--glow-intensity, 1.0);
 }
 
 /* River strip — sits on top of art, cuts a dark channel */
@@ -817,21 +822,20 @@ main {
   top: calc(var(--y) * 1%);
   transform: translate(-50%, -50%);
 
-  width: 200px;
-  padding: 16px 18px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(0, 0, 0, 0.38);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  width: auto;
+  min-width: 120px;
+  padding: 10px 14px 9px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   color: #fff;
   text-align: left;
   cursor: pointer;
   overflow: hidden;
 
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.04) inset,
-    0 16px 48px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 
   transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
   font-family: inherit;
@@ -855,10 +859,11 @@ main {
 /* Pin name + meta */
 .ndp-district .d-name {
   display: block;
-  font-weight: 700;
-  font-size: 15px;
+  font-weight: 600;
+  font-size: 13px;
   line-height: 1.2;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .ndp-district .d-meta {
