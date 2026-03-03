@@ -932,3 +932,20 @@ main {
 .locked-blip { background: #555; }
 .ndp-district.locked { filter: brightness(0.65) saturate(0.4); }
 .ndp-district.locked:hover { filter: brightness(0.85) saturate(0.6); }
+.ndp-blip {
+  display: block;
+  width: 10px; height: 10px;
+  margin: 0 auto 5px;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+.open-blip {
+  background: #ffdc64;
+  box-shadow: 0 0 10px #ffdc64, 0 0 20px #ffa020;
+  animation: blip-pulse 2s ease-in-out infinite;
+}
+.locked-blip { background: #4a4540; }
+
+@keyframes blip-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 10px #ffdc64, 0 0 20px #ffa020; }
+  50%       { opacity: 0.6; box-shadow: 0 0 4px #ffdc64; }
+}
