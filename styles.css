@@ -683,10 +683,9 @@ main {
   /* Dark city base */
   background-color: #0b0b0b;
   /* Layered on top via pseudo-elements below */
+/* Street grid + radiating spokes from centre */
+/* Street grid + radiating spokes from centre */
 }
-
-/* Street grid + radiating spokes from centre */
-/* Street grid + radiating spokes from centre */
 .ndp-map-art::before {
   content: "";
   position: absolute;
@@ -790,19 +789,7 @@ main {
   0%, 100% { opacity: 0.18; }
   50%       { opacity: 0.13; }
 }
-/* Ground plane — map sits on a surface */
-.ndp-map-ground {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 90% 50% at 50% 75%,
-      rgba(40, 25, 5, 0.35) 0%,
-      rgba(20, 12, 2, 0.15) 45%,
-      transparent 70%
-    );
-}
+
 /* Vignette edges — crushed outer darkness */
 .ndp-map-vignette {
   position: absolute;

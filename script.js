@@ -152,7 +152,7 @@ document.addEventListener("keydown", (e) => {
     // ── Pass 1: tiny crisp street-level lights (main body) ───
     for (let i = 0; i < 1100; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const dist  = Math.pow(Math.random(), 0.48) * Math.max(W, H) * 0.52;
+     const dist  = Math.pow(Math.random(), 0.35) * Math.max(W, H) * 0.52;
       const x     = cx + Math.cos(angle) * dist;
       const y     = cy + Math.sin(angle) * dist * 0.65;
 
@@ -188,7 +188,7 @@ document.addEventListener("keydown", (e) => {
     // ── Pass 2: bare pinpricks — no glow at all ──────────────
     for (let i = 0; i < 350; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const dist  = Math.pow(Math.random(), 0.42) * Math.max(W, H) * 0.50;
+    const dist  = Math.pow(Math.random(), 0.32) * Math.max(W, H) * 0.50;
       const x     = cx + Math.cos(angle) * dist;
       const y     = cy + Math.sin(angle) * dist * 0.68;
 
@@ -208,7 +208,7 @@ document.addEventListener("keydown", (e) => {
     // Small groups of 2-4 dots mimicking block lighting
     for (let i = 0; i < 60; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const dist  = Math.pow(Math.random(), 0.6) * Math.max(W, H) * 0.38;
+    const dist  = Math.pow(Math.random(), 0.45) * Math.max(W, H) * 0.38;
       const bx    = cx + Math.cos(angle) * dist;
       const by    = cy + Math.sin(angle) * dist * 0.62;
 
