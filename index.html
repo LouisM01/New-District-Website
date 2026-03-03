@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>New District Productions</title>
- <link rel="stylesheet" href="styles.css"> />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
@@ -26,6 +26,8 @@
   </header>
 
   <main>
+
+    <!-- ── LANDING ── -->
     <section id="landing" class="panel hero">
       <div class="hero-copy">
         <p class="eyebrow">Open District</p>
@@ -59,6 +61,7 @@
       </div>
     </section>
 
+    <!-- ── FOUNDERS ── -->
     <section id="founders" class="panel founders">
       <div class="section-header">
         <p class="eyebrow">Meet the Founders</p>
@@ -89,47 +92,100 @@
       </div>
     </section>
 
+    <!-- ── BULLETIN ── -->
     <section id="news" class="panel news">
       <div class="section-header">
         <p class="eyebrow">Latest News / Bulletin</p>
         <h2>Dispatches from the street.</h2>
       </div>
-     <!-- ============================================================
-   NEW DISTRICT — DISTRICT MAP SECTION (clean rebuild)
-   Replace everything from <section id="map"> to </section>
-   (or the equivalent div block) in your index.html with this.
-   ============================================================ -->
+      <div class="bulletin">
+        <article class="bulletin-item">
+          <p class="bulletin-date">Oct 02</p>
+          <div>
+            <h3>Location scouts locked in South Yard and Pierline.</h3>
+            <p>New District Productions exists to return power to the artist. Our crews are embedded in the neighborhoods that shape the stories.</p>
+          </div>
+        </article>
+        <article class="bulletin-item">
+          <p class="bulletin-date">Sep 18</p>
+          <div>
+            <h3>City map prototype is live — feedback requested.</h3>
+            <p>Test the new map interface and send notes. Locked regions will remain grey until production is ready.</p>
+          </div>
+        </article>
+        <article class="bulletin-item">
+          <p class="bulletin-date">Sep 01</p>
+          <div>
+            <h3>Film Division: two short-form projects entered pre-production.</h3>
+            <p>Working titles: "Alleylight" and "Cold Signal." The mission: authentic stories, undeniable place.</p>
+          </div>
+        </article>
+      </div>
+    </section>
 
-<section id="map" class="panel map">
-  <div class="section-header">
-    <p class="eyebrow">District Map</p>
-    <h2>Story-mode map — navigate what's open, preview what's locked.</h2>
-  </div>
+    <!-- ── FILM DIVISION ── -->
+    <section id="projects" class="panel projects">
+      <div class="section-header">
+        <p class="eyebrow">In-House Projects (Film Division)</p>
+        <h2>Stories in motion. Built on the ground.</h2>
+      </div>
+      <div class="project-grid">
+        <article class="project-card">
+          <div class="project-thumb"></div>
+          <div>
+            <h3>Alleylight</h3>
+            <p>A nocturnal chase through the warehouse district — a character study framed by neon haze.</p>
+            <p class="project-meta">Status: Pre-production · 28 min</p>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-thumb"></div>
+          <div>
+            <h3>Cold Signal</h3>
+            <p>Two siblings navigate a blackout as rival crews hunt for a missing broadcast tape.</p>
+            <p class="project-meta">Status: Script lock · 42 min</p>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-thumb"></div>
+          <div>
+            <h3>South Yard Echo</h3>
+            <p>Short documentary on local crews reclaiming their sound after a rail strike.</p>
+            <p class="project-meta">Status: Field work · 18 min</p>
+          </div>
+        </article>
+      </div>
+    </section>
 
-  <!-- HUD bar -->
-  <div class="ndp-map-hud">
-    <div class="ndp-map-titles">
-      <span class="ndp-map-title">DISTRICT MAP</span>
-      <span class="ndp-map-sub">PAUSE MENU</span>
-    </div>
+    <!-- ── DISTRICT MAP ── -->
+    <section id="map" class="panel map">
+      <div class="section-header">
+        <p class="eyebrow">District Map</p>
+        <h2>Story-mode map — navigate what's open, preview what's locked.</h2>
+      </div>
 
-    <div class="ndp-map-controls">
-      <button class="ndp-btn is-active" data-ndp-state="1" type="button">STATE 1</button>
-      <button class="ndp-btn"           data-ndp-state="2" type="button">STATE 2</button>
-      <button class="ndp-btn"           data-ndp-state="3" type="button">STATE 3</button>
-      <button class="ndp-btn ghost"     data-ndp-state="0" type="button">RESET</button>
-    </div>
+      <!-- HUD bar -->
+      <div class="ndp-map-hud">
+        <div class="ndp-map-titles">
+          <span class="ndp-map-title">DISTRICT MAP</span>
+          <span class="ndp-map-sub">PAUSE MENU</span>
+        </div>
+        <div class="ndp-map-controls">
+          <button class="ndp-btn is-active" data-ndp-state="1" type="button">STATE 1</button>
+          <button class="ndp-btn"           data-ndp-state="2" type="button">STATE 2</button>
+          <button class="ndp-btn"           data-ndp-state="3" type="button">STATE 3</button>
+          <button class="ndp-btn ghost"     data-ndp-state="0" type="button">RESET</button>
+        </div>
+        <div class="ndp-map-legend">
+          <span class="ndp-legend-dot open"></span>
+          <span>OPEN</span>
+          <span class="ndp-legend-dot locked"></span>
+          <span>LOCKED</span>
+        </div>
+      </div>
 
-    <div class="ndp-map-legend">
-      <span class="ndp-legend-dot open"></span>
-      <span>OPEN</span>
-      <span class="ndp-legend-dot locked"></span>
-      <span>LOCKED</span>
-    </div>
-  </div>
-
-  <!-- Map shell -->
-  <div class="ndp-map-shell" id="ndpMapShell" data-state="1">
+      <!-- Map shell -->
+      <div class="ndp-map-shell" id="ndpMapShell" data-state="1">
 
     <!-- Art layers (purely visual, aria-hidden) -->
     <div class="ndp-map-art" aria-hidden="true"></div>
@@ -202,458 +258,357 @@
   
     <div class="ndp-map-vignette" aria-hidden="true"></div>
 
-      <!-- ── Base dark city ── -->
-      <rect width="1100" height="620" fill="#090909"/>
+          <!-- Base dark city -->
+          <rect width="1100" height="620" fill="#090909"/>
 
-      <!-- ── Ambient city glow spread ── -->
-      <ellipse cx="550" cy="320" rx="580" ry="380" fill="url(#cityGlow)" opacity="0.9"/>
+          <!-- Ambient city glow -->
+          <ellipse cx="550" cy="320" rx="580" ry="380" fill="url(#cityGlow)" opacity="0.9"/>
 
-      <!-- ══════════════════════════════════════════
-           RIVER — Thames-style meander
-           Big loop south creating peninsula (Canary Wharf feel)
-           Enters bottom-left, loops down then back up, exits right
-      ══════════════════════════════════════════ -->
+          <!-- ── RIVER — Thames meander with Canary Wharf loop ── -->
+          <!-- Wide soft atmosphere shadow -->
+          <path
+            d="M -20 480 C 80 472, 150 465, 220 455 C 290 444, 320 430, 360 418 C 395 408, 415 412, 440 420 C 468 430, 480 445, 505 458 C 530 470, 548 478, 568 475 C 590 471, 605 458, 625 442 C 648 424, 660 408, 690 398 C 725 386, 760 388, 800 382 C 850 374, 920 368, 1000 360 C 1050 355, 1085 350, 1120 346"
+            fill="none" stroke="rgba(0,0,0,0.7)" stroke-width="52"
+            filter="url(#softEdge)" clip-path="url(#mapClip)"
+          />
+          <!-- River main body -->
+          <path
+            d="M -20 480 C 80 472, 150 465, 220 455 C 290 444, 320 430, 360 418 C 395 408, 415 412, 440 420 C 468 430, 480 445, 505 458 C 530 470, 548 478, 568 475 C 590 471, 605 458, 625 442 C 648 424, 660 408, 690 398 C 725 386, 760 388, 800 382 C 850 374, 920 368, 1000 360 C 1050 355, 1085 350, 1120 346"
+            fill="none" stroke="rgba(2,4,10,1.0)" stroke-width="26"
+            stroke-linecap="butt" clip-path="url(#mapClip)"
+          />
+          <!-- River hard centre -->
+          <path
+            d="M -20 480 C 80 472, 150 465, 220 455 C 290 444, 320 430, 360 418 C 395 408, 415 412, 440 420 C 468 430, 480 445, 505 458 C 530 470, 548 478, 568 475 C 590 471, 605 458, 625 442 C 648 424, 660 408, 690 398 C 725 386, 760 388, 800 382 C 850 374, 920 368, 1000 360 C 1050 355, 1085 350, 1120 346"
+            fill="none" stroke="rgba(1,2,6,1.0)" stroke-width="16"
+            clip-path="url(#mapClip)"
+          />
+          <!-- North bank warm glow -->
+          <path
+            d="M -20 468 C 80 460, 150 453, 220 443 C 290 432, 320 418, 360 406 C 395 396, 415 400, 440 408 C 468 418, 480 433, 505 446 C 530 458, 548 466, 568 463 C 590 459, 605 446, 625 430 C 648 412, 660 396, 690 386 C 725 374, 760 376, 800 370 C 850 362, 920 356, 1000 348 C 1050 343, 1085 338, 1120 334"
+            fill="none" stroke="rgba(200,130,25,0.28)" stroke-width="1.5"
+            clip-path="url(#mapClip)"
+          />
+          <!-- South bank warm glow -->
+          <path
+            d="M -20 494 C 80 486, 150 479, 220 469 C 290 458, 320 444, 360 432 C 395 422, 415 426, 440 434 C 468 444, 480 459, 505 472 C 530 484, 548 492, 568 489 C 590 485, 605 472, 625 456 C 648 438, 660 422, 690 412 C 725 400, 760 402, 800 396 C 850 388, 920 382, 1000 374 C 1050 369, 1085 364, 1120 360"
+            fill="none" stroke="rgba(200,130,25,0.20)" stroke-width="1.5"
+            clip-path="url(#mapClip)"
+          />
 
-      <!-- River shadow/atmosphere -->
-      <path
-        d="M -20 480
-           C 80 472, 150 465, 220 455
-           C 290 444, 320 430, 360 418
-           C 395 408, 415 412, 440 420
-           C 468 430, 480 445, 505 458
-           C 530 470, 548 478, 568 475
-           C 590 471, 605 458, 625 442
-           C 648 424, 660 408, 690 398
-           C 725 386, 760 388, 800 382
-           C 850 374, 920 368, 1000 360
-           C 1050 355, 1085 350, 1120 346"
-        fill="none"
-        stroke="rgba(0,0,0,0.7)"
-        stroke-width="52"
-        filter="url(#softEdge)"
-        clip-path="url(#mapClip)"
-      />
+          <!-- ── STREET NETWORK ── -->
 
-      <!-- River main body -->
-      <path
-        d="M -20 480
-           C 80 472, 150 465, 220 455
-           C 290 444, 320 430, 360 418
-           C 395 408, 415 412, 440 420
-           C 468 430, 480 445, 505 458
-           C 530 470, 548 478, 568 475
-           C 590 471, 605 458, 625 442
-           C 648 424, 660 408, 690 398
-           C 725 386, 760 388, 800 382
-           C 850 374, 920 368, 1000 360
-           C 1050 355, 1085 350, 1120 346"
-        fill="none"
-        stroke="rgba(2,4,10,1.0)"
-        stroke-width="26"
-        stroke-linecap="butt"
-        clip-path="url(#mapClip)"
-      />
+          <!-- Minor streets -->
+          <g stroke="rgba(255,190,60,0.09)" stroke-width="0.7" fill="none" clip-path="url(#mapClip)">
+            <line x1="0"    y1="80"  x2="1100" y2="95"  />
+            <line x1="0"    y1="115" x2="1100" y2="128" />
+            <line x1="0"    y1="148" x2="1100" y2="159" />
+            <line x1="0"    y1="178" x2="1100" y2="187" />
+            <line x1="0"    y1="205" x2="1100" y2="212" />
+            <line x1="0"    y1="228" x2="1100" y2="234" />
+            <line x1="0"    y1="250" x2="1100" y2="255" />
+            <line x1="0"    y1="268" x2="1100" y2="272" />
+            <line x1="0"    y1="285" x2="1100" y2="288" />
+            <line x1="0"    y1="300" x2="1100" y2="302" />
+            <line x1="0"    y1="313" x2="1100" y2="315" />
+            <line x1="0"    y1="325" x2="1100" y2="326" />
+            <line x1="0"    y1="336" x2="1100" y2="337" />
+            <line x1="0"    y1="346" x2="1100" y2="347" />
+            <line x1="0"    y1="355" x2="1100" y2="356" />
+            <line x1="0"    y1="364" x2="1100" y2="364" />
+            <line x1="0"    y1="372" x2="1100" y2="372" />
+            <line x1="0"    y1="380" x2="1100" y2="380" />
+            <line x1="0"    y1="388" x2="1100" y2="388" />
+            <line x1="0"    y1="395" x2="1100" y2="395" />
+            <line x1="0"    y1="402" x2="1100" y2="402" />
+            <line x1="0"    y1="409" x2="1100" y2="409" />
+            <line x1="0"    y1="500" x2="1100" y2="496" />
+            <line x1="0"    y1="518" x2="1100" y2="513" />
+            <line x1="0"    y1="534" x2="1100" y2="529" />
+            <line x1="0"    y1="549" x2="1100" y2="543" />
+            <line x1="0"    y1="562" x2="1100" y2="556" />
+            <line x1="0"    y1="575" x2="1100" y2="568" />
+            <line x1="0"    y1="588" x2="1100" y2="580" />
+            <line x1="55"   y1="0" x2="52"   y2="420" />
+            <line x1="110"  y1="0" x2="106"  y2="425" />
+            <line x1="162"  y1="0" x2="158"  y2="430" />
+            <line x1="210"  y1="0" x2="206"  y2="432" />
+            <line x1="255"  y1="0" x2="251"  y2="434" />
+            <line x1="298"  y1="0" x2="294"  y2="424" />
+            <line x1="338"  y1="0" x2="334"  y2="416" />
+            <line x1="376"  y1="0" x2="372"  y2="408" />
+            <line x1="412"  y1="0" x2="409"  y2="420" />
+            <line x1="446"  y1="0" x2="444"  y2="418" />
+            <line x1="478"  y1="0" x2="477"  y2="416" />
+            <line x1="508"  y1="0" x2="508"  y2="455" />
+            <line x1="536"  y1="0" x2="537"  y2="460" />
+            <line x1="563"  y1="0" x2="564"  y2="462" />
+            <line x1="588"  y1="0" x2="590"  y2="440" />
+            <line x1="612"  y1="0" x2="614"  y2="428" />
+            <line x1="635"  y1="0" x2="637"  y2="418" />
+            <line x1="657"  y1="0" x2="659"  y2="406" />
+            <line x1="678"  y1="0" x2="680"  y2="396" />
+            <line x1="698"  y1="0" x2="700"  y2="386" />
+            <line x1="717"  y1="0" x2="719"  y2="376" />
+            <line x1="736"  y1="0" x2="737"  y2="368" />
+            <line x1="754"  y1="0" x2="755"  y2="360" />
+            <line x1="772"  y1="0" x2="773"  y2="352" />
+            <line x1="789"  y1="0" x2="790"  y2="344" />
+            <line x1="806"  y1="0" x2="806"  y2="338" />
+            <line x1="822"  y1="0" x2="822"  y2="332" />
+            <line x1="838"  y1="0" x2="838"  y2="326" />
+            <line x1="854"  y1="0" x2="853"  y2="320" />
+            <line x1="870"  y1="0" x2="869"  y2="315" />
+            <line x1="886"  y1="0" x2="884"  y2="310" />
+            <line x1="902"  y1="0" x2="900"  y2="305" />
+            <line x1="918"  y1="0" x2="915"  y2="300" />
+            <line x1="934"  y1="0" x2="931"  y2="296" />
+            <line x1="950"  y1="0" x2="947"  y2="292" />
+            <line x1="966"  y1="0" x2="963"  y2="288" />
+            <line x1="982"  y1="0" x2="979"  y2="284" />
+            <line x1="998"  y1="0" x2="995"  y2="280" />
+            <line x1="1014" y1="0" x2="1011" y2="276" />
+            <line x1="1030" y1="0" x2="1027" y2="272" />
+            <line x1="1046" y1="0" x2="1043" y2="268" />
+            <line x1="1062" y1="0" x2="1059" y2="264" />
+            <line x1="1078" y1="0" x2="1075" y2="260" />
+            <line x1="60"   y1="495" x2="55"   y2="620" />
+            <line x1="130"  y1="490" x2="125"  y2="620" />
+            <line x1="195"  y1="485" x2="190"  y2="620" />
+            <line x1="255"  y1="482" x2="250"  y2="620" />
+            <line x1="312"  y1="480" x2="307"  y2="620" />
+            <line x1="366"  y1="478" x2="361"  y2="620" />
+            <line x1="418"  y1="476" x2="413"  y2="620" />
+            <line x1="468"  y1="474" x2="463"  y2="620" />
+            <line x1="516"  y1="472" x2="511"  y2="620" />
+            <line x1="562"  y1="478" x2="557"  y2="620" />
+            <line x1="607"  y1="462" x2="602"  y2="620" />
+            <line x1="650"  y1="450" x2="645"  y2="620" />
+            <line x1="692"  y1="440" x2="687"  y2="620" />
+            <line x1="732"  y1="430" x2="727"  y2="620" />
+            <line x1="772"  y1="420" x2="767"  y2="620" />
+            <line x1="810"  y1="412" x2="805"  y2="620" />
+            <line x1="848"  y1="404" x2="843"  y2="620" />
+            <line x1="885"  y1="397" x2="880"  y2="620" />
+            <line x1="922"  y1="390" x2="917"  y2="620" />
+            <line x1="958"  y1="383" x2="953"  y2="620" />
+            <line x1="994"  y1="376" x2="989"  y2="620" />
+            <line x1="1030" y1="370" x2="1025" y2="620" />
+            <line x1="1066" y1="364" x2="1061" y2="620" />
+          </g>
 
-      <!-- River hard edge -->
-      <path
-        d="M -20 480
-           C 80 472, 150 465, 220 455
-           C 290 444, 320 430, 360 418
-           C 395 408, 415 412, 440 420
-           C 468 430, 480 445, 505 458
-           C 530 470, 548 478, 568 475
-           C 590 471, 605 458, 625 442
-           C 648 424, 660 408, 690 398
-           C 725 386, 760 388, 800 382
-           C 850 374, 920 368, 1000 360
-           C 1050 355, 1085 350, 1120 346"
-        fill="none"
-        stroke="rgba(1,2,6,1.0)"
-        stroke-width="16"
-        clip-path="url(#mapClip)"
-      />
+          <!-- Diagonal secondary roads -->
+          <g stroke="rgba(255,190,60,0.07)" stroke-width="0.6" fill="none" clip-path="url(#mapClip)">
+            <line x1="0"   y1="200" x2="400"  y2="0"   />
+            <line x1="0"   y1="350" x2="600"  y2="0"   />
+            <line x1="0"   y1="440" x2="800"  y2="0"   />
+            <line x1="100" y1="440" x2="1100" y2="0"   />
+            <line x1="300" y1="440" x2="1100" y2="80"  />
+            <line x1="500" y1="440" x2="1100" y2="200" />
+            <line x1="700" y1="440" x2="1100" y2="300" />
+            <line x1="0"   y1="500" x2="200"  y2="620" />
+            <line x1="200" y1="500" x2="500"  y2="620" />
+            <line x1="500" y1="500" x2="900"  y2="620" />
+            <line x1="700" y1="490" x2="1100" y2="600" />
+          </g>
 
-      <!-- North bank warm glow -->
-      <path
-        d="M -20 468
-           C 80 460, 150 453, 220 443
-           C 290 432, 320 418, 360 406
-           C 395 396, 415 400, 440 408
-           C 468 418, 480 433, 505 446
-           C 530 458, 548 466, 568 463
-           C 590 459, 605 446, 625 430
-           C 648 412, 660 396, 690 386
-           C 725 374, 760 376, 800 370
-           C 850 362, 920 356, 1000 348
-           C 1050 343, 1085 338, 1120 334"
-        fill="none"
-        stroke="rgba(200,130,25,0.28)"
-        stroke-width="1.5"
-        clip-path="url(#mapClip)"
-      />
+          <!-- Medium roads -->
+          <g stroke="rgba(255,195,65,0.16)" stroke-width="1.2" fill="none" clip-path="url(#mapClip)">
+            <line x1="0"    y1="160" x2="1100" y2="172" />
+            <line x1="0"    y1="220" x2="1100" y2="230" />
+            <line x1="0"    y1="270" x2="1100" y2="278" />
+            <line x1="0"    y1="312" x2="1100" y2="318" />
+            <line x1="0"    y1="348" x2="1100" y2="352" />
+            <line x1="0"    y1="378" x2="1100" y2="380" />
+            <line x1="0"    y1="402" x2="480"  y2="416" />
+            <line x1="620"  y1="440" x2="1100" y2="384" />
+            <line x1="0"    y1="510" x2="1100" y2="504" />
+            <line x1="0"    y1="548" x2="1100" y2="540" />
+            <line x1="150"  y1="0"  x2="145"  y2="435" />
+            <line x1="280"  y1="0"  x2="274"  y2="432" />
+            <line x1="400"  y1="0"  x2="395"  y2="412" />
+            <line x1="510"  y1="0"  x2="508"  y2="456" />
+            <line x1="610"  y1="0"  x2="610"  y2="432" />
+            <line x1="700"  y1="0"  x2="700"  y2="392" />
+            <line x1="780"  y1="0"  x2="780"  y2="360" />
+            <line x1="855"  y1="0"  x2="854"  y2="330" />
+            <line x1="925"  y1="0"  x2="923"  y2="302" />
+            <line x1="990"  y1="0"  x2="988"  y2="278" />
+            <line x1="1050" y1="0"  x2="1048" y2="256" />
+            <line x1="200"  y1="500" x2="198" y2="620" />
+            <line x1="400"  y1="490" x2="398" y2="620" />
+            <line x1="600"  y1="470" x2="598" y2="620" />
+            <line x1="800"  y1="415" x2="798" y2="620" />
+            <line x1="1000" y1="378" x2="998" y2="620" />
+          </g>
 
-      <!-- South bank warm glow -->
-      <path
-        d="M -20 494
-           C 80 486, 150 479, 220 469
-           C 290 458, 320 444, 360 432
-           C 395 422, 415 426, 440 434
-           C 468 444, 480 459, 505 472
-           C 530 484, 548 492, 568 489
-           C 590 485, 605 472, 625 456
-           C 648 438, 660 422, 690 412
-           C 725 400, 760 402, 800 396
-           C 850 388, 920 382, 1000 374
-           C 1050 369, 1085 364, 1120 360"
-        fill="none"
-        stroke="rgba(200,130,25,0.20)"
-        stroke-width="1.5"
-        clip-path="url(#mapClip)"
-      />
+          <!-- Major arterials -->
+          <g stroke="rgba(255,205,75,0.30)" stroke-width="1.8" fill="none" filter="url(#streetGlow)" clip-path="url(#mapClip)">
+            <path d="M 0 240 C 200 245, 400 248, 600 252 C 800 256, 1000 258, 1100 260" />
+            <path d="M 0 320 C 200 323, 350 325, 500 328 C 650 331, 800 332, 1100 334" />
+            <path d="M 0 370 C 150 371, 300 372, 450 374 C 500 375, 520 378, 545 384 C 560 390, 570 396, 590 400 C 610 404, 640 404, 680 400 C 730 394, 800 388, 1100 372" />
+            <path d="M 0 530 C 300 526, 600 520, 1100 510" />
+            <path d="M 220 0 C 218 100, 216 200, 214 320 C 213 360, 212 400, 210 435" />
+            <path d="M 450 0 C 449 100, 448 200, 448 340 C 448 380, 449 410, 450 440" />
+            <path d="M 620 0 C 620 100, 620 200, 621 360 C 621 400, 622 425, 623 445" />
+            <path d="M 780 0 C 780 100, 780 200, 780 330 C 780 355, 780 365, 780 378" />
+            <path d="M 930 0 C 929 100, 928 200, 927 290 C 926 310, 926 320, 925 330" />
+            <path d="M 100 498 C 100 540, 100 580, 100 620" />
+            <path d="M 350 488 C 350 530, 350 575, 350 620" />
+            <path d="M 580 478 C 580 520, 580 568, 580 620" />
+            <path d="M 820 420 C 820 465, 820 540, 820 620" />
+          </g>
 
-      <!-- ══════════════════════════════════════════
-           STREET NETWORK
-           Minor streets first, then major roads on top
-      ══════════════════════════════════════════ -->
+          <!-- Primary roads -->
+          <g stroke="rgba(255,215,85,0.45)" stroke-width="2.5" fill="none" filter="url(#majorGlow)" clip-path="url(#mapClip)">
+            <path d="M 0 290 C 180 292, 360 294, 540 298 C 700 302, 900 304, 1100 306" />
+            <path d="M 0 350 C 200 351, 400 352, 530 354 C 560 355, 575 358, 590 364 C 605 370, 615 376, 630 380 C 648 384, 670 384, 700 380 C 750 373, 850 366, 1100 354" />
+            <path d="M 340 0 C 338 80, 336 180, 335 290 C 334 330, 333 370, 332 420" />
+            <path d="M 550 0 C 550 80, 550 180, 551 310 C 551 360, 552 400, 553 450" />
+            <path d="M 740 0 C 740 80, 740 180, 740 310 C 740 340, 740 355, 740 372" />
+            <path d="M 0 180 C 100 175, 250 170, 400 168 C 550 166, 700 165, 900 164 C 1000 164, 1060 164, 1100 164" />
+            <path d="M 0 518 C 200 514, 450 510, 700 502 C 850 497, 1000 492, 1100 488" />
+          </g>
 
-      <!-- ── Minor streets: fine grain city blocks ── -->
-      <g stroke="rgba(255,190,60,0.09)" stroke-width="0.7" fill="none" clip-path="url(#mapClip)">
-        <!-- Horizontal minor streets - north of river -->
-        <line x1="0"    y1="80"  x2="1100" y2="95"  />
-        <line x1="0"    y1="115" x2="1100" y2="128" />
-        <line x1="0"    y1="148" x2="1100" y2="159" />
-        <line x1="0"    y1="178" x2="1100" y2="187" />
-        <line x1="0"    y1="205" x2="1100" y2="212" />
-        <line x1="0"    y1="228" x2="1100" y2="234" />
-        <line x1="0"    y1="250" x2="1100" y2="255" />
-        <line x1="0"    y1="268" x2="1100" y2="272" />
-        <line x1="0"    y1="285" x2="1100" y2="288" />
-        <line x1="0"    y1="300" x2="1100" y2="302" />
-        <line x1="0"    y1="313" x2="1100" y2="315" />
-        <line x1="0"    y1="325" x2="1100" y2="326" />
-        <line x1="0"    y1="336" x2="1100" y2="337" />
-        <line x1="0"    y1="346" x2="1100" y2="347" />
-        <line x1="0"    y1="355" x2="1100" y2="356" />
-        <line x1="0"    y1="364" x2="1100" y2="364" />
-        <line x1="0"    y1="372" x2="1100" y2="372" />
-        <line x1="0"    y1="380" x2="1100" y2="380" />
-        <line x1="0"    y1="388" x2="1100" y2="388" />
-        <line x1="0"    y1="395" x2="1100" y2="395" />
-        <line x1="0"    y1="402" x2="1100" y2="402" />
-        <line x1="0"    y1="409" x2="1100" y2="409" />
-        <!-- South of river -->
-        <line x1="0"    y1="500" x2="1100" y2="496" />
-        <line x1="0"    y1="518" x2="1100" y2="513" />
-        <line x1="0"    y1="534" x2="1100" y2="529" />
-        <line x1="0"    y1="549" x2="1100" y2="543" />
-        <line x1="0"    y1="562" x2="1100" y2="556" />
-        <line x1="0"    y1="575" x2="1100" y2="568" />
-        <line x1="0"    y1="588" x2="1100" y2="580" />
-        <!-- Vertical minor streets -->
-        <line x1="55"   y1="0" x2="52"   y2="420" />
-        <line x1="110"  y1="0" x2="106"  y2="425" />
-        <line x1="162"  y1="0" x2="158"  y2="430" />
-        <line x1="210"  y1="0" x2="206"  y2="432" />
-        <line x1="255"  y1="0" x2="251"  y2="434" />
-        <line x1="298"  y1="0" x2="294"  y2="424" />
-        <line x1="338"  y1="0" x2="334"  y2="416" />
-        <line x1="376"  y1="0" x2="372"  y2="408" />
-        <line x1="412"  y1="0" x2="409"  y2="420" />
-        <line x1="446"  y1="0" x2="444"  y2="418" />
-        <line x1="478"  y1="0" x2="477"  y2="416" />
-        <line x1="508"  y1="0" x2="508"  y2="455" />
-        <line x1="536"  y1="0" x2="537"  y2="460" />
-        <line x1="563"  y1="0" x2="564"  y2="462" />
-        <line x1="588"  y1="0" x2="590"  y2="440" />
-        <line x1="612"  y1="0" x2="614"  y2="428" />
-        <line x1="635"  y1="0" x2="637"  y2="418" />
-        <line x1="657"  y1="0" x2="659"  y2="406" />
-        <line x1="678"  y1="0" x2="680"  y2="396" />
-        <line x1="698"  y1="0" x2="700"  y2="386" />
-        <line x1="717"  y1="0" x2="719"  y2="376" />
-        <line x1="736"  y1="0" x2="737"  y2="368" />
-        <line x1="754"  y1="0" x2="755"  y2="360" />
-        <line x1="772"  y1="0" x2="773"  y2="352" />
-        <line x1="789"  y1="0" x2="790"  y2="344" />
-        <line x1="806"  y1="0" x2="806"  y2="338" />
-        <line x1="822"  y1="0" x2="822"  y2="332" />
-        <line x1="838"  y1="0" x2="838"  y2="326" />
-        <line x1="854"  y1="0" x2="853"  y2="320" />
-        <line x1="870"  y1="0" x2="869"  y2="315" />
-        <line x1="886"  y1="0" x2="884"  y2="310" />
-        <line x1="902"  y1="0" x2="900"  y2="305" />
-        <line x1="918"  y1="0" x2="915"  y2="300" />
-        <line x1="934"  y1="0" x2="931"  y2="296" />
-        <line x1="950"  y1="0" x2="947"  y2="292" />
-        <line x1="966"  y1="0" x2="963"  y2="288" />
-        <line x1="982"  y1="0" x2="979"  y2="284" />
-        <line x1="998"  y1="0" x2="995"  y2="280" />
-        <line x1="1014" y1="0" x2="1011" y2="276" />
-        <line x1="1030" y1="0" x2="1027" y2="272" />
-        <line x1="1046" y1="0" x2="1043" y2="268" />
-        <line x1="1062" y1="0" x2="1059" y2="264" />
-        <line x1="1078" y1="0" x2="1075" y2="260" />
-        <!-- South of river verticals -->
-        <line x1="60"   y1="495" x2="55"   y2="620" />
-        <line x1="130"  y1="490" x2="125"  y2="620" />
-        <line x1="195"  y1="485" x2="190"  y2="620" />
-        <line x1="255"  y1="482" x2="250"  y2="620" />
-        <line x1="312"  y1="480" x2="307"  y2="620" />
-        <line x1="366"  y1="478" x2="361"  y2="620" />
-        <line x1="418"  y1="476" x2="413"  y2="620" />
-        <line x1="468"  y1="474" x2="463"  y2="620" />
-        <line x1="516"  y1="472" x2="511"  y2="620" />
-        <line x1="562"  y1="478" x2="557"  y2="620" />
-        <line x1="607"  y1="462" x2="602"  y2="620" />
-        <line x1="650"  y1="450" x2="645"  y2="620" />
-        <line x1="692"  y1="440" x2="687"  y2="620" />
-        <line x1="732"  y1="430" x2="727"  y2="620" />
-        <line x1="772"  y1="420" x2="767"  y2="620" />
-        <line x1="810"  y1="412" x2="805"  y2="620" />
-        <line x1="848"  y1="404" x2="843"  y2="620" />
-        <line x1="885"  y1="397" x2="880"  y2="620" />
-        <line x1="922"  y1="390" x2="917"  y2="620" />
-        <line x1="958"  y1="383" x2="953"  y2="620" />
-        <line x1="994"  y1="376" x2="989"  y2="620" />
-        <line x1="1030" y1="370" x2="1025" y2="620" />
-        <line x1="1066" y1="364" x2="1061" y2="620" />
-      </g>
+          <!-- Junction rings -->
+          <g fill="none" stroke="rgba(255,215,85,0.5)" stroke-width="1.2" clip-path="url(#mapClip)">
+            <circle cx="340" cy="290" r="8"  />
+            <circle cx="340" cy="350" r="6"  />
+            <circle cx="550" cy="298" r="8"  />
+            <circle cx="550" cy="354" r="6"  />
+            <circle cx="740" cy="306" r="7"  />
+            <circle cx="220" cy="290" r="5"  />
+            <circle cx="450" cy="298" r="5"  />
+            <circle cx="620" cy="302" r="5"  />
+            <circle cx="780" cy="330" r="5"  />
+            <circle cx="930" cy="306" r="4"  />
+            <circle cx="100" cy="518" r="5"  />
+            <circle cx="350" cy="510" r="5"  />
+            <circle cx="580" cy="500" r="5"  />
+          </g>
 
-      <!-- ── Diagonal secondary roads ── -->
-      <g stroke="rgba(255,190,60,0.07)" stroke-width="0.6" fill="none" clip-path="url(#mapClip)">
-        <line x1="0"    y1="200" x2="400"  y2="0"   />
-        <line x1="0"    y1="350" x2="600"  y2="0"   />
-        <line x1="0"    y1="440" x2="800"  y2="0"   />
-        <line x1="100"  y1="440" x2="1100" y2="0"   />
-        <line x1="300"  y1="440" x2="1100" y2="80"  />
-        <line x1="500"  y1="440" x2="1100" y2="200" />
-        <line x1="700"  y1="440" x2="1100" y2="300" />
-        <line x1="0"    y1="500" x2="200"  y2="620" />
-        <line x1="200"  y1="500" x2="500"  y2="620" />
-        <line x1="500"  y1="500" x2="900"  y2="620" />
-        <line x1="700"  y1="490" x2="1100" y2="600" />
-      </g>
+          <!-- Junction glow dots -->
+          <g fill="rgba(255,220,100,0.6)" clip-path="url(#mapClip)">
+            <circle cx="340" cy="290" r="2.5" />
+            <circle cx="550" cy="298" r="2.5" />
+            <circle cx="740" cy="306" r="2"   />
+            <circle cx="340" cy="350" r="2"   />
+            <circle cx="550" cy="354" r="2"   />
+            <circle cx="220" cy="290" r="1.5" />
+            <circle cx="450" cy="298" r="1.5" />
+            <circle cx="780" cy="330" r="1.5" />
+            <circle cx="100" cy="518" r="1.5" />
+            <circle cx="350" cy="510" r="1.5" />
+            <circle cx="580" cy="500" r="1.5" />
+          </g>
 
-      <!-- ── Medium roads ── -->
-      <g stroke="rgba(255,195,65,0.16)" stroke-width="1.2" fill="none" clip-path="url(#mapClip)">
-        <line x1="0"   y1="160" x2="1100" y2="172" />
-        <line x1="0"   y1="220" x2="1100" y2="230" />
-        <line x1="0"   y1="270" x2="1100" y2="278" />
-        <line x1="0"   y1="312" x2="1100" y2="318" />
-        <line x1="0"   y1="348" x2="1100" y2="352" />
-        <line x1="0"   y1="378" x2="1100" y2="380" />
-        <line x1="0"   y1="402" x2="480"  y2="416" />
-        <line x1="620" y1="440" x2="1100" y2="384" />
-        <line x1="0"   y1="510" x2="1100" y2="504" />
-        <line x1="0"   y1="548" x2="1100" y2="540" />
-        <line x1="150"  y1="0" x2="145"  y2="435" />
-        <line x1="280"  y1="0" x2="274"  y2="432" />
-        <line x1="400"  y1="0" x2="395"  y2="412" />
-        <line x1="510"  y1="0" x2="508"  y2="456" />
-        <line x1="610"  y1="0" x2="610"  y2="432" />
-        <line x1="700"  y1="0" x2="700"  y2="392" />
-        <line x1="780"  y1="0" x2="780"  y2="360" />
-        <line x1="855"  y1="0" x2="854"  y2="330" />
-        <line x1="925"  y1="0" x2="923"  y2="302" />
-        <line x1="990"  y1="0" x2="988"  y2="278" />
-        <line x1="1050" y1="0" x2="1048" y2="256" />
-        <line x1="200"  y1="500" x2="198" y2="620" />
-        <line x1="400"  y1="490" x2="398" y2="620" />
-        <line x1="600"  y1="470" x2="598" y2="620" />
-        <line x1="800"  y1="415" x2="798" y2="620" />
-        <line x1="1000" y1="378" x2="998" y2="620" />
-      </g>
+          <!-- Hot core blaze -->
+          <ellipse cx="550" cy="320" rx="200" ry="160" fill="url(#coreBlaze)" opacity="0.5"/>
 
-      <!-- ── Major arterial roads ── -->
-      <g stroke="rgba(255,205,75,0.30)" stroke-width="1.8" fill="none" filter="url(#streetGlow)" clip-path="url(#mapClip)">
-        <!-- Horizontal arterials -->
-        <path d="M 0 240 C 200 245, 400 248, 600 252 C 800 256, 1000 258, 1100 260" />
-        <path d="M 0 320 C 200 323, 350 325, 500 328 C 650 331, 800 332, 1100 334" />
-        <path d="M 0 370 C 150 371, 300 372, 450 374 C 500 375, 520 378, 545 384 C 560 390, 570 396, 590 400 C 610 404, 640 404, 680 400 C 730 394, 800 388, 1100 372" />
-        <path d="M 0 530 C 300 526, 600 520, 1100 510" />
-        <!-- Vertical arterials -->
-        <path d="M 220 0 C 218 100, 216 200, 214 320 C 213 360, 212 400, 210 435" />
-        <path d="M 450 0 C 449 100, 448 200, 448 340 C 448 380, 449 410, 450 440" />
-        <path d="M 620 0 C 620 100, 620 200, 621 360 C 621 400, 622 425, 623 445" />
-        <path d="M 780 0 C 780 100, 780 200, 780 330 C 780 355, 780 365, 780 378" />
-        <path d="M 930 0 C 929 100, 928 200, 927 290 C 926 310, 926 320, 925 330" />
-        <!-- South of river arterials -->
-        <path d="M 100 498 C 100 540, 100 580, 100 620" />
-        <path d="M 350 488 C 350 530, 350 575, 350 620" />
-        <path d="M 580 478 C 580 520, 580 568, 580 620" />
-        <path d="M 820 420 C 820 465, 820 540, 820 620" />
-      </g>
+          <!-- Vignette -->
+          <rect width="1100" height="620" fill="url(#vignette)" />
 
-      <!-- ── Primary roads (brightest, thickest) ── -->
-      <g stroke="rgba(255,215,85,0.45)" stroke-width="2.5" fill="none" filter="url(#majorGlow)" clip-path="url(#mapClip)">
-        <!-- East-West main roads -->
-        <path d="M 0 290 C 180 292, 360 294, 540 298 C 700 302, 900 304, 1100 306" />
-        <path d="M 0 350 C 200 351, 400 352, 530 354 C 560 355, 575 358, 590 364 C 605 370, 615 376, 630 380 C 648 384, 670 384, 700 380 C 750 373, 850 366, 1100 354" />
-        <!-- North-South main roads -->
-        <path d="M 340 0 C 338 80, 336 180, 335 290 C 334 330, 333 370, 332 420" />
-        <path d="M 550 0 C 550 80, 550 180, 551 310 C 551 360, 552 400, 553 450" />
-        <path d="M 740 0 C 740 80, 740 180, 740 310 C 740 340, 740 355, 740 372" />
-        <!-- Ring road / orbital -->
-        <path d="M 0 180 C 100 175, 250 170, 400 168 C 550 166, 700 165, 900 164 C 1000 164, 1060 164, 1100 164" />
-        <!-- South bank main road -->
-        <path d="M 0 518 C 200 514, 450 510, 700 502 C 850 497, 1000 492, 1100 488" />
-      </g>
+        </svg>
 
-      <!-- ── Roundabouts / junctions (bright nodes) ── -->
-      <g fill="none" stroke="rgba(255,215,85,0.5)" stroke-width="1.2" clip-path="url(#mapClip)">
-        <circle cx="340" cy="290" r="8"  />
-        <circle cx="340" cy="350" r="6"  />
-        <circle cx="550" cy="298" r="8"  />
-        <circle cx="550" cy="354" r="6"  />
-        <circle cx="740" cy="306" r="7"  />
-        <circle cx="220" cy="290" r="5"  />
-        <circle cx="450" cy="298" r="5"  />
-        <circle cx="620" cy="302" r="5"  />
-        <circle cx="780" cy="330" r="5"  />
-        <circle cx="930" cy="306" r="4"  />
-        <circle cx="100" cy="518" r="5"  />
-        <circle cx="350" cy="510" r="5"  />
-        <circle cx="580" cy="500" r="5"  />
-      </g>
+        <!-- Grain overlay -->
+        <div class="ndp-map-grain" aria-hidden="true"></div>
 
-      <!-- Junction glow dots -->
-      <g fill="rgba(255,220,100,0.6)" clip-path="url(#mapClip)">
-        <circle cx="340" cy="290" r="2.5" />
-        <circle cx="550" cy="298" r="2.5" />
-        <circle cx="740" cy="306" r="2"   />
-        <circle cx="340" cy="350" r="2"   />
-        <circle cx="550" cy="354" r="2"   />
-        <circle cx="220" cy="290" r="1.5" />
-        <circle cx="450" cy="298" r="1.5" />
-        <circle cx="780" cy="330" r="1.5" />
-        <circle cx="100" cy="518" r="1.5" />
-        <circle cx="350" cy="510" r="1.5" />
-        <circle cx="580" cy="500" r="1.5" />
-      </g>
+        <!-- District pins -->
+        <div class="ndp-markers" role="list" aria-label="District map">
 
-      <!-- ── Hot core blaze ── -->
-      <ellipse cx="550" cy="320" rx="200" ry="160" fill="url(#coreBlaze)" opacity="0.5"/>
+          <a
+            class="ndp-district open"
+            href="#projects"
+            role="listitem"
+            data-ndp-name="Film Division"
+            data-ndp-desc="Active slate of in-house films and documentary work."
+            style="--x:50; --y:52;"
+            aria-label="Film Division — Open. Click to enter."
+          >
+            <span class="d-name">Film Division</span>
+            <span class="d-meta">OPEN · ENTER</span>
+          </a>
 
-      <!-- ── Vignette ── -->
-      <radialGradient id="vignette" cx="50%" cy="50%" r="55%">
-        <stop offset="45%"  stop-color="rgba(0,0,0,0)"   />
-        <stop offset="78%"  stop-color="rgba(0,0,0,0.5)" />
-        <stop offset="100%" stop-color="rgba(0,0,0,0.92)"/>
-      </radialGradient>
-      <rect width="1100" height="620" fill="url(#vignette)" />
+          <button class="ndp-district locked" type="button" role="listitem"
+            data-ndp-name="Scriptwriting"
+            data-ndp-desc="Workshops, labs, and script commissions. Coming soon."
+            style="--x:66; --y:40;">
+            <span class="d-name">Scriptwriting</span>
+            <span class="d-meta">Locked</span>
+          </button>
 
-    </svg>
- 
-    <!-- District pins -->
-    <div class="ndp-markers" role="list" aria-label="District map">
+          <button class="ndp-district locked" type="button" role="listitem"
+            data-ndp-name="Community (Skool)"
+            data-ndp-desc="Crew network, meetups, and mentorship. Coming soon."
+            style="--x:74; --y:60;">
+            <span class="d-name">Community (Skool)</span>
+            <span class="d-meta">Locked</span>
+          </button>
 
-      <!-- OPEN: Film Division -->
-      <a
-        class="ndp-district open"
-        href="#projects"
-        role="listitem"
-        data-ndp-name="Film Division"
-        data-ndp-desc="Active slate of in-house films and documentary work."
-        style="--x:50; --y:52;"
-        aria-label="Film Division — Open. Click to enter."
-      >
-        <span class="d-name">Film Division</span>
-        <span class="d-meta">OPEN · ENTER</span>
-      </a>
+          <button class="ndp-district locked" type="button" role="listitem"
+            data-ndp-name="Career Mapping"
+            data-ndp-desc="Career roadmaps and production pathways. Coming soon."
+            style="--x:36; --y:36;">
+            <span class="d-name">Career Mapping</span>
+            <span class="d-meta">Locked</span>
+          </button>
 
-      <!-- LOCKED districts -->
-      <button
-        class="ndp-district locked"
-        type="button"
-        role="listitem"
-        data-ndp-name="Scriptwriting"
-        data-ndp-desc="Workshops, labs, and script commissions. Coming soon."
-        style="--x:66; --y:40;"
-        aria-label="Scriptwriting — Locked"
-      >
-        <span class="d-name">Scriptwriting</span>
-        <span class="d-meta">Locked</span>
-      </button>
+          <button class="ndp-district locked" type="button" role="listitem"
+            data-ndp-name="Self Employment"
+            data-ndp-desc="Tax, finance, and independent artist survival kit. Coming soon."
+            style="--x:28; --y:64;">
+            <span class="d-name">Self Employment</span>
+            <span class="d-meta">Locked</span>
+          </button>
 
-      <button
-        class="ndp-district locked"
-        type="button"
-        role="listitem"
-        data-ndp-name="Community (Skool)"
-        data-ndp-desc="Crew network, meetups, and mentorship. Coming soon."
-        style="--x:74; --y:60;"
-        aria-label="Community — Locked"
-      >
-        <span class="d-name">Community (Skool)</span>
-        <span class="d-meta">Locked</span>
-      </button>
+          <button class="ndp-district locked" type="button" role="listitem"
+            data-ndp-name="Masterclasses"
+            data-ndp-desc="Deep dives led by working directors and producers. Coming soon."
+            style="--x:56; --y:72;">
+            <span class="d-name">Masterclasses</span>
+            <span class="d-meta">Locked</span>
+          </button>
 
-      <button
-        class="ndp-district locked"
-        type="button"
-        role="listitem"
-        data-ndp-name="Career Mapping"
-        data-ndp-desc="Career roadmaps and production pathways. Coming soon."
-        style="--x:36; --y:36;"
-        aria-label="Career Mapping — Locked"
-      >
-        <span class="d-name">Career Mapping</span>
-        <span class="d-meta">Locked</span>
-      </button>
+          <button class="ndp-district locked" type="button" role="listitem"
+            data-ndp-name="Custom GPT"
+            data-ndp-desc="Artist-first research and ideation tools. Coming soon."
+            style="--x:83; --y:50;">
+            <span class="d-name">Custom GPT</span>
+            <span class="d-meta">Locked</span>
+          </button>
 
-      <button
-        class="ndp-district locked"
-        type="button"
-        role="listitem"
-        data-ndp-name="Self Employment"
-        data-ndp-desc="Tax, finance, and independent artist survival kit. Coming soon."
-        style="--x:28; --y:64;"
-        aria-label="Self Employment — Locked"
-      >
-        <span class="d-name">Self Employment</span>
-        <span class="d-meta">Locked</span>
-      </button>
+        </div>
+        <!-- /.ndp-markers -->
 
-      <button
-        class="ndp-district locked"
-        type="button"
-        role="listitem"
-        data-ndp-name="Masterclasses"
-        data-ndp-desc="Deep dives led by working directors and producers. Coming soon."
-        style="--x:56; --y:72;"
-        aria-label="Masterclasses — Locked"
-      >
-        <span class="d-name">Masterclasses</span>
-        <span class="d-meta">Locked</span>
-      </button>
+      </div>
+      <!-- /.ndp-map-shell -->
 
-      <button
-        class="ndp-district locked"
-        type="button"
-        role="listitem"
-        data-ndp-name="Custom GPT"
-        data-ndp-desc="Artist-first research and ideation tools. Coming soon."
-        style="--x:83; --y:50;"
-        aria-label="Custom GPT — Locked"
-      >
-        <span class="d-name">Custom GPT</span>
-        <span class="d-meta">Locked</span>
-      </button>
+      <!-- Footer strip -->
+      <div class="ndp-map-footer">
+        <p class="ndp-map-guidance">
+          Hover a district for detail. Click locked districts for an access notice.
+        </p>
+        <div id="ndpDetail" aria-live="polite">
+          <span class="ndp-detail-name">District Details</span>
+          <span class="ndp-detail-desc">Hover a pin to preview</span>
+        </div>
+      </div>
 
-    </div>
-    <!-- /.ndp-markers -->
+    </section>
+    <!-- /.map -->
 
-  </div>
-  <!-- /.ndp-map-shell -->
+  </main>
 
-  <!-- Footer strip -->
-  <div class="ndp-map-footer">
-    <p class="ndp-map-guidance">
-      Hover a district for detail. Click locked districts for an access notice.
-    </p>
-    <div id="ndpDetail" aria-live="polite">
-      <span class="ndp-detail-name">District Details</span>
-      <span class="ndp-detail-desc">Hover a pin to preview</span>
+  <!-- Modal -->
+  <div class="modal" id="district-modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="true"></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <h3 id="modal-title">No Entry</h3>
+        <button class="modal-close" type="button" data-close="true" aria-label="Close modal">X</button>
+      </div>
+      <p class="modal-body">New District Productions exists to return power to the artist. Coming soon.</p>
+      <div class="modal-tag">Access denied · Under construction</div>
     </div>
   </div>
 
@@ -665,4 +620,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
