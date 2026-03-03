@@ -816,23 +816,28 @@ main {
   transform: translate(-50%, -50%);
 
   width: auto;
-  min-width: 100px;
-  padding: 8px 12px 7px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  background: rgba(0, 0, 0, 0.12);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  min-width: 90px;
+  padding: 6px 10px 5px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.0);
+  background: transparent;
   color: #fff;
   text-align: left;
   cursor: pointer;
   overflow: hidden;
 
   box-shadow: none;
+  backdrop-filter: none;
 
-  transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+  transition: transform 200ms ease;
   font-family: inherit;
   text-decoration: none;
+}
+
+.ndp-district:hover {
+  transform: translate(-50%, -50%) scale(1.06);
+  border-color: transparent;
+  background: transparent;
 }
 
 .ndp-district:hover {
@@ -925,25 +930,26 @@ main {
     0 16px 48px rgba(0,0,0,0.5);
 }
 
-/* Diagonal restricted tape — top-right corner only */
+/* Diagonal restricted tape — tucked into top-right corner */
 .ndp-district.locked::after {
-  content: "NO ENTRY";
+  content: "RESTRICTED";
   position: absolute;
-  right: -32px;
-  top: -8px;
-  width: 130px;
-  padding: 6px 0;
+  right: -28px;
+  top: 6px;
+  width: 110px;
+  padding: 5px 0;
   transform: rotate(32deg);
   text-align: center;
-  font-size: 9px;
-  letter-spacing: 0.2em;
+  font-size: 8px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-  background: rgba(0, 0, 0, 0.45);
-  border-top: 1px solid rgba(255, 255, 255, 0.10);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.45);
+  background: rgba(0, 0, 0, 0.55);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   pointer-events: none;
   z-index: 2;
+  overflow: hidden;
 }
 
 /* ── Footer strip ────────────────────────────────────────── */
