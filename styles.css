@@ -930,26 +930,36 @@ main {
     0 16px 48px rgba(0,0,0,0.5);
 }
 
-/* Diagonal restricted tape — tucked into top-right corner */
+/* Hover reveal on locked pins */
 .ndp-district.locked::after {
   content: "RESTRICTED";
   position: absolute;
-  right: -28px;
-  top: 6px;
-  width: 110px;
-  padding: 5px 0;
-  transform: rotate(32deg);
-  text-align: center;
-  font-size: 8px;
-  letter-spacing: 0.18em;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
-  background: rgba(0, 0, 0, 0.55);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.0);
+  background: transparent;
   pointer-events: none;
-  z-index: 2;
-  overflow: hidden;
+  z-index: 3;
+  transition: color 200ms ease;
+}
+
+.ndp-district.locked:hover::after {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.ndp-district.locked:hover .d-name,
+.ndp-district.locked:hover .d-meta {
+  opacity: 0.15;
+}
+
+.ndp-district .d-name,
+.ndp-district .d-meta {
+  transition: opacity 200ms ease;
 }
 
 /* ── Footer strip ────────────────────────────────────────── */
