@@ -190,57 +190,71 @@
 
         <svg class="ndp-city-svg" aria-hidden="true" viewBox="0 0 1100 620" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <radialGradient id="cityGlow" cx="50%" cy="52%" r="55%">
-              <stop offset="0%"   stop-color="#ffdc64" stop-opacity="0.9"/>
-              <stop offset="18%"  stop-color="#ffb428" stop-opacity="0.55"/>
-              <stop offset="40%"  stop-color="#c87814" stop-opacity="0.25"/>
-              <stop offset="70%"  stop-color="#8c4605" stop-opacity="0.10"/>
+            <!-- Core city glow — tight hot centre, fades to black -->
+            <radialGradient id="cityGlow" cx="48%" cy="50%" r="48%">
+              <stop offset="0%"   stop-color="#ffe87a" stop-opacity="1.0"/>
+              <stop offset="8%"   stop-color="#ffb428" stop-opacity="0.85"/>
+              <stop offset="22%"  stop-color="#c87814" stop-opacity="0.45"/>
+              <stop offset="45%"  stop-color="#6b3a04" stop-opacity="0.18"/>
+              <stop offset="70%"  stop-color="#1a0d00" stop-opacity="0.08"/>
               <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
             </radialGradient>
-            <radialGradient id="coreBlaze" cx="50%" cy="52%" r="12%">
-              <stop offset="0%"   stop-color="#fff5b4" stop-opacity="1.0"/>
-              <stop offset="40%"  stop-color="#ffc83c" stop-opacity="0.85"/>
+            <!-- Hot nucleus -->
+            <radialGradient id="coreBlaze" cx="48%" cy="50%" r="7%">
+              <stop offset="0%"   stop-color="#ffffff" stop-opacity="1.0"/>
+              <stop offset="30%"  stop-color="#ffe090" stop-opacity="0.95"/>
+              <stop offset="70%"  stop-color="#ffa020" stop-opacity="0.6"/>
               <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
             </radialGradient>
-            <radialGradient id="vignette" cx="50%" cy="50%" r="55%">
-              <stop offset="45%"  stop-color="#000000" stop-opacity="0"/>
-              <stop offset="78%"  stop-color="#000000" stop-opacity="0.5"/>
-              <stop offset="100%" stop-color="#000000" stop-opacity="0.92"/>
+            <!-- Deep vignette — more aggressive darkness at edges -->
+            <radialGradient id="vignette" cx="48%" cy="50%" r="52%">
+              <stop offset="30%"  stop-color="#000000" stop-opacity="0"/>
+              <stop offset="62%"  stop-color="#000000" stop-opacity="0.55"/>
+              <stop offset="82%"  stop-color="#000000" stop-opacity="0.82"/>
+              <stop offset="100%" stop-color="#000000" stop-opacity="0.96"/>
             </radialGradient>
             <!-- Fog of war per locked district -->
-            <radialGradient id="fogScriptwriting" cx="66%" cy="40%" r="20%" gradientUnits="objectBoundingBox">
-              <stop offset="0%"   stop-color="#000000" stop-opacity="0.78"/>
+            <radialGradient id="fogScriptwriting" cx="66%" cy="40%" r="22%" gradientUnits="objectBoundingBox">
+              <stop offset="0%"   stop-color="#000000" stop-opacity="0.82"/>
               <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
             </radialGradient>
-            <radialGradient id="fogCommunity" cx="74%" cy="60%" r="20%" gradientUnits="objectBoundingBox">
-              <stop offset="0%"   stop-color="#000000" stop-opacity="0.78"/>
+            <radialGradient id="fogCommunity" cx="74%" cy="60%" r="22%" gradientUnits="objectBoundingBox">
+              <stop offset="0%"   stop-color="#000000" stop-opacity="0.82"/>
               <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
             </radialGradient>
-            <radialGradient id="fogCareer" cx="36%" cy="36%" r="20%" gradientUnits="objectBoundingBox">
-              <stop offset="0%"   stop-color="#000000" stop-opacity="0.78"/>
+            <radialGradient id="fogCareer" cx="36%" cy="36%" r="22%" gradientUnits="objectBoundingBox">
+              <stop offset="0%"   stop-color="#000000" stop-opacity="0.82"/>
               <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
             </radialGradient>
-            <radialGradient id="fogSelfEmp" cx="28%" cy="64%" r="20%" gradientUnits="objectBoundingBox">
-              <stop offset="0%"   stop-color="#000000" stop-opacity="0.78"/>
+            <radialGradient id="fogSelfEmp" cx="28%" cy="64%" r="22%" gradientUnits="objectBoundingBox">
+              <stop offset="0%"   stop-color="#000000" stop-opacity="0.82"/>
               <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
             </radialGradient>
-            <radialGradient id="fogMaster" cx="56%" cy="72%" r="18%" gradientUnits="objectBoundingBox">
-              <stop offset="0%"   stop-color="#000000" stop-opacity="0.78"/>
+            <radialGradient id="fogMaster" cx="56%" cy="74%" r="20%" gradientUnits="objectBoundingBox">
+              <stop offset="0%"   stop-color="#000000" stop-opacity="0.82"/>
               <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
             </radialGradient>
-            <radialGradient id="fogGPT" cx="83%" cy="50%" r="20%" gradientUnits="objectBoundingBox">
-              <stop offset="0%"   stop-color="#000000" stop-opacity="0.78"/>
+            <radialGradient id="fogGPT" cx="83%" cy="50%" r="22%" gradientUnits="objectBoundingBox">
+              <stop offset="0%"   stop-color="#000000" stop-opacity="0.82"/>
               <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
             </radialGradient>
-            <filter id="streetGlow">
-              <feGaussianBlur stdDeviation="1.2" result="blur"/>
+            <filter id="roadGlow">
+              <feGaussianBlur stdDeviation="1.0" result="blur"/>
               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
-            <filter id="majorGlow">
-              <feGaussianBlur stdDeviation="2.2" result="blur"/>
+            <filter id="arterialGlow">
+              <feGaussianBlur stdDeviation="2.5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="dotGlow">
+              <feGaussianBlur stdDeviation="1.5" result="blur"/>
               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
             <filter id="softEdge"><feGaussianBlur stdDeviation="8"/></filter>
+            <filter id="coreHalo">
+              <feGaussianBlur stdDeviation="18" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
             <clipPath id="mapClip"><rect width="1100" height="620"/></clipPath>
             <clipPath id="northBank">
               <path d="M 0 0 L 1100 0 L 1100 197 C 1060 201,1030 203,1000 205 C 972 207,948 207,925 211 C 905 215,890 223,872 231 C 855 239,835 245,812 247 C 790 249,768 247,748 249 C 730 251,716 255,706 263 C 696 271,692 283,692 297 C 692 311,696 327,698 345 C 700 363,700 380,695 393 C 690 405,684 413,672 415 C 662 417,650 412,632 407 C 615 403,600 401,585 403 C 570 405,558 410,545 419 C 530 429,520 443,505 455 C 492 465,482 471,470 471 C 458 471,448 466,435 459 C 422 452,412 445,395 442 C 380 439,365 441,345 449 C 320 459,300 472,270 487 C 240 502,210 517,150 532 C 90 547,40 559,-20 567 L 0 567 Z"/>
@@ -250,188 +264,164 @@
             </clipPath>
           </defs>
 
-          <rect width="1100" height="620" fill="#090909"/>
-          <ellipse cx="550" cy="320" rx="580" ry="380" fill="url(#cityGlow)" opacity="0.9"/>
+          <!-- Deep black sky base -->
+          <rect width="1100" height="620" fill="#05040a"/>
 
-          <!-- ═══════════════════════════════════
-               ZONE 1 — DENSE CORE
-               Film Division hub: 420–700 x, 200–440 y
-               18px grid, brightest streets
-          ═══════════════════════════════════ -->
-          <g stroke="#ffd050" stroke-opacity="0.20" stroke-width="0.55" fill="none" clip-path="url(#northBank)">
-            <line x1="420" y1="0" x2="420" y2="620"/><line x1="438" y1="0" x2="438" y2="620"/>
-            <line x1="456" y1="0" x2="456" y2="620"/><line x1="474" y1="0" x2="474" y2="620"/>
-            <line x1="492" y1="0" x2="492" y2="620"/><line x1="510" y1="0" x2="510" y2="620"/>
-            <line x1="528" y1="0" x2="528" y2="620"/><line x1="546" y1="0" x2="546" y2="620"/>
-            <line x1="564" y1="0" x2="564" y2="620"/><line x1="582" y1="0" x2="582" y2="620"/>
-            <line x1="600" y1="0" x2="600" y2="620"/><line x1="618" y1="0" x2="618" y2="620"/>
-            <line x1="636" y1="0" x2="636" y2="620"/><line x1="654" y1="0" x2="654" y2="620"/>
-            <line x1="672" y1="0" x2="672" y2="620"/><line x1="690" y1="0" x2="690" y2="620"/>
-            <line x1="0" y1="206" x2="1100" y2="206"/><line x1="0" y1="224" x2="1100" y2="224"/>
-            <line x1="0" y1="242" x2="1100" y2="242"/><line x1="0" y1="260" x2="1100" y2="260"/>
-            <line x1="0" y1="278" x2="1100" y2="278"/><line x1="0" y1="296" x2="1100" y2="296"/>
-            <line x1="0" y1="314" x2="1100" y2="314"/><line x1="0" y1="332" x2="1100" y2="332"/>
-            <line x1="0" y1="350" x2="1100" y2="350"/><line x1="0" y1="368" x2="1100" y2="368"/>
-            <line x1="0" y1="386" x2="1100" y2="386"/><line x1="0" y1="404" x2="1100" y2="404"/>
-            <line x1="0" y1="422" x2="1100" y2="422"/>
-          </g>
+          <!-- City glow — aerial light bloom from centre -->
+          <ellipse cx="528" cy="310" rx="520" ry="360" fill="url(#cityGlow)" opacity="1.0"/>
 
-          <!-- ═══════════════════════════════════
-               ZONE 2 — MID-RING WEST
-               Career Mapping / Self Employment: 0–420 x
-               36px grid, medium brightness
-          ═══════════════════════════════════ -->
-          <g stroke="#ffbe3c" stroke-opacity="0.11" stroke-width="0.6" fill="none" clip-path="url(#northBank)">
-            <line x1="36" y1="0" x2="36" y2="620"/><line x1="72" y1="0" x2="72" y2="620"/>
-            <line x1="108" y1="0" x2="108" y2="620"/><line x1="144" y1="0" x2="144" y2="620"/>
-            <line x1="180" y1="0" x2="180" y2="620"/><line x1="216" y1="0" x2="216" y2="620"/>
-            <line x1="252" y1="0" x2="252" y2="620"/><line x1="288" y1="0" x2="288" y2="620"/>
-            <line x1="324" y1="0" x2="324" y2="620"/><line x1="360" y1="0" x2="360" y2="620"/>
-            <line x1="396" y1="0" x2="396" y2="620"/>
-            <line x1="0" y1="72"  x2="420" y2="72"/> <line x1="0" y1="108" x2="420" y2="108"/>
-            <line x1="0" y1="144" x2="420" y2="144"/><line x1="0" y1="180" x2="420" y2="180"/>
-          </g>
-          <g stroke="#ffbe3c" stroke-opacity="0.11" stroke-width="0.6" fill="none" clip-path="url(#southBank)">
-            <line x1="36"  y1="0" x2="36"  y2="620"/><line x1="72"  y1="0" x2="72"  y2="620"/>
-            <line x1="108" y1="0" x2="108" y2="620"/><line x1="144" y1="0" x2="144" y2="620"/>
-            <line x1="180" y1="0" x2="180" y2="620"/><line x1="216" y1="0" x2="216" y2="620"/>
-            <line x1="252" y1="0" x2="252" y2="620"/><line x1="288" y1="0" x2="288" y2="620"/>
-            <line x1="324" y1="0" x2="324" y2="620"/><line x1="360" y1="0" x2="360" y2="620"/>
-            <line x1="396" y1="0" x2="396" y2="620"/>
-            <line x1="0" y1="496" x2="420" y2="496"/><line x1="0" y1="532" x2="420" y2="532"/>
-            <line x1="0" y1="568" x2="420" y2="568"/>
-          </g>
+          <!-- ═══════════════════════════════════════════
+               RADIAL ARTERIALS — spokes from core (528,310)
+               Each road curves outward like a real city
+          ═══════════════════════════════════════════ -->
 
-          <!-- ═══════════════════════════════════
-               ZONE 3 — MID-RING EAST
-               Scriptwriting / Community: 690–950 x
-               36px grid, medium brightness
-          ═══════════════════════════════════ -->
-          <g stroke="#ffbe3c" stroke-opacity="0.11" stroke-width="0.6" fill="none" clip-path="url(#northBank)">
-            <line x1="726" y1="0" x2="726" y2="620"/><line x1="762" y1="0" x2="762" y2="620"/>
-            <line x1="798" y1="0" x2="798" y2="620"/><line x1="834" y1="0" x2="834" y2="620"/>
-            <line x1="870" y1="0" x2="870" y2="620"/><line x1="906" y1="0" x2="906" y2="620"/>
-            <line x1="942" y1="0" x2="942" y2="620"/>
-            <line x1="690" y1="72"  x2="960" y2="72"/> <line x1="690" y1="108" x2="960" y2="108"/>
-            <line x1="690" y1="144" x2="960" y2="144"/><line x1="690" y1="180" x2="960" y2="180"/>
+          <!-- Capillary web — finest roads, dense near core -->
+          <g stroke="#c8780a" stroke-opacity="0.12" stroke-width="0.4" fill="none" clip-path="url(#northBank)">
+            <!-- Fine horizontal capillaries -->
+            <line x1="0" y1="100" x2="1100" y2="108"/><line x1="0" y1="124" x2="1100" y2="130"/>
+            <line x1="0" y1="148" x2="1100" y2="152"/><line x1="0" y1="170" x2="1100" y2="173"/>
+            <line x1="0" y1="192" x2="1100" y2="194"/><line x1="0" y1="212" x2="1100" y2="213"/>
+            <line x1="0" y1="232" x2="1100" y2="232"/><line x1="0" y1="252" x2="1100" y2="251"/>
+            <line x1="0" y1="270" x2="1100" y2="269"/><line x1="0" y1="288" x2="1100" y2="287"/>
+            <line x1="0" y1="306" x2="1100" y2="305"/><line x1="0" y1="322" x2="1100" y2="321"/>
+            <line x1="0" y1="338" x2="1100" y2="337"/><line x1="0" y1="354" x2="1100" y2="353"/>
+            <line x1="0" y1="368" x2="1100" y2="368"/><line x1="0" y1="382" x2="1100" y2="382"/>
+            <line x1="0" y1="396" x2="1100" y2="396"/><line x1="0" y1="408" x2="900" y2="409"/>
+            <!-- Fine vertical capillaries -->
+            <line x1="60"  y1="0" x2="60"  y2="540"/><line x1="112" y1="0" x2="112" y2="542"/>
+            <line x1="162" y1="0" x2="162" y2="544"/><line x1="210" y1="0" x2="210" y2="546"/>
+            <line x1="256" y1="0" x2="256" y2="548"/><line x1="300" y1="0" x2="300" y2="548"/>
+            <line x1="342" y1="0" x2="342" y2="450"/><line x1="382" y1="0" x2="382" y2="448"/>
+            <line x1="420" y1="0" x2="420" y2="446"/><line x1="458" y1="0" x2="458" y2="460"/>
+            <line x1="494" y1="0" x2="494" y2="460"/><line x1="530" y1="0" x2="530" y2="456"/>
+            <line x1="564" y1="0" x2="564" y2="454"/><line x1="598" y1="0" x2="598" y2="444"/>
+            <line x1="630" y1="0" x2="630" y2="430"/><line x1="660" y1="0" x2="660" y2="418"/>
+            <line x1="688" y1="0" x2="688" y2="404"/><line x1="716" y1="0" x2="716" y2="390"/>
+            <line x1="742" y1="0" x2="742" y2="376"/><line x1="768" y1="0" x2="768" y2="364"/>
+            <line x1="792" y1="0" x2="792" y2="352"/><line x1="816" y1="0" x2="816" y2="340"/>
+            <line x1="840" y1="0" x2="840" y2="328"/><line x1="862" y1="0" x2="862" y2="318"/>
+            <line x1="884" y1="0" x2="884" y2="308"/><line x1="906" y1="0" x2="906" y2="300"/>
+            <line x1="928" y1="0" x2="928" y2="292"/><line x1="950" y1="0" x2="950" y2="284"/>
+            <line x1="972" y1="0" x2="972" y2="276"/><line x1="994" y1="0" x2="994" y2="268"/>
+            <line x1="1016" y1="0" x2="1016" y2="260"/><line x1="1038" y1="0" x2="1038" y2="252"/>
+            <line x1="1060" y1="0" x2="1060" y2="244"/><line x1="1082" y1="0" x2="1082" y2="236"/>
           </g>
-          <g stroke="#ffbe3c" stroke-opacity="0.11" stroke-width="0.6" fill="none" clip-path="url(#southBank)">
-            <line x1="726" y1="0" x2="726" y2="620"/><line x1="762" y1="0" x2="762" y2="620"/>
-            <line x1="798" y1="0" x2="798" y2="620"/><line x1="834" y1="0" x2="834" y2="620"/>
-            <line x1="870" y1="0" x2="870" y2="620"/><line x1="906" y1="0" x2="906" y2="620"/>
-            <line x1="942" y1="0" x2="942" y2="620"/>
-            <line x1="690" y1="496" x2="960" y2="496"/><line x1="690" y1="532" x2="960" y2="532"/>
-            <line x1="690" y1="568" x2="960" y2="568"/>
+          <!-- South bank capillaries -->
+          <g stroke="#c8780a" stroke-opacity="0.10" stroke-width="0.4" fill="none" clip-path="url(#southBank)">
+            <line x1="0" y1="504" x2="1100" y2="500"/><line x1="0" y1="522" x2="1100" y2="517"/>
+            <line x1="0" y1="540" x2="1100" y2="534"/><line x1="0" y1="556" x2="1100" y2="550"/>
+            <line x1="0" y1="572" x2="1100" y2="565"/><line x1="0" y1="587" x2="1100" y2="580"/>
+            <line x1="60"  y1="0" x2="58"  y2="620"/><line x1="130" y1="0" x2="128" y2="620"/>
+            <line x1="200" y1="0" x2="198" y2="620"/><line x1="270" y1="0" x2="268" y2="620"/>
+            <line x1="340" y1="0" x2="338" y2="620"/><line x1="410" y1="0" x2="408" y2="620"/>
+            <line x1="480" y1="0" x2="478" y2="620"/><line x1="550" y1="0" x2="548" y2="620"/>
+            <line x1="620" y1="0" x2="618" y2="620"/><line x1="690" y1="0" x2="688" y2="620"/>
+            <line x1="760" y1="0" x2="758" y2="620"/><line x1="830" y1="0" x2="828" y2="620"/>
+            <line x1="900" y1="0" x2="898" y2="620"/><line x1="970" y1="0" x2="968" y2="620"/>
+            <line x1="1040" y1="0" x2="1038" y2="620"/>
           </g>
 
-          <!-- ═══════════════════════════════════
-               ZONE 4 — FRINGE
-               Custom GPT (top-right) + edges: 950–1100 x
-               65px grid, very dim — sparse outskirts
-          ═══════════════════════════════════ -->
-          <g stroke="#ffbe3c" stroke-opacity="0.055" stroke-width="0.5" fill="none" clip-path="url(#northBank)">
-            <line x1="978"  y1="0" x2="978"  y2="620"/><line x1="1044" y1="0" x2="1044" y2="620"/>
-            <line x1="950"  y1="65"  x2="1100" y2="65"/> <line x1="950"  y1="130" x2="1100" y2="130"/>
-            <line x1="950"  y1="195" x2="1100" y2="195"/>
-          </g>
-          <g stroke="#ffbe3c" stroke-opacity="0.055" stroke-width="0.5" fill="none" clip-path="url(#southBank)">
-            <line x1="978"  y1="0" x2="978"  y2="620"/><line x1="1044" y1="0" x2="1044" y2="620"/>
-            <line x1="950"  y1="490" x2="1100" y2="490"/><line x1="950"  y1="555" x2="1100" y2="555"/>
-          </g>
-
-          <!-- MEDIUM ROADS — cross-zone connectors -->
-          <g stroke="#ffc341" stroke-opacity="0.16" stroke-width="1.2" fill="none" clip-path="url(#northBank)">
-            <line x1="0" y1="160" x2="1100" y2="172"/><line x1="0" y1="220" x2="1100" y2="230"/>
-            <line x1="0" y1="270" x2="1100" y2="278"/><line x1="0" y1="312" x2="1100" y2="318"/>
-            <line x1="0" y1="348" x2="1100" y2="352"/><line x1="0" y1="378" x2="1100" y2="380"/>
-            <line x1="0" y1="402" x2="480" y2="416"/><line x1="620" y1="440" x2="1100" y2="384"/>
-            <line x1="150" y1="0" x2="145" y2="620"/><line x1="280" y1="0" x2="274" y2="620"/>
-            <line x1="400" y1="0" x2="395" y2="620"/><line x1="510" y1="0" x2="508" y2="620"/>
-            <line x1="610" y1="0" x2="610" y2="620"/><line x1="700" y1="0" x2="700" y2="620"/>
-            <line x1="780" y1="0" x2="780" y2="620"/><line x1="855" y1="0" x2="854" y2="620"/>
-            <line x1="925" y1="0" x2="923" y2="620"/><line x1="990" y1="0" x2="988" y2="620"/>
-            <line x1="1050" y1="0" x2="1048" y2="620"/>
-          </g>
-          <g stroke="#ffc341" stroke-opacity="0.16" stroke-width="1.2" fill="none" clip-path="url(#southBank)">
-            <line x1="0" y1="510" x2="1100" y2="504"/><line x1="0" y1="548" x2="1100" y2="540"/>
-            <line x1="200" y1="0" x2="198" y2="620"/><line x1="400" y1="0" x2="398" y2="620"/>
-            <line x1="600" y1="0" x2="598" y2="620"/><line x1="800" y1="0" x2="798" y2="620"/>
-            <line x1="1000" y1="0" x2="998" y2="620"/>
+          <!-- Diagonal cross-streets — give organic non-grid feel -->
+          <g stroke="#c8780a" stroke-opacity="0.09" stroke-width="0.4" fill="none" clip-path="url(#northBank)">
+            <line x1="0"   y1="310" x2="528" y2="0"/>
+            <line x1="0"   y1="480" x2="528" y2="0"/>
+            <line x1="120" y1="560" x2="528" y2="0"/>
+            <line x1="300" y1="590" x2="528" y2="0"/>
+            <line x1="528" y1="0"   x2="900" y2="440"/>
+            <line x1="528" y1="0"   x2="1100" y2="280"/>
+            <line x1="528" y1="0"   x2="1100" y2="160"/>
+            <line x1="0"   y1="160" x2="528" y2="0"/>
+            <line x1="0"   y1="60"  x2="528" y2="0"/>
+            <line x1="0"   y1="380" x2="400" y2="560"/>
+            <line x1="200" y1="0"   x2="700" y2="450"/>
+            <line x1="350" y1="0"   x2="750" y2="400"/>
+            <line x1="700" y1="0"   x2="300" y2="460"/>
+            <line x1="900" y1="0"   x2="400" y2="420"/>
           </g>
 
-          <!-- MAJOR ARTERIALS -->
-          <g stroke="#ffcd4b" stroke-opacity="0.30" stroke-width="1.8" fill="none" filter="url(#streetGlow)" clip-path="url(#northBank)">
-            <path d="M 0 240 C 200 245,400 248,600 252 C 800 256,1000 258,1100 260"/>
-            <path d="M 0 320 C 200 323,350 325,500 328 C 650 331,800 332,1100 334"/>
-            <path d="M 0 370 C 150 371,300 372,450 374 C 500 375,520 378,545 384 C 560 390,570 396,590 400 C 610 404,640 404,680 400 C 730 394,800 388,1100 372"/>
-            <path d="M 220 0 C 218 100,216 200,214 320 C 213 360,212 400,210 620"/>
-            <path d="M 450 0 C 449 100,448 200,448 340 C 448 380,449 410,450 620"/>
-            <path d="M 620 0 C 620 100,620 200,621 360 C 621 400,622 425,623 620"/>
-            <path d="M 780 0 C 780 100,780 200,780 330 C 780 355,780 365,780 620"/>
-            <path d="M 930 0 C 929 100,928 200,927 290 C 926 310,926 320,925 620"/>
+          <!-- Secondary roads — medium weight, slight curve -->
+          <g stroke="#e09020" stroke-opacity="0.18" stroke-width="0.9" fill="none" clip-path="url(#northBank)">
+            <path d="M 0 175 C 180 177,350 179,528 181 C 700 183,900 185,1100 187"/>
+            <path d="M 0 235 C 180 236,350 237,528 238 C 700 239,900 240,1100 241"/>
+            <path d="M 0 278 C 180 279,350 280,528 281 C 700 282,900 282,1100 283"/>
+            <path d="M 0 318 C 180 318,350 318,528 318 C 700 318,900 318,1100 318"/>
+            <path d="M 0 355 C 180 355,350 355,480 356 C 510 357,528 360,550 363 C 570 366,590 369,620 368 C 680 365,800 358,1100 345"/>
+            <path d="M 0 390 C 150 389,300 388,430 388 C 460 388,470 390,480 393"/>
+            <path d="M 175 0 C 174 80,173 180,172 290 C 171 340,170 390,168 545"/>
+            <path d="M 300 0 C 299 80,298 180,297 300 C 296 350,295 400,294 548"/>
+            <path d="M 420 0 C 420 80,420 180,420 300 C 420 340,420 380,420 446"/>
+            <path d="M 528 0 C 528 80,528 180,528 300 C 528 340,528 380,528 452"/>
+            <path d="M 635 0 C 634 80,633 180,632 290 C 631 320,630 340,629 424"/>
+            <path d="M 740 0 C 739 80,738 180,737 280 C 736 310,735 330,734 376"/>
+            <path d="M 845 0 C 844 80,843 160,842 250 C 841 280,840 300,839 336"/>
+            <path d="M 950 0 C 949 80,948 150,947 230 C 946 260,945 278,944 302"/>
+            <path d="M 1055 0 C 1054 70,1053 140,1052 210 C 1051 240,1050 258,1049 280"/>
           </g>
-          <g stroke="#ffcd4b" stroke-opacity="0.30" stroke-width="1.8" fill="none" filter="url(#streetGlow)" clip-path="url(#southBank)">
-            <path d="M 0 530 C 300 526,600 520,1100 510"/>
-            <path d="M 100 0 C 100 200,100 400,100 620"/>
-            <path d="M 350 0 C 350 200,350 400,350 620"/>
-            <path d="M 580 0 C 580 200,580 400,580 620"/>
-            <path d="M 820 0 C 820 200,820 400,820 620"/>
-          </g>
-
-          <!-- PRIMARY ROADS -->
-          <g stroke="#ffd755" stroke-opacity="0.45" stroke-width="2.5" fill="none" filter="url(#majorGlow)" clip-path="url(#northBank)">
-            <path d="M 0 290 C 180 292,360 294,540 298 C 700 302,900 304,1100 306"/>
-            <path d="M 0 350 C 200 351,400 352,530 354 C 560 355,575 358,590 364 C 605 370,615 376,630 380 C 648 384,670 384,700 380 C 750 373,850 366,1100 354"/>
-            <path d="M 340 0 C 338 80,336 180,335 290 C 334 330,333 370,332 620"/>
-            <path d="M 550 0 C 550 80,550 180,551 310 C 551 360,552 400,553 620"/>
-            <path d="M 740 0 C 740 80,740 180,740 310 C 740 340,740 355,740 620"/>
-            <path d="M 0 180 C 100 175,250 170,400 168 C 550 166,700 165,900 164 C 1000 164,1060 164,1100 164"/>
-          </g>
-          <g stroke="#ffd755" stroke-opacity="0.45" stroke-width="2.5" fill="none" filter="url(#majorGlow)" clip-path="url(#southBank)">
-            <path d="M 0 518 C 200 514,450 510,700 502 C 850 497,1000 492,1100 488"/>
+          <g stroke="#e09020" stroke-opacity="0.14" stroke-width="0.9" fill="none" clip-path="url(#southBank)">
+            <path d="M 0 522 C 200 520,400 517,600 514 C 800 511,1000 508,1100 506"/>
+            <path d="M 0 558 C 200 555,400 551,600 547 C 800 543,1000 540,1100 538"/>
+            <path d="M 100 490 C 100 530,100 570,100 620"/>
+            <path d="M 280 484 C 280 524,280 564,280 620"/>
+            <path d="M 460 477 C 460 517,460 557,460 620"/>
+            <path d="M 640 464 C 640 504,640 544,640 620"/>
+            <path d="M 820 448 C 820 488,820 528,820 620"/>
+            <path d="M 1000 432 C 1000 472,1000 512,1000 620"/>
           </g>
 
-          <!-- DIAGONAL CUTS -->
-          <g stroke="#ffbe3c" stroke-opacity="0.07" stroke-width="0.6" fill="none" clip-path="url(#northBank)">
-            <line x1="0" y1="200" x2="400" y2="0"/><line x1="0" y1="350" x2="600" y2="0"/>
-            <line x1="0" y1="440" x2="800" y2="0"/><line x1="100" y1="440" x2="1100" y2="0"/>
-            <line x1="300" y1="440" x2="1100" y2="80"/><line x1="500" y1="440" x2="1100" y2="200"/>
+          <!-- Major arterials — thick, glowing, radiate from core -->
+          <g stroke="#ffc040" stroke-opacity="0.35" stroke-width="2.0" fill="none" filter="url(#roadGlow)" clip-path="url(#northBank)">
+            <!-- Ring roads at increasing distances from core -->
+            <path d="M 80 310 C 100 260,140 220,200 195 C 260 170,340 162,420 160 C 500 158,580 160,640 165 C 700 170,740 180,760 200"/>
+            <path d="M 0 310 C 20 240,70 180,140 145 C 210 110,310 98,420 95 C 520 92,620 96,700 106 C 780 116,840 132,890 152 C 940 172,980 196,1020 218"/>
+            <!-- Radial spokes -->
+            <path d="M 528 310 C 460 280,380 250,290 225 C 210 203,120 192,0 185"/>
+            <path d="M 528 310 C 490 260,450 210,400 172 C 350 134,290 110,210 88 C 150 72,80 62,0 55"/>
+            <path d="M 528 310 C 528 255,528 195,528 130 C 528 88,528 52,528 0"/>
+            <path d="M 528 310 C 570 262,618 214,672 174 C 720 138,778 110,848 84 C 900 64,960 48,1040 30"/>
+            <path d="M 528 310 C 600 285,678 260,756 240 C 834 220,920 208,1020 200 C 1060 196,1090 194,1100 193"/>
+            <path d="M 528 310 C 610 318,700 326,790 332 C 880 338,980 340,1100 340"/>
+            <path d="M 528 310 C 580 340,640 368,710 390 C 760 406,820 415,900 415 C 960 415,1020 412,1100 408"/>
+            <path d="M 528 310 C 500 355,466 400,420 435 C 374 468,315 488,240 500 C 175 510,100 515,0 518"/>
+            <path d="M 528 310 C 480 345,420 378,348 404 C 280 428,200 440,100 448 C 60 451,28 452,0 452"/>
+            <path d="M 528 310 C 490 370,445 430,388 474 C 336 514,270 538,180 552 C 110 562,50 566,0 568"/>
+          </g>
+          <g stroke="#ffc040" stroke-opacity="0.28" stroke-width="1.6" fill="none" filter="url(#roadGlow)" clip-path="url(#southBank)">
+            <path d="M 528 310 C 500 360,465 420,420 464 C 375 506,315 530,230 548 C 160 562,80 568,0 572"/>
+            <path d="M 0 518 C 120 516,250 513,380 510 C 500 507,590 504,680 498 C 760 492,840 484,940 474 C 1000 468,1060 463,1100 460"/>
+            <path d="M 190 500 C 190 540,190 580,190 620"/>
+            <path d="M 400 490 C 400 530,400 570,400 620"/>
+            <path d="M 610 476 C 610 516,610 556,610 620"/>
+            <path d="M 820 455 C 820 495,820 535,820 620"/>
           </g>
 
-          <!-- JUNCTION RINGS + DOTS -->
-          <g fill="none" stroke="#ffd755" stroke-opacity="0.5" stroke-width="1.2" clip-path="url(#northBank)">
-            <circle cx="340" cy="290" r="8"/><circle cx="340" cy="350" r="6"/>
-            <circle cx="550" cy="298" r="8"/><circle cx="550" cy="354" r="6"/>
-            <circle cx="740" cy="306" r="7"/><circle cx="220" cy="290" r="5"/>
-            <circle cx="450" cy="298" r="5"/><circle cx="620" cy="302" r="5"/>
-            <circle cx="780" cy="330" r="5"/><circle cx="930" cy="306" r="4"/>
-            <circle cx="474" cy="350" r="3"/><circle cx="510" cy="324" r="3"/>
-            <circle cx="564" cy="346" r="3"/><circle cx="600" cy="314" r="3"/>
-            <circle cx="474" cy="296" r="3"/><circle cx="528" cy="268" r="3"/>
+          <!-- Primary roads — brightest, most prominent -->
+          <g stroke="#ffd060" stroke-opacity="0.55" stroke-width="3.0" fill="none" filter="url(#arterialGlow)" clip-path="url(#northBank)">
+            <!-- Main east-west through route -->
+            <path d="M 0 310 C 150 308,300 307,430 307 C 490 307,515 308,528 310 C 541 312,565 315,620 316 C 750 318,900 316,1100 313"/>
+            <!-- Main north-south spine -->
+            <path d="M 528 0 C 528 60,528 140,528 220 C 528 268,528 292,528 310 C 528 328,528 352,528 400 C 528 435,528 455,527 471"/>
+            <!-- NW diagonal arterial -->
+            <path d="M 0 120 C 80 140,160 172,240 200 C 310 224,390 248,460 270 C 500 283,518 293,528 310"/>
+            <!-- NE diagonal arterial -->
+            <path d="M 1100 80 C 1020 104,940 132,860 162 C 790 188,720 216,660 248 C 620 268,568 292,528 310"/>
+            <!-- SW diagonal arterial -->
+            <path d="M 528 310 C 490 338,445 368,390 398 C 330 430,255 456,160 476 C 90 490,40 496,0 500"/>
+            <!-- SE diagonal arterial -->
+            <path d="M 528 310 C 570 336,620 360,680 380 C 750 402,840 418,940 428 C 1020 436,1070 438,1100 439"/>
           </g>
-          <g fill="none" stroke="#ffd755" stroke-opacity="0.5" stroke-width="1.2" clip-path="url(#southBank)">
-            <circle cx="100" cy="518" r="5"/><circle cx="350" cy="510" r="5"/><circle cx="580" cy="500" r="5"/>
-          </g>
-          <g fill="#ffdc64" fill-opacity="0.6" clip-path="url(#northBank)">
-            <circle cx="340" cy="290" r="2.5"/><circle cx="550" cy="298" r="2.5"/>
-            <circle cx="740" cy="306" r="2"/><circle cx="340" cy="350" r="2"/>
-            <circle cx="550" cy="354" r="2"/><circle cx="220" cy="290" r="1.5"/>
-            <circle cx="450" cy="298" r="1.5"/><circle cx="780" cy="330" r="1.5"/>
-            <circle cx="474" cy="350" r="1.2"/><circle cx="510" cy="324" r="1.2"/>
-            <circle cx="564" cy="346" r="1.2"/><circle cx="600" cy="314" r="1.2"/>
-          </g>
-          <g fill="#ffdc64" fill-opacity="0.6" clip-path="url(#southBank)">
-            <circle cx="100" cy="518" r="1.5"/><circle cx="350" cy="510" r="1.5"/><circle cx="580" cy="500" r="1.5"/>
+          <g stroke="#ffd060" stroke-opacity="0.45" stroke-width="2.5" fill="none" filter="url(#arterialGlow)" clip-path="url(#southBank)">
+            <path d="M 528 310 C 500 356,462 406,415 448 C 365 492,300 522,210 542 C 140 558,70 564,0 566"/>
+            <path d="M 0 518 C 100 516,220 514,340 512 C 440 510,520 508,600 504 C 700 499,820 492,1000 482 C 1060 478,1090 476,1100 475"/>
           </g>
 
           <!-- RIVER -->
-          <path d="M -20 580 C 40 572,90 560,150 545 C 210 530,240 515,270 500 C 300 485,320 472,345 462 C 365 454,380 452,395 455 C 412 458,422 465,435 472 C 448 479,458 484,470 484 C 482 484,492 478,505 468 C 520 456,530 442,545 432 C 558 423,570 418,585 416 C 600 414,615 416,632 420 C 650 425,662 430,672 428 C 684 426,690 418,695 406 C 700 393,700 376,698 358 C 696 340,692 324,692 310 C 692 296,696 284,706 276 C 716 268,730 264,748 262 C 768 260,790 262,812 260 C 835 258,855 252,872 244 C 890 236,905 228,925 224 C 948 220,972 220,1000 218 C 1030 216,1060 214,1120 210" fill="none" stroke="#000000" stroke-opacity="0.7" stroke-width="60" filter="url(#softEdge)" clip-path="url(#mapClip)"/>
-          <path d="M -20 580 C 40 572,90 560,150 545 C 210 530,240 515,270 500 C 300 485,320 472,345 462 C 365 454,380 452,395 455 C 412 458,422 465,435 472 C 448 479,458 484,470 484 C 482 484,492 478,505 468 C 520 456,530 442,545 432 C 558 423,570 418,585 416 C 600 414,615 416,632 420 C 650 425,662 430,672 428 C 684 426,690 418,695 406 C 700 393,700 376,698 358 C 696 340,692 324,692 310 C 692 296,696 284,706 276 C 716 268,730 264,748 262 C 768 260,790 262,812 260 C 835 258,855 252,872 244 C 890 236,905 228,925 224 C 948 220,972 220,1000 218 C 1030 216,1060 214,1120 210" fill="none" stroke="#01020a" stroke-width="28" stroke-linecap="butt" clip-path="url(#mapClip)"/>
-          <path d="M -20 580 C 40 572,90 560,150 545 C 210 530,240 515,270 500 C 300 485,320 472,345 462 C 365 454,380 452,395 455 C 412 458,422 465,435 472 C 448 479,458 484,470 484 C 482 484,492 478,505 468 C 520 456,530 442,545 432 C 558 423,570 418,585 416 C 600 414,615 416,632 420 C 650 425,662 430,672 428 C 684 426,690 418,695 406 C 700 393,700 376,698 358 C 696 340,692 324,692 310 C 692 296,696 284,706 276 C 716 268,730 264,748 262 C 768 260,790 262,812 260 C 835 258,855 252,872 244 C 890 236,905 228,925 224 C 948 220,972 220,1000 218 C 1030 216,1060 214,1120 210" fill="none" stroke="#010208" stroke-width="16" clip-path="url(#mapClip)"/>
+          <path d="M -20 580 C 40 572,90 560,150 545 C 210 530,240 515,270 500 C 300 485,320 472,345 462 C 365 454,380 452,395 455 C 412 458,422 465,435 472 C 448 479,458 484,470 484 C 482 484,492 478,505 468 C 520 456,530 442,545 432 C 558 423,570 418,585 416 C 600 414,615 416,632 420 C 650 425,662 430,672 428 C 684 426,690 418,695 406 C 700 393,700 376,698 358 C 696 340,692 324,692 310 C 692 296,696 284,706 276 C 716 268,730 264,748 262 C 768 260,790 262,812 260 C 835 258,855 252,872 244 C 890 236,905 228,925 224 C 948 220,972 220,1000 218 C 1030 216,1060 214,1120 210" fill="none" stroke="#000000" stroke-opacity="0.8" stroke-width="70" filter="url(#softEdge)" clip-path="url(#mapClip)"/>
+          <path d="M -20 580 C 40 572,90 560,150 545 C 210 530,240 515,270 500 C 300 485,320 472,345 462 C 365 454,380 452,395 455 C 412 458,422 465,435 472 C 448 479,458 484,470 484 C 482 484,492 478,505 468 C 520 456,530 442,545 432 C 558 423,570 418,585 416 C 600 414,615 416,632 420 C 650 425,662 430,672 428 C 684 426,690 418,695 406 C 700 393,700 376,698 358 C 696 340,692 324,692 310 C 692 296,696 284,706 276 C 716 268,730 264,748 262 C 768 260,790 262,812 260 C 835 258,855 252,872 244 C 890 236,905 228,925 224 C 948 220,972 220,1000 218 C 1030 216,1060 214,1120 210" fill="none" stroke="#020308" stroke-width="32" stroke-linecap="butt" clip-path="url(#mapClip)"/>
+          <path d="M -20 580 C 40 572,90 560,150 545 C 210 530,240 515,270 500 C 300 485,320 472,345 462 C 365 454,380 452,395 455 C 412 458,422 465,435 472 C 448 479,458 484,470 484 C 482 484,492 478,505 468 C 520 456,530 442,545 432 C 558 423,570 418,585 416 C 600 414,615 416,632 420 C 650 425,662 430,672 428 C 684 426,690 418,695 406 C 700 393,700 376,698 358 C 696 340,692 324,692 310 C 692 296,696 284,706 276 C 716 268,730 264,748 262 C 768 260,790 262,812 260 C 835 258,855 252,872 244 C 890 236,905 228,925 224 C 948 220,972 220,1000 218 C 1030 216,1060 214,1120 210" fill="none" stroke="#010206" stroke-width="18" clip-path="url(#mapClip)"/>
 
-          <!-- ISLE OF DOGS — clipped to northBank -->
-          <path d="M 636 422 C 648 432,656 446,660 462 C 664 478,662 494,656 506 C 650 518,638 526,624 528 C 610 530,596 526,585 518 C 574 510,567 498,565 484 C 563 470,567 456,575 446 C 583 436,594 430,608 426 C 618 423,628 421,636 422 Z" fill="#0c0c0c" stroke="#ffc828" stroke-opacity="0.12" stroke-width="1.5" clip-path="url(#northBank)"/>
-          <g stroke="#ffc341" stroke-opacity="0.18" stroke-width="0.8" fill="none" clip-path="url(#northBank)">
+          <!-- ISLE OF DOGS -->
+          <path d="M 636 422 C 648 432,656 446,660 462 C 664 478,662 494,656 506 C 650 518,638 526,624 528 C 610 530,596 526,585 518 C 574 510,567 498,565 484 C 563 470,567 456,575 446 C 583 436,594 430,608 426 C 618 423,628 421,636 422 Z" fill="#080608" stroke="#ffa820" stroke-opacity="0.15" stroke-width="1.2" clip-path="url(#northBank)"/>
+          <g stroke="#e09020" stroke-opacity="0.22" stroke-width="0.7" fill="none" clip-path="url(#northBank)">
             <line x1="556" y1="478" x2="666" y2="478"/><line x1="552" y1="494" x2="668" y2="494"/>
             <line x1="550" y1="510" x2="666" y2="510"/><line x1="554" y1="526" x2="662" y2="526"/>
             <line x1="572" y1="438" x2="572" y2="554"/><line x1="588" y1="430" x2="588" y2="554"/>
@@ -440,35 +430,89 @@
           </g>
 
           <!-- BANK GLOWS -->
-          <path d="M -20 567 C 40 559,90 547,150 532 C 210 517,240 502,270 487 C 300 472,320 459,345 449 C 365 441,380 439,395 442 C 412 445,422 452,435 459 C 448 466,458 471,470 471 C 482 471,492 465,505 455 C 520 443,530 429,545 419 C 558 410,570 405,585 403 C 600 401,615 403,632 407 C 650 412,662 417,672 415 C 684 413,690 405,695 393 C 700 380,700 363,698 345 C 696 327,692 311,692 297 C 692 283,696 271,706 263 C 716 255,730 251,748 249 C 768 247,790 249,812 247 C 835 245,855 239,872 231 C 890 223,905 215,925 211 C 948 207,972 207,1000 205 C 1030 203,1060 201,1120 197" fill="none" stroke="#c88219" stroke-opacity="0.28" stroke-width="1.5" clip-path="url(#mapClip)"/>
-          <path d="M -20 594 C 40 586,90 574,150 559 C 210 544,240 529,270 514 C 300 499,320 486,345 476 C 365 468,380 466,395 469 C 412 472,422 479,435 486 C 448 493,458 498,470 498 C 482 498,492 492,505 482 C 520 470,530 456,545 446 C 558 437,570 432,585 430 C 600 428,615 430,632 434 C 650 439,662 444,672 442 C 684 440,690 432,695 420 C 700 407,700 390,698 372 C 696 354,692 338,692 324 C 692 310,696 298,706 290 C 716 282,730 278,748 276 C 768 274,790 276,812 274 C 835 272,855 266,872 258 C 890 250,905 242,925 238 C 948 234,972 234,1000 232 C 1030 230,1060 228,1120 224" fill="none" stroke="#c88219" stroke-opacity="0.20" stroke-width="1.5" clip-path="url(#mapClip)"/>
+          <path d="M -20 567 C 40 559,90 547,150 532 C 210 517,240 502,270 487 C 300 472,320 459,345 449 C 365 441,380 439,395 442 C 412 445,422 452,435 459 C 448 466,458 471,470 471 C 482 471,492 465,505 455 C 520 443,530 429,545 419 C 558 410,570 405,585 403 C 600 401,615 403,632 407 C 650 412,662 417,672 415 C 684 413,690 405,695 393 C 700 380,700 363,698 345 C 696 327,692 311,692 297 C 692 283,696 271,706 263 C 716 255,730 251,748 249 C 768 247,790 249,812 247 C 835 245,855 239,872 231 C 890 223,905 215,925 211 C 948 207,972 207,1000 205 C 1030 203,1060 201,1120 197" fill="none" stroke="#b06010" stroke-opacity="0.30" stroke-width="1.5" clip-path="url(#mapClip)"/>
+          <path d="M -20 594 C 40 586,90 574,150 559 C 210 544,240 529,270 514 C 300 499,320 486,345 476 C 365 468,380 466,395 469 C 412 472,422 479,435 486 C 448 493,458 498,470 498 C 482 498,492 492,505 482 C 520 470,530 456,545 446 C 558 437,570 432,585 430 C 600 428,615 430,632 434 C 650 439,662 444,672 442 C 684 440,690 432,695 420 C 700 407,700 390,698 372 C 696 354,692 338,692 324 C 692 310,696 298,706 290 C 716 282,730 278,748 276 C 768 274,790 276,812 274 C 835 272,855 266,872 258 C 890 250,905 242,925 238 C 948 234,972 234,1000 232 C 1030 230,1060 228,1120 224" fill="none" stroke="#b06010" stroke-opacity="0.20" stroke-width="1.5" clip-path="url(#mapClip)"/>
 
-          <!-- ═══════════════════════════════════
-               DISTRICT NAME PLATES
-               Stamped directly on map — uppercase, spaced, semi-transparent
-               Positioned near each district pin
-          ═══════════════════════════════════ -->
-          <g font-family="'Courier New', monospace" font-weight="700" letter-spacing="3" text-anchor="middle" clip-path="url(#mapClip)">
-            <!-- Film Division — open, brighter -->
-            <text x="550" y="296" font-size="9" fill="#ffd755" fill-opacity="0.55">FILM DIVISION</text>
-            <!-- Scriptwriting -->
-            <text x="726" y="232" font-size="8" fill="#aaa090" fill-opacity="0.38">SCRIPTWRITING</text>
-            <!-- Community -->
-            <text x="814" y="358" font-size="8" fill="#aaa090" fill-opacity="0.38">COMMUNITY</text>
-            <!-- Career Mapping -->
-            <text x="396" y="214" font-size="8" fill="#aaa090" fill-opacity="0.38">CAREER MAPPING</text>
-            <!-- Self Employment -->
-            <text x="308" y="386" font-size="8" fill="#aaa090" fill-opacity="0.38">SELF EMPLOY.</text>
-            <!-- Masterclasses — south bank -->
-            <text x="616" y="544" font-size="8" fill="#aaa090" fill-opacity="0.38">MASTERCLASSES</text>
-            <!-- Custom GPT — far east fringe -->
-            <text x="913" y="298" font-size="8" fill="#aaa090" fill-opacity="0.38">CUSTOM GPT</text>
+          <!-- ═══════════════════════════════════════════
+               CITY LIGHT SCATTER
+               Dense near core, sparse at edges
+               Like real city lights from 10,000 feet
+          ═══════════════════════════════════════════ -->
+          <!-- Core dense lights -->
+          <g fill="#ffe090" filter="url(#dotGlow)" clip-path="url(#northBank)">
+            <circle cx="528" cy="310" r="1.8" fill-opacity="0.95"/>
+            <circle cx="510" cy="296" r="1.4" fill-opacity="0.85"/>
+            <circle cx="546" cy="296" r="1.4" fill-opacity="0.85"/>
+            <circle cx="492" cy="310" r="1.2" fill-opacity="0.80"/>
+            <circle cx="564" cy="310" r="1.2" fill-opacity="0.80"/>
+            <circle cx="510" cy="324" r="1.2" fill-opacity="0.80"/>
+            <circle cx="546" cy="324" r="1.2" fill-opacity="0.80"/>
+            <circle cx="474" cy="296" r="1.0" fill-opacity="0.70"/>
+            <circle cx="582" cy="296" r="1.0" fill-opacity="0.70"/>
+            <circle cx="474" cy="324" r="1.0" fill-opacity="0.70"/>
+            <circle cx="582" cy="324" r="1.0" fill-opacity="0.70"/>
+            <circle cx="528" cy="280" r="1.0" fill-opacity="0.75"/>
+            <circle cx="528" cy="340" r="1.0" fill-opacity="0.75"/>
+            <circle cx="456" cy="282" r="0.9" fill-opacity="0.60"/>
+            <circle cx="600" cy="282" r="0.9" fill-opacity="0.60"/>
+            <circle cx="456" cy="338" r="0.9" fill-opacity="0.60"/>
+            <circle cx="600" cy="338" r="0.9" fill-opacity="0.60"/>
+          </g>
+          <!-- Mid-ring lights — scattered, dimmer -->
+          <g fill="#ffc060" fill-opacity="0.55" clip-path="url(#northBank)">
+            <circle cx="430" cy="260" r="0.8"/><circle cx="490" cy="245" r="0.8"/>
+            <circle cx="528" cy="242" r="0.9"/><circle cx="566" cy="245" r="0.8"/>
+            <circle cx="626" cy="260" r="0.8"/><circle cx="650" cy="290" r="0.8"/>
+            <circle cx="648" cy="328" r="0.8"/><circle cx="626" cy="360" r="0.7"/>
+            <circle cx="430" cy="360" r="0.7"/><circle cx="408" cy="328" r="0.8"/>
+            <circle cx="406" cy="290" r="0.8"/><circle cx="370" cy="270" r="0.7"/>
+            <circle cx="350" cy="310" r="0.7"/><circle cx="370" cy="350" r="0.7"/>
+            <circle cx="680" cy="310" r="0.7"/><circle cx="700" cy="270" r="0.7"/>
+            <circle cx="700" cy="350" r="0.7"/><circle cx="528" cy="380" r="0.8"/>
+            <circle cx="528" cy="236" r="0.8"/><circle cx="460" cy="390" r="0.7"/>
+            <circle cx="596" cy="388" r="0.7"/><circle cx="310" cy="290" r="0.6"/>
+            <circle cx="310" cy="330" r="0.6"/><circle cx="748" cy="290" r="0.6"/>
+            <circle cx="748" cy="330" r="0.6"/><circle cx="440" cy="208" r="0.6"/>
+            <circle cx="528" cy="200" r="0.7"/><circle cx="616" cy="208" r="0.6"/>
+          </g>
+          <!-- Outer scatter — very sparse, smaller -->
+          <g fill="#ff9830" fill-opacity="0.35" clip-path="url(#northBank)">
+            <circle cx="230" cy="250" r="0.7"/><circle cx="180" cy="290" r="0.6"/>
+            <circle cx="200" cy="330" r="0.6"/><circle cx="250" cy="370" r="0.6"/>
+            <circle cx="140" cy="310" r="0.5"/><circle cx="860" cy="250" r="0.6"/>
+            <circle cx="900" cy="290" r="0.6"/><circle cx="880" cy="330" r="0.5"/>
+            <circle cx="820" cy="260" r="0.5"/><circle cx="820" cy="350" r="0.5"/>
+            <circle cx="300" cy="190" r="0.5"/><circle cx="400" cy="170" r="0.5"/>
+            <circle cx="528" cy="155" r="0.6"/><circle cx="656" cy="170" r="0.5"/>
+            <circle cx="756" cy="190" r="0.5"/><circle cx="960" cy="230" r="0.5"/>
+            <circle cx="1000" cy="260" r="0.4"/><circle cx="100" cy="260" r="0.4"/>
+            <circle cx="80" cy="320" r="0.4"/><circle cx="100" cy="370" r="0.4"/>
+            <circle cx="330" cy="420" r="0.5"/><circle cx="440" cy="432" r="0.5"/>
+            <circle cx="620" cy="406" r="0.5"/><circle cx="730" cy="378" r="0.4"/>
+          </g>
+          <!-- South bank lights -->
+          <g fill="#ffa840" fill-opacity="0.40" clip-path="url(#southBank)">
+            <circle cx="190" cy="530" r="0.7"/><circle cx="280" cy="522" r="0.6"/>
+            <circle cx="370" cy="516" r="0.6"/><circle cx="460" cy="510" r="0.6"/>
+            <circle cx="550" cy="506" r="0.7"/><circle cx="640" cy="500" r="0.6"/>
+            <circle cx="730" cy="492" r="0.5"/><circle cx="820" cy="484" r="0.5"/>
+            <circle cx="100" cy="558" r="0.5"/><circle cx="200" cy="550" r="0.5"/>
+            <circle cx="350" cy="544" r="0.5"/><circle cx="500" cy="538" r="0.5"/>
+            <circle cx="650" cy="530" r="0.4"/><circle cx="800" cy="520" r="0.4"/>
           </g>
 
-          <!-- ═══════════════════════════════════
-               FOG OF WAR — locked district zones
-               Rendered above streets, below core blaze
-          ═══════════════════════════════════ -->
+          <!-- DISTRICT NAME PLATES — baked into map -->
+          <g font-family="'Courier New', monospace" font-weight="700" letter-spacing="3" text-anchor="middle" clip-path="url(#mapClip)">
+            <text x="528" y="287" font-size="9"  fill="#ffd755" fill-opacity="0.60">FILM DIVISION</text>
+            <text x="726" y="222" font-size="7.5" fill="#907860" fill-opacity="0.42">SCRIPTWRITING</text>
+            <text x="814" y="365" font-size="7.5" fill="#907860" fill-opacity="0.42">COMMUNITY</text>
+            <text x="396" y="210" font-size="7.5" fill="#907860" fill-opacity="0.42">CAREER MAPPING</text>
+            <text x="308" y="390" font-size="7.5" fill="#907860" fill-opacity="0.42">SELF EMPLOY.</text>
+            <text x="612" y="548" font-size="7.5" fill="#907860" fill-opacity="0.42">MASTERCLASSES</text>
+            <text x="912" y="295" font-size="7.5" fill="#907860" fill-opacity="0.42">CUSTOM GPT</text>
+          </g>
+
+          <!-- FOG OF WAR -->
           <rect width="1100" height="620" fill="url(#fogScriptwriting)"/>
           <rect width="1100" height="620" fill="url(#fogCommunity)"/>
           <rect width="1100" height="620" fill="url(#fogCareer)"/>
@@ -476,7 +520,10 @@
           <rect width="1100" height="620" fill="url(#fogMaster)"/>
           <rect width="1100" height="620" fill="url(#fogGPT)"/>
 
-          <ellipse cx="550" cy="320" rx="200" ry="160" fill="url(#coreBlaze)" opacity="0.5"/>
+          <!-- Hot nucleus glow -->
+          <ellipse cx="528" cy="310" rx="80" ry="65" fill="url(#coreBlaze)" opacity="0.9"/>
+
+          <!-- Deep vignette — edges go nearly black, like looking down from altitude -->
           <rect width="1100" height="620" fill="url(#vignette)"/>
         </svg>
 
