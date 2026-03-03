@@ -187,76 +187,44 @@
       <!-- Map shell -->
       <div class="ndp-map-shell" id="ndpMapShell" data-state="1">
 
-    <!-- Art layers (purely visual, aria-hidden) -->
-    <div class="ndp-map-art" aria-hidden="true"></div>
-<svg class="ndp-map-river" aria-hidden="true" viewBox="0 0 1100 620" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="riverEdge">
-      <feGaussianBlur stdDeviation="2.5" />
-    </filter>
-  </defs>
-
-  <!-- River fill — sharp dark body -->
-  <path
-    d="M -20 528
-       C 80 518, 140 505, 220 490
-       C 300 474, 330 460, 390 455
-       C 440 451, 470 458, 520 452
-       C 580 445, 620 428, 690 418
-       C 760 408, 820 415, 900 408
-       C 960 403, 1020 395, 1120 388"
-    fill="none"
-    stroke="rgba(3,5,12,1.0)"
-    stroke-width="22"
-    stroke-linecap="butt"
-  />
-
-  <!-- Soft edge blur — just the very rim -->
-  <path
-    d="M -20 528
-       C 80 518, 140 505, 220 490
-       C 300 474, 330 460, 390 455
-       C 440 451, 470 458, 520 452
-       C 580 445, 620 428, 690 418
-       C 760 408, 820 415, 900 408
-       C 960 403, 1020 395, 1120 388"
-    fill="none"
-    stroke="rgba(0,0,0,0.55)"
-    stroke-width="32"
-    filter="url(#riverEdge)"
-  />
-
-  <!-- North bank warm reflection -->
-  <path
-    d="M -20 516
-       C 80 506, 140 493, 220 478
-       C 300 462, 330 448, 390 443
-       C 440 439, 470 446, 520 440
-       C 580 433, 620 416, 690 406
-       C 760 396, 820 403, 900 396
-       C 960 391, 1020 383, 1120 376"
-    fill="none"
-    stroke="rgba(180,110,20,0.22)"
-    stroke-width="1"
-  />
-
-  <!-- South bank warm reflection -->
-  <path
-    d="M -20 540
-       C 80 530, 140 517, 220 502
-       C 300 486, 330 472, 390 467
-       C 440 463, 470 470, 520 464
-       C 580 457, 620 440, 690 430
-       C 760 420, 820 427, 900 420
-       C 960 415, 1020 407, 1120 400"
-    fill="none"
-    stroke="rgba(180,110,20,0.16)"
-    stroke-width="1"
-  />
-</svg>
-    <div class="ndp-map-grain" aria-hidden="true"></div>
-  
-    <div class="ndp-map-vignette" aria-hidden="true"></div>
+        <!-- City SVG — street network, river meander, glow -->
+        <svg class="ndp-city-svg" aria-hidden="true" viewBox="0 0 1100 620" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="cityGlow" cx="50%" cy="52%" r="55%">
+              <stop offset="0%"   stop-color="rgba(255,220,100,0.9)" />
+              <stop offset="18%"  stop-color="rgba(255,180,40,0.55)" />
+              <stop offset="40%"  stop-color="rgba(200,120,20,0.25)" />
+              <stop offset="70%"  stop-color="rgba(140,70,5,0.10)" />
+              <stop offset="100%" stop-color="rgba(0,0,0,0)" />
+            </radialGradient>
+            <radialGradient id="coreBlaze" cx="50%" cy="52%" r="12%">
+              <stop offset="0%"   stop-color="rgba(255,245,180,1.0)" />
+              <stop offset="40%"  stop-color="rgba(255,200,60,0.85)" />
+              <stop offset="100%" stop-color="rgba(0,0,0,0)" />
+            </radialGradient>
+            <radialGradient id="vignette" cx="50%" cy="50%" r="55%">
+              <stop offset="45%"  stop-color="rgba(0,0,0,0)"   />
+              <stop offset="78%"  stop-color="rgba(0,0,0,0.5)" />
+              <stop offset="100%" stop-color="rgba(0,0,0,0.92)"/>
+            </radialGradient>
+            <filter id="streetGlow">
+              <feGaussianBlur stdDeviation="1.2" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="majorGlow">
+              <feGaussianBlur stdDeviation="2.2" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="softEdge">
+              <feGaussianBlur stdDeviation="8" />
+            </filter>
+            <filter id="riverEdge">
+              <feGaussianBlur stdDeviation="2" />
+            </filter>
+            <clipPath id="mapClip">
+              <rect width="1100" height="620" />
+            </clipPath>
+          </defs>
 
           <!-- Base dark city -->
           <rect width="1100" height="620" fill="#090909"/>
