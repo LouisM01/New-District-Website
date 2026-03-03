@@ -679,13 +679,10 @@ main {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-
-  /* Dark city base */
   background-color: #0b0b0b;
-  /* Layered on top via pseudo-elements below */
-/* Street grid + radiating spokes from centre */
-/* Street grid + radiating spokes from centre */
 }
+
+/* Street grid + radiating spokes from centre */
 .ndp-map-art::before {
   content: "";
   position: absolute;
