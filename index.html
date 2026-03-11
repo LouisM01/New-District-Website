@@ -785,7 +785,20 @@
     <p class="footer-meta">© 2025 — All Rights Reserved</p>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
+    // toggleBio must be global for inline onclick handlers
+    function toggleBio(name) {
+      const panel = document.getElementById('bio-' + name);
+      if (!panel) return;
+      const isOpen = panel.classList.contains('open');
+      document.querySelectorAll('.founder-bio-panel').forEach(p => p.classList.remove('open'));
+      if (!isOpen) {
+        panel.classList.add('open');
+        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+  document.addEventListener('DOMContentLoaded', function() {
     // ── Nav toggle ──────────────────────────────────────────
     const navToggle   = document.getElementById('navToggle');
     const navDropdown = document.getElementById('navDropdown');
@@ -799,19 +812,8 @@
       }
     });
 
-    // ── Founder bio toggle ───────────────────────────────────
-    function toggleBio(name) {
-      const panel = document.getElementById('bio-' + name);
-      if (!panel) return;
-      const isOpen = panel.classList.contains('open');
-      // Close all bios first
-      document.querySelectorAll('.founder-bio-panel').forEach(p => p.classList.remove('open'));
-      // Open this one if it wasn't already open
-      if (!isOpen) {
-        panel.classList.add('open');
-        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-    }
+    // ── Founder bio toggle is defined globally above ─────────
+
     const allSections = {
       landing: document.getElementById('landing'),
       map:     document.getElementById('map'),
@@ -961,3 +963,14 @@
             const falloff = Math.max(0, 1 - dist / (Math.max(W, H) * 0.38));
             const alpha   = Math.random() * 0.55 * falloff + 0.12;
         
+            ctx.beginPath(); ctx.arc(ox, oy, 0.6, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,200,80,${alpha})`; ctx.fill();
+          }
+        }
+      }
+    })();
+
+  }); // end DOMContentLoaded
+  </script>
+</body>
+</html>
