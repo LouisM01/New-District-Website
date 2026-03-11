@@ -235,12 +235,3 @@ document.addEventListener("keydown", (e) => {
   window.addEventListener("resize", drawLights);
 })();
 document.querySelectorAll('.nav-item').forEach(link => {
-  link.addEventListener('click', e => {
-    const target = link.getAttribute('href');
-
-    if (target.startsWith('#')) {
-      e.preventDefault();
-      showPanel(target);
-    }
-  });
-});
