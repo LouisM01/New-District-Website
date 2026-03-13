@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&display=swap" rel="stylesheet">
   <style>
     /* ── GTA-style district pins ── */
-    .ndp-map-shell { position:relative; width:100%; }
+    .ndp-map-shell { position:relative; width:100%; aspect-ratio: 1100/620; }
     .ndp-markers { position:absolute; inset:0; pointer-events:none; }
     .ndp-district {
       position:absolute;
@@ -262,16 +262,17 @@
     .founder-card { cursor: pointer; transition: border-color 0.2s; }
     .founder-card:hover { border-color: #ffc840; }
     .founder-bio-panel {
-      display: none;
       max-width: 680px;
       margin: 0 auto 48px;
       padding: 0 24px;
-      animation: bioFadeIn 0.35s ease both;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease;
     }
-    .founder-bio-panel.open { display: block; }
-    @keyframes bioFadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .founder-bio-panel.open {
+      max-height: 1200px;
+      opacity: 1;
     }
     .founder-bio-inner {
       background: #0a0a0a;
@@ -412,7 +413,7 @@
     .ndp-legend-dot.open { background: #ffc840; }
     .ndp-legend-dot.locked { background: #7a90a8; }
     .ndp-map-grain {
-      position: absolute; inset: 0; pointer-events: none; opacity: 0.126;
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.162;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
     }
     .ndp-map-footer { padding: 16px 32px 24px; }
@@ -461,6 +462,7 @@
       <div class="nav-dropdown" id="navDropdown">
         <a href="#landing" class="nav-item">Home</a>
         <a href="#map"     class="nav-item">District Map</a>
+        <a href="#film-division" class="nav-item">Film Division</a>
         <a href="#who"     class="nav-item">About</a>
         <a href="#contact" class="nav-item nav-item--cta">Get In Touch</a>
       </div>
@@ -475,7 +477,9 @@
         <img src="New district logo.png" alt="New District Productions" class="hero-logo-img">
       </div>
       <div class="hero-copy">
-        <p class="hero-slogan">Authentic stories. Unmistakable sense of place. Built from the ground up.</p>
+        <p class="hero-slogan">Authentic stories.</p>
+        <p class="hero-slogan">Unmistakable sense of place.</p>
+        <p class="hero-slogan" style="margin-bottom:28px;">Built from the ground up.</p>
         <p class="hero-sub">New District Productions exists to return power to the artist.</p>
       </div>
     </section>
@@ -485,12 +489,12 @@
       <div class="section-header">
         <p class="eyebrow">Who We Are</p>
         <div class="who-body">
-          <p>New District Productions was built with one goal in mind — to return power to the artist.</p>
-          <p>In a creative world where the industry machine rules all, with high-up studio executives deciding on our employment between their morning coffees, us artists often end up out of the loop, and with a great deal of time on our hands. Whether you're a seasoned west end performer, BAFTA winner, Grammy nominee, or just starting out — the shadow of job insecurity and the question of career progression rarely goes away.</p>
+          <p>New District Productions was built with one goal in mind — <span style="color:#ffc840;">to return power to the artist.</span></p>
+          <p>In a creative world where the industry machine rules all, with high-up studio executives deciding on our employment between their morning coffees, us artists often end up out of the loop, and with a great deal of time on our hands. Whether you're a seasoned west end performer, BAFTA winner, Grammy nominee, or just starting out — the shadow of job insecurity and <span style="color:#ffc840;">the question of career progression</span> rarely goes away.</p>
           <p>Here at New District, we aim to solve that problem.</p>
           <p>And here's the thing, we're not just a film production company.</p>
-          <p>While our in-house film division does have a slate in development, we are so much more than that. From our community forum, to in-house masterclasses spanning scriptwriting, music production and acting performance — we aim to connect and evolve hardworking industry talent in ways never before seen.</p>
-          <p>We stand for betterment and improvement for the artist, <em>by the artist</em>.</p>
+          <p>While our in-house film division does have a <span style="color:#ffc840;">slate in development</span>, we are so much more than that. From our <span style="color:#ffc840;">community forum</span>, to <span style="color:#ffc840;">in-house masterclasses</span> spanning <span style="color:#ffc840;">scriptwriting, music production</span> and <span style="color:#ffc840;">acting performance</span> — we aim to <span style="color:#ffc840;">connect and evolve</span> hardworking industry talent in ways never before seen.</p>
+          <p>We stand for betterment and improvement <span style="color:#ffc840;">for the artist, <em>by the artist</em>.</span></p>
         </div>
       </div>
       <div class="founder-grid" style="display:flex; justify-content:center; gap:24px; flex-wrap:wrap; max-width:600px; margin:0 auto; padding:0 24px;">
@@ -511,10 +515,10 @@
       <!-- Louis bio -->
       <div class="founder-bio-panel" id="bio-louis">
         <div class="founder-bio-inner">
-          <p>Louis is an award-nominated filmmaker and has worked as a professional actor across the stage and screen for several years. His external projects include <em>Theodosia</em> (BBC iPlayer and Apple TV), <em>Cancer of the Blood</em> (Brave Mirror Productions) and most recently, the award-nominated <em>Overwhelm</em> (Working Progress Collective, Lion &amp; Unicorn Theatre, national tour). An avid reader, Louis is drawn to stories that capture and transport him to unique places.</p>
-          <p>In 2025 Louis completed his training at BADA, as a part of their prestigious London Theatre Programme. He was awarded their Branch Scholarship (prior recipients include Orlando Bloom).</p>
-          <p>Louis is represented by Jewell Wright (JWL) who manage all of his professional acting enquiries in the UK, and Zero Gravity Management (ZGM) in LA. If you're interested in working with Louis as an actor, you can reach out via their websites below.</p>
-          <p>Louis is the mind behind New District's slated short film, <em>Fridge</em>, a gritty urban crime short centring on a hit-and-run investigation amidst a surge of violent crime in early 2000's Brixton. If you're interested in collaborating with Louis through New District, please get in touch via <a href="/cdn-cgi/l/email-protection#93fdf6e4f7fae0e7e1faf0e7e3e1fcf7e6f0e7fafcfde0d3f4fef2faffbdf0fcfe"><span class="__cf_email__" data-cfemail="6e000b190a071d1a1c070d1a1e1c010a1b0d1a0701001d2e09030f0702400d0103">[email&#160;protected]</span></a>.</p>
+          <p>Louis is an <span style="color:#ffc840;">award nominated filmmaker</span> and has worked as a <span style="color:#ffc840;">professional actor</span> across the stage and screen for several years. His external projects include <em><span style="color:#ffc840;">Theodosia</span></em> (BBC iPlayer and Apple TV), <em><span style="color:#ffc840;">Cancer of the Blood</span></em> (Brave Mirror Productions) and most recently, the award-nominated <em><span style="color:#ffc840;">Overwhelm</span></em> (Working Progress Collective, Lion &amp; Unicorn Theatre, national tour). An avid reader, Louis is drawn to stories that capture and transport him to unique places.</p>
+          <p>In 2025 Louis completed his training at BADA, as a part of their prestigious London Theatre Programme. He was awarded their <span style="color:#ffc840;">Branch scholarship</span> (prior recipients include Orlando Bloom).</p>
+          <p>Louis is represented by <span style="color:#ffc840;">Jewell Wright (JWL)</span> who manage all of his professional acting enquiries in the UK, and <span style="color:#ffc840;">Zero Gravity Management (ZGM)</span> in LA. If you're interested in working with Louis as an actor, you can reach out via their websites below.</p>
+          <p>Louis is the mind behind New District's <span style="color:#ffc840;">slated short film, Fridge</span>, a gritty urban crime short centring on a hit-and-run investigation amidst a surge of violent crime in early 2000's Brixton. If you're interested in collaborating with Louis through New District, please get in touch via <a href="/cdn-cgi/l/email-protection#93fdf6e4f7fae0e7e1faf0e7e3e1fcf7e6f0e7fafcfde0d3f4fef2faffbdf0fcfe"><span class="__cf_email__" data-cfemail="6e000b190a071d1a1c070d1a1e1c010a1b0d1a0701001d2e09030f0702400d0103">[email&#160;protected]</span></a>.</p>
           <div class="bio-pins">
             <a href="http://jwl-london.com/actors/" target="_blank" rel="noopener" class="bio-pin">
               <span class="bio-pin-diamond"></span>
@@ -638,8 +642,10 @@
               </clipPath>
             </defs>
 
+            <!-- Deep black base -->
             <rect width="1100" height="620" fill="#1a1208"/>
-            <rect width="1100" height="620" fill="#F0EBEB" fill-opacity="0.92"/>
+            <!-- Street backlight — warm amber glows through block gaps -->
+            <rect width="1100" height="620" fill="#F0EBEB" fill-opacity="0.55"/>
 
             <!-- North bank blocks -->
             <g fill="#0d0d14" stroke="none" fill-opacity="0.96" clip-path="url(#northBank)">
@@ -671,56 +677,215 @@
             <!-- South bank blocks -->
             <g fill="#0d0d14" stroke="none" fill-opacity="0.96" clip-path="url(#southBank)">
               <rect x="0" y="0" width="22" height="20"/><rect x="32" y="0" width="22" height="20"/><rect x="60" y="0" width="22" height="20"/><rect x="88" y="0" width="22" height="20"/><rect x="116" y="0" width="22" height="20"/><rect x="144" y="0" width="22" height="20"/><rect x="176" y="0" width="22" height="20"/><rect x="204" y="0" width="22" height="20"/><rect x="232" y="0" width="22" height="20"/><rect x="268" y="0" width="22" height="20"/><rect x="296" y="0" width="22" height="20"/><rect x="328" y="0" width="22" height="20"/><rect x="356" y="0" width="22" height="20"/><rect x="384" y="0" width="22" height="20"/><rect x="412" y="0" width="22" height="20"/><rect x="440" y="0" width="22" height="20"/><rect x="472" y="0" width="22" height="20"/><rect x="500" y="0" width="22" height="20"/><rect x="528" y="0" width="22" height="20"/><rect x="556" y="0" width="22" height="20"/><rect x="584" y="0" width="22" height="20"/><rect x="616" y="0" width="22" height="20"/><rect x="644" y="0" width="22" height="20"/><rect x="672" y="0" width="22" height="20"/><rect x="700" y="0" width="22" height="20"/><rect x="728" y="0" width="22" height="20"/><rect x="760" y="0" width="22" height="20"/><rect x="788" y="0" width="22" height="20"/><rect x="816" y="0" width="22" height="20"/><rect x="844" y="0" width="22" height="20"/><rect x="872" y="0" width="22" height="20"/><rect x="904" y="0" width="22" height="20"/><rect x="932" y="0" width="22" height="20"/><rect x="960" y="0" width="22" height="20"/><rect x="988" y="0" width="22" height="20"/><rect x="1016" y="0" width="22" height="20"/><rect x="1048" y="0" width="22" height="20"/><rect x="1076" y="0" width="22" height="20"/>
-              <rect x="0" y="30" width="22" height="620"/><rect x="32" y="30" width="22" height="620"/><rect x="60" y="30" width="22" height="620"/><rect x="88" y="30" width="22" height="620"/><rect x="116" y="30" width="22" height="620"/><rect x="144" y="30" width="22" height="620"/><rect x="176" y="30" width="22" height="620"/><rect x="204" y="30" width="22" height="620"/><rect x="232" y="30" width="22" height="620"/><rect x="268" y="30" width="22" height="620"/><rect x="296" y="30" width="22" height="620"/><rect x="328" y="30" width="22" height="620"/><rect x="356" y="30" width="22" height="620"/><rect x="384" y="30" width="22" height="620"/><rect x="412" y="30" width="22" height="620"/><rect x="440" y="30" width="22" height="620"/><rect x="472" y="30" width="22" height="620"/><rect x="500" y="30" width="22" height="620"/><rect x="528" y="30" width="22" height="620"/><rect x="556" y="30" width="22" height="620"/><rect x="584" y="30" width="22" height="620"/><rect x="616" y="30" width="22" height="620"/><rect x="644" y="30" width="22" height="620"/><rect x="672" y="30" width="22" height="620"/><rect x="700" y="30" width="22" height="620"/><rect x="728" y="30" width="22" height="620"/><rect x="760" y="30" width="22" height="620"/><rect x="788" y="30" width="22" height="620"/><rect x="816" y="30" width="22" height="620"/><rect x="844" y="30" width="22" height="620"/><rect x="872" y="30" width="22" height="620"/><rect x="904" y="30" width="22" height="620"/><rect x="932" y="30" width="22" height="620"/><rect x="960" y="30" width="22" height="620"/><rect x="988" y="30" width="22" height="620"/><rect x="1016" y="30" width="22" height="620"/><rect x="1048" y="30" width="22" height="620"/><rect x="1076" y="30" width="22" height="620"/>
+              <rect x="0" y="30" width="22" height="20"/><rect x="32" y="30" width="22" height="20"/><rect x="60" y="30" width="22" height="20"/><rect x="88" y="30" width="22" height="20"/><rect x="116" y="30" width="22" height="20"/><rect x="144" y="30" width="22" height="20"/><rect x="176" y="30" width="22" height="20"/><rect x="204" y="30" width="22" height="20"/><rect x="232" y="30" width="22" height="20"/><rect x="268" y="30" width="22" height="20"/><rect x="296" y="30" width="22" height="20"/><rect x="328" y="30" width="22" height="20"/><rect x="356" y="30" width="22" height="20"/><rect x="384" y="30" width="22" height="20"/><rect x="412" y="30" width="22" height="20"/><rect x="440" y="30" width="22" height="20"/><rect x="472" y="30" width="22" height="20"/><rect x="500" y="30" width="22" height="20"/><rect x="528" y="30" width="22" height="20"/><rect x="556" y="30" width="22" height="20"/><rect x="584" y="30" width="22" height="20"/><rect x="616" y="30" width="22" height="20"/><rect x="644" y="30" width="22" height="20"/><rect x="672" y="30" width="22" height="20"/><rect x="700" y="30" width="22" height="20"/><rect x="728" y="30" width="22" height="20"/><rect x="760" y="30" width="22" height="20"/><rect x="788" y="30" width="22" height="20"/><rect x="816" y="30" width="22" height="20"/><rect x="844" y="30" width="22" height="20"/><rect x="872" y="30" width="22" height="20"/><rect x="904" y="30" width="22" height="20"/><rect x="932" y="30" width="22" height="20"/><rect x="960" y="30" width="22" height="20"/><rect x="988" y="30" width="22" height="20"/><rect x="1016" y="30" width="22" height="20"/><rect x="1048" y="30" width="22" height="20"/><rect x="1076" y="30" width="22" height="20"/>
+              <rect x="0" y="56" width="22" height="20"/><rect x="32" y="56" width="22" height="20"/><rect x="60" y="56" width="22" height="20"/><rect x="88" y="56" width="22" height="20"/><rect x="116" y="56" width="22" height="20"/><rect x="144" y="56" width="22" height="20"/><rect x="176" y="56" width="22" height="20"/><rect x="204" y="56" width="22" height="20"/><rect x="232" y="56" width="22" height="20"/><rect x="268" y="56" width="22" height="20"/><rect x="296" y="56" width="22" height="20"/><rect x="328" y="56" width="22" height="20"/><rect x="356" y="56" width="22" height="20"/><rect x="384" y="56" width="22" height="20"/><rect x="412" y="56" width="22" height="20"/><rect x="440" y="56" width="22" height="20"/><rect x="472" y="56" width="22" height="20"/><rect x="500" y="56" width="22" height="20"/><rect x="528" y="56" width="22" height="20"/><rect x="556" y="56" width="22" height="20"/><rect x="584" y="56" width="22" height="20"/><rect x="616" y="56" width="22" height="20"/><rect x="644" y="56" width="22" height="20"/><rect x="672" y="56" width="22" height="20"/><rect x="700" y="56" width="22" height="20"/><rect x="728" y="56" width="22" height="20"/><rect x="760" y="56" width="22" height="20"/><rect x="788" y="56" width="22" height="20"/><rect x="816" y="56" width="22" height="20"/><rect x="844" y="56" width="22" height="20"/><rect x="872" y="56" width="22" height="20"/><rect x="904" y="56" width="22" height="20"/><rect x="932" y="56" width="22" height="20"/><rect x="960" y="56" width="22" height="20"/><rect x="988" y="56" width="22" height="20"/><rect x="1016" y="56" width="22" height="20"/><rect x="1048" y="56" width="22" height="20"/><rect x="1076" y="56" width="22" height="20"/>
+              <rect x="0" y="82" width="22" height="20"/><rect x="32" y="82" width="22" height="20"/><rect x="60" y="82" width="22" height="20"/><rect x="88" y="82" width="22" height="20"/><rect x="116" y="82" width="22" height="20"/><rect x="144" y="82" width="22" height="20"/><rect x="176" y="82" width="22" height="20"/><rect x="204" y="82" width="22" height="20"/><rect x="232" y="82" width="22" height="20"/><rect x="268" y="82" width="22" height="20"/><rect x="296" y="82" width="22" height="20"/><rect x="328" y="82" width="22" height="20"/><rect x="356" y="82" width="22" height="20"/><rect x="384" y="82" width="22" height="20"/><rect x="412" y="82" width="22" height="20"/><rect x="440" y="82" width="22" height="20"/><rect x="472" y="82" width="22" height="20"/><rect x="500" y="82" width="22" height="20"/><rect x="528" y="82" width="22" height="20"/><rect x="556" y="82" width="22" height="20"/><rect x="584" y="82" width="22" height="20"/><rect x="616" y="82" width="22" height="20"/><rect x="644" y="82" width="22" height="20"/><rect x="672" y="82" width="22" height="20"/><rect x="700" y="82" width="22" height="20"/><rect x="728" y="82" width="22" height="20"/><rect x="760" y="82" width="22" height="20"/><rect x="788" y="82" width="22" height="20"/><rect x="816" y="82" width="22" height="20"/><rect x="844" y="82" width="22" height="20"/><rect x="872" y="82" width="22" height="20"/><rect x="904" y="82" width="22" height="20"/><rect x="932" y="82" width="22" height="20"/><rect x="960" y="82" width="22" height="20"/><rect x="988" y="82" width="22" height="20"/><rect x="1016" y="82" width="22" height="20"/><rect x="1048" y="82" width="22" height="20"/><rect x="1076" y="82" width="22" height="20"/>
+              <rect x="0" y="108" width="22" height="20"/><rect x="32" y="108" width="22" height="20"/><rect x="60" y="108" width="22" height="20"/><rect x="88" y="108" width="22" height="20"/><rect x="116" y="108" width="22" height="20"/><rect x="144" y="108" width="22" height="20"/><rect x="176" y="108" width="22" height="20"/><rect x="204" y="108" width="22" height="20"/><rect x="232" y="108" width="22" height="20"/><rect x="268" y="108" width="22" height="20"/><rect x="296" y="108" width="22" height="20"/><rect x="328" y="108" width="22" height="20"/><rect x="356" y="108" width="22" height="20"/><rect x="384" y="108" width="22" height="20"/><rect x="412" y="108" width="22" height="20"/><rect x="440" y="108" width="22" height="20"/><rect x="472" y="108" width="22" height="20"/><rect x="500" y="108" width="22" height="20"/><rect x="528" y="108" width="22" height="20"/><rect x="556" y="108" width="22" height="20"/><rect x="584" y="108" width="22" height="20"/><rect x="616" y="108" width="22" height="20"/><rect x="644" y="108" width="22" height="20"/><rect x="672" y="108" width="22" height="20"/><rect x="700" y="108" width="22" height="20"/><rect x="728" y="108" width="22" height="20"/><rect x="760" y="108" width="22" height="20"/><rect x="788" y="108" width="22" height="20"/><rect x="816" y="108" width="22" height="20"/><rect x="844" y="108" width="22" height="20"/><rect x="872" y="108" width="22" height="20"/><rect x="904" y="108" width="22" height="20"/><rect x="932" y="108" width="22" height="20"/><rect x="960" y="108" width="22" height="20"/><rect x="988" y="108" width="22" height="20"/><rect x="1016" y="108" width="22" height="20"/><rect x="1048" y="108" width="22" height="20"/><rect x="1076" y="108" width="22" height="20"/>
+              <rect x="0" y="134" width="22" height="20"/><rect x="32" y="134" width="22" height="20"/><rect x="60" y="134" width="22" height="20"/><rect x="88" y="134" width="22" height="20"/><rect x="116" y="134" width="22" height="20"/><rect x="144" y="134" width="22" height="20"/><rect x="176" y="134" width="22" height="20"/><rect x="204" y="134" width="22" height="20"/><rect x="232" y="134" width="22" height="20"/><rect x="268" y="134" width="22" height="20"/><rect x="296" y="134" width="22" height="20"/><rect x="328" y="134" width="22" height="20"/><rect x="356" y="134" width="22" height="20"/><rect x="384" y="134" width="22" height="20"/><rect x="412" y="134" width="22" height="20"/><rect x="440" y="134" width="22" height="20"/><rect x="472" y="134" width="22" height="20"/><rect x="500" y="134" width="22" height="20"/><rect x="528" y="134" width="22" height="20"/><rect x="556" y="134" width="22" height="20"/><rect x="584" y="134" width="22" height="20"/><rect x="616" y="134" width="22" height="20"/><rect x="644" y="134" width="22" height="20"/><rect x="672" y="134" width="22" height="20"/><rect x="700" y="134" width="22" height="20"/><rect x="728" y="134" width="22" height="20"/><rect x="760" y="134" width="22" height="20"/><rect x="788" y="134" width="22" height="20"/><rect x="816" y="134" width="22" height="20"/><rect x="844" y="134" width="22" height="20"/><rect x="872" y="134" width="22" height="20"/><rect x="904" y="134" width="22" height="20"/><rect x="932" y="134" width="22" height="20"/><rect x="960" y="134" width="22" height="20"/><rect x="988" y="134" width="22" height="20"/><rect x="1016" y="134" width="22" height="20"/><rect x="1048" y="134" width="22" height="20"/><rect x="1076" y="134" width="22" height="20"/>
+              <rect x="0" y="164" width="22" height="20"/><rect x="32" y="164" width="22" height="20"/><rect x="60" y="164" width="22" height="20"/><rect x="88" y="164" width="22" height="20"/><rect x="116" y="164" width="22" height="20"/><rect x="144" y="164" width="22" height="20"/><rect x="176" y="164" width="22" height="20"/><rect x="204" y="164" width="22" height="20"/><rect x="232" y="164" width="22" height="20"/><rect x="268" y="164" width="22" height="20"/><rect x="296" y="164" width="22" height="20"/><rect x="328" y="164" width="22" height="20"/><rect x="356" y="164" width="22" height="20"/><rect x="384" y="164" width="22" height="20"/><rect x="412" y="164" width="22" height="20"/><rect x="440" y="164" width="22" height="20"/><rect x="472" y="164" width="22" height="20"/><rect x="500" y="164" width="22" height="20"/><rect x="528" y="164" width="22" height="20"/><rect x="556" y="164" width="22" height="20"/><rect x="584" y="164" width="22" height="20"/><rect x="616" y="164" width="22" height="20"/><rect x="644" y="164" width="22" height="20"/><rect x="672" y="164" width="22" height="20"/><rect x="700" y="164" width="22" height="20"/><rect x="728" y="164" width="22" height="20"/><rect x="760" y="164" width="22" height="20"/><rect x="788" y="164" width="22" height="20"/><rect x="816" y="164" width="22" height="20"/><rect x="844" y="164" width="22" height="20"/><rect x="872" y="164" width="22" height="20"/><rect x="904" y="164" width="22" height="20"/><rect x="932" y="164" width="22" height="20"/><rect x="960" y="164" width="22" height="20"/><rect x="988" y="164" width="22" height="20"/><rect x="1016" y="164" width="22" height="20"/><rect x="1048" y="164" width="22" height="20"/><rect x="1076" y="164" width="22" height="20"/>
+              <rect x="0" y="190" width="22" height="20"/><rect x="32" y="190" width="22" height="20"/><rect x="60" y="190" width="22" height="20"/><rect x="88" y="190" width="22" height="20"/><rect x="116" y="190" width="22" height="20"/><rect x="144" y="190" width="22" height="20"/><rect x="176" y="190" width="22" height="20"/><rect x="204" y="190" width="22" height="20"/><rect x="232" y="190" width="22" height="20"/><rect x="268" y="190" width="22" height="20"/><rect x="296" y="190" width="22" height="20"/><rect x="328" y="190" width="22" height="20"/><rect x="356" y="190" width="22" height="20"/><rect x="384" y="190" width="22" height="20"/><rect x="412" y="190" width="22" height="20"/><rect x="440" y="190" width="22" height="20"/><rect x="472" y="190" width="22" height="20"/><rect x="500" y="190" width="22" height="20"/><rect x="528" y="190" width="22" height="20"/><rect x="556" y="190" width="22" height="20"/><rect x="584" y="190" width="22" height="20"/><rect x="616" y="190" width="22" height="20"/><rect x="644" y="190" width="22" height="20"/><rect x="672" y="190" width="22" height="20"/><rect x="700" y="190" width="22" height="20"/><rect x="728" y="190" width="22" height="20"/><rect x="760" y="190" width="22" height="20"/><rect x="788" y="190" width="22" height="20"/><rect x="816" y="190" width="22" height="20"/><rect x="844" y="190" width="22" height="20"/><rect x="872" y="190" width="22" height="20"/><rect x="904" y="190" width="22" height="20"/><rect x="932" y="190" width="22" height="20"/><rect x="960" y="190" width="22" height="20"/><rect x="988" y="190" width="22" height="20"/><rect x="1016" y="190" width="22" height="20"/><rect x="1048" y="190" width="22" height="20"/><rect x="1076" y="190" width="22" height="20"/>
+              <rect x="0" y="216" width="22" height="20"/><rect x="32" y="216" width="22" height="20"/><rect x="60" y="216" width="22" height="20"/><rect x="88" y="216" width="22" height="20"/><rect x="116" y="216" width="22" height="20"/><rect x="144" y="216" width="22" height="20"/><rect x="176" y="216" width="22" height="20"/><rect x="204" y="216" width="22" height="20"/><rect x="232" y="216" width="22" height="20"/><rect x="268" y="216" width="22" height="20"/><rect x="296" y="216" width="22" height="20"/><rect x="328" y="216" width="22" height="20"/><rect x="356" y="216" width="22" height="20"/><rect x="384" y="216" width="22" height="20"/><rect x="412" y="216" width="22" height="20"/><rect x="440" y="216" width="22" height="20"/><rect x="472" y="216" width="22" height="20"/><rect x="500" y="216" width="22" height="20"/><rect x="528" y="216" width="22" height="20"/><rect x="556" y="216" width="22" height="20"/><rect x="584" y="216" width="22" height="20"/><rect x="616" y="216" width="22" height="20"/><rect x="644" y="216" width="22" height="20"/><rect x="672" y="216" width="22" height="20"/><rect x="700" y="216" width="22" height="20"/><rect x="728" y="216" width="22" height="20"/><rect x="760" y="216" width="22" height="20"/><rect x="788" y="216" width="22" height="20"/><rect x="816" y="216" width="22" height="20"/><rect x="844" y="216" width="22" height="20"/><rect x="872" y="216" width="22" height="20"/><rect x="904" y="216" width="22" height="20"/><rect x="932" y="216" width="22" height="20"/><rect x="960" y="216" width="22" height="20"/><rect x="988" y="216" width="22" height="20"/><rect x="1016" y="216" width="22" height="20"/><rect x="1048" y="216" width="22" height="20"/><rect x="1076" y="216" width="22" height="20"/>
+              <rect x="0" y="242" width="22" height="20"/><rect x="32" y="242" width="22" height="20"/><rect x="60" y="242" width="22" height="20"/><rect x="88" y="242" width="22" height="20"/><rect x="116" y="242" width="22" height="20"/><rect x="144" y="242" width="22" height="20"/><rect x="176" y="242" width="22" height="20"/><rect x="204" y="242" width="22" height="20"/><rect x="232" y="242" width="22" height="20"/><rect x="268" y="242" width="22" height="20"/><rect x="296" y="242" width="22" height="20"/><rect x="328" y="242" width="22" height="20"/><rect x="356" y="242" width="22" height="20"/><rect x="384" y="242" width="22" height="20"/><rect x="412" y="242" width="22" height="20"/><rect x="440" y="242" width="22" height="20"/><rect x="472" y="242" width="22" height="20"/><rect x="500" y="242" width="22" height="20"/><rect x="528" y="242" width="22" height="20"/><rect x="556" y="242" width="22" height="20"/><rect x="584" y="242" width="22" height="20"/><rect x="616" y="242" width="22" height="20"/><rect x="644" y="242" width="22" height="20"/><rect x="672" y="242" width="22" height="20"/><rect x="700" y="242" width="22" height="20"/><rect x="728" y="242" width="22" height="20"/><rect x="760" y="242" width="22" height="20"/><rect x="788" y="242" width="22" height="20"/><rect x="816" y="242" width="22" height="20"/><rect x="844" y="242" width="22" height="20"/><rect x="872" y="242" width="22" height="20"/><rect x="904" y="242" width="22" height="20"/><rect x="932" y="242" width="22" height="20"/><rect x="960" y="242" width="22" height="20"/><rect x="988" y="242" width="22" height="20"/><rect x="1016" y="242" width="22" height="20"/><rect x="1048" y="242" width="22" height="20"/><rect x="1076" y="242" width="22" height="20"/>
+              <rect x="0" y="268" width="22" height="20"/><rect x="32" y="268" width="22" height="20"/><rect x="60" y="268" width="22" height="20"/><rect x="88" y="268" width="22" height="20"/><rect x="116" y="268" width="22" height="20"/><rect x="144" y="268" width="22" height="20"/><rect x="176" y="268" width="22" height="20"/><rect x="204" y="268" width="22" height="20"/><rect x="232" y="268" width="22" height="20"/><rect x="268" y="268" width="22" height="20"/><rect x="296" y="268" width="22" height="20"/><rect x="328" y="268" width="22" height="20"/><rect x="356" y="268" width="22" height="20"/><rect x="384" y="268" width="22" height="20"/><rect x="412" y="268" width="22" height="20"/><rect x="440" y="268" width="22" height="20"/><rect x="472" y="268" width="22" height="20"/><rect x="500" y="268" width="22" height="20"/><rect x="528" y="268" width="22" height="20"/><rect x="556" y="268" width="22" height="20"/><rect x="584" y="268" width="22" height="20"/><rect x="616" y="268" width="22" height="20"/><rect x="644" y="268" width="22" height="20"/><rect x="672" y="268" width="22" height="20"/><rect x="700" y="268" width="22" height="20"/><rect x="728" y="268" width="22" height="20"/><rect x="760" y="268" width="22" height="20"/><rect x="788" y="268" width="22" height="20"/><rect x="816" y="268" width="22" height="20"/><rect x="844" y="268" width="22" height="20"/><rect x="872" y="268" width="22" height="20"/><rect x="904" y="268" width="22" height="20"/><rect x="932" y="268" width="22" height="20"/><rect x="960" y="268" width="22" height="20"/><rect x="988" y="268" width="22" height="20"/><rect x="1016" y="268" width="22" height="20"/><rect x="1048" y="268" width="22" height="20"/><rect x="1076" y="268" width="22" height="20"/>
+              <rect x="0" y="302" width="22" height="20"/><rect x="32" y="302" width="22" height="20"/><rect x="60" y="302" width="22" height="20"/><rect x="88" y="302" width="22" height="20"/><rect x="116" y="302" width="22" height="20"/><rect x="144" y="302" width="22" height="20"/><rect x="176" y="302" width="22" height="20"/><rect x="204" y="302" width="22" height="20"/><rect x="232" y="302" width="22" height="20"/><rect x="268" y="302" width="22" height="20"/><rect x="296" y="302" width="22" height="20"/><rect x="328" y="302" width="22" height="20"/><rect x="356" y="302" width="22" height="20"/><rect x="384" y="302" width="22" height="20"/><rect x="412" y="302" width="22" height="20"/><rect x="440" y="302" width="22" height="20"/><rect x="472" y="302" width="22" height="20"/><rect x="500" y="302" width="22" height="20"/><rect x="528" y="302" width="22" height="20"/><rect x="556" y="302" width="22" height="20"/><rect x="584" y="302" width="22" height="20"/><rect x="616" y="302" width="22" height="20"/><rect x="644" y="302" width="22" height="20"/><rect x="672" y="302" width="22" height="20"/><rect x="700" y="302" width="22" height="20"/><rect x="728" y="302" width="22" height="20"/><rect x="760" y="302" width="22" height="20"/><rect x="788" y="302" width="22" height="20"/><rect x="816" y="302" width="22" height="20"/><rect x="844" y="302" width="22" height="20"/><rect x="872" y="302" width="22" height="20"/><rect x="904" y="302" width="22" height="20"/><rect x="932" y="302" width="22" height="20"/><rect x="960" y="302" width="22" height="20"/><rect x="988" y="302" width="22" height="20"/><rect x="1016" y="302" width="22" height="20"/><rect x="1048" y="302" width="22" height="20"/><rect x="1076" y="302" width="22" height="20"/>
+              <rect x="0" y="328" width="22" height="20"/><rect x="32" y="328" width="22" height="20"/><rect x="60" y="328" width="22" height="20"/><rect x="88" y="328" width="22" height="20"/><rect x="116" y="328" width="22" height="20"/><rect x="144" y="328" width="22" height="20"/><rect x="176" y="328" width="22" height="20"/><rect x="204" y="328" width="22" height="20"/><rect x="232" y="328" width="22" height="20"/><rect x="268" y="328" width="22" height="20"/><rect x="296" y="328" width="22" height="20"/><rect x="328" y="328" width="22" height="20"/><rect x="356" y="328" width="22" height="20"/><rect x="384" y="328" width="22" height="20"/><rect x="412" y="328" width="22" height="20"/><rect x="440" y="328" width="22" height="20"/><rect x="472" y="328" width="22" height="20"/><rect x="500" y="328" width="22" height="20"/><rect x="528" y="328" width="22" height="20"/><rect x="556" y="328" width="22" height="20"/><rect x="584" y="328" width="22" height="20"/><rect x="616" y="328" width="22" height="20"/><rect x="644" y="328" width="22" height="20"/><rect x="672" y="328" width="22" height="20"/><rect x="700" y="328" width="22" height="20"/><rect x="728" y="328" width="22" height="20"/><rect x="760" y="328" width="22" height="20"/><rect x="788" y="328" width="22" height="20"/><rect x="816" y="328" width="22" height="20"/><rect x="844" y="328" width="22" height="20"/><rect x="872" y="328" width="22" height="20"/><rect x="904" y="328" width="22" height="20"/><rect x="932" y="328" width="22" height="20"/><rect x="960" y="328" width="22" height="20"/><rect x="988" y="328" width="22" height="20"/><rect x="1016" y="328" width="22" height="20"/><rect x="1048" y="328" width="22" height="20"/><rect x="1076" y="328" width="22" height="20"/>
+              <rect x="0" y="354" width="22" height="20"/><rect x="32" y="354" width="22" height="20"/><rect x="60" y="354" width="22" height="20"/><rect x="88" y="354" width="22" height="20"/><rect x="116" y="354" width="22" height="20"/><rect x="144" y="354" width="22" height="20"/><rect x="176" y="354" width="22" height="20"/><rect x="204" y="354" width="22" height="20"/><rect x="232" y="354" width="22" height="20"/><rect x="268" y="354" width="22" height="20"/><rect x="296" y="354" width="22" height="20"/><rect x="328" y="354" width="22" height="20"/><rect x="356" y="354" width="22" height="20"/><rect x="384" y="354" width="22" height="20"/><rect x="412" y="354" width="22" height="20"/><rect x="440" y="354" width="22" height="20"/><rect x="472" y="354" width="22" height="20"/><rect x="500" y="354" width="22" height="20"/><rect x="528" y="354" width="22" height="20"/><rect x="556" y="354" width="22" height="20"/><rect x="584" y="354" width="22" height="20"/><rect x="616" y="354" width="22" height="20"/><rect x="644" y="354" width="22" height="20"/><rect x="672" y="354" width="22" height="20"/><rect x="700" y="354" width="22" height="20"/><rect x="728" y="354" width="22" height="20"/><rect x="760" y="354" width="22" height="20"/><rect x="788" y="354" width="22" height="20"/><rect x="816" y="354" width="22" height="20"/><rect x="844" y="354" width="22" height="20"/><rect x="872" y="354" width="22" height="20"/><rect x="904" y="354" width="22" height="20"/><rect x="932" y="354" width="22" height="20"/><rect x="960" y="354" width="22" height="20"/><rect x="988" y="354" width="22" height="20"/><rect x="1016" y="354" width="22" height="20"/><rect x="1048" y="354" width="22" height="20"/><rect x="1076" y="354" width="22" height="20"/>
+              <rect x="0" y="380" width="22" height="20"/><rect x="32" y="380" width="22" height="20"/><rect x="60" y="380" width="22" height="20"/><rect x="88" y="380" width="22" height="20"/><rect x="116" y="380" width="22" height="20"/><rect x="144" y="380" width="22" height="20"/><rect x="176" y="380" width="22" height="20"/><rect x="204" y="380" width="22" height="20"/><rect x="232" y="380" width="22" height="20"/><rect x="268" y="380" width="22" height="20"/><rect x="296" y="380" width="22" height="20"/><rect x="328" y="380" width="22" height="20"/><rect x="356" y="380" width="22" height="20"/><rect x="384" y="380" width="22" height="20"/><rect x="412" y="380" width="22" height="20"/><rect x="440" y="380" width="22" height="20"/><rect x="472" y="380" width="22" height="20"/><rect x="500" y="380" width="22" height="20"/><rect x="528" y="380" width="22" height="20"/><rect x="556" y="380" width="22" height="20"/><rect x="584" y="380" width="22" height="20"/><rect x="616" y="380" width="22" height="20"/><rect x="644" y="380" width="22" height="20"/><rect x="672" y="380" width="22" height="20"/><rect x="700" y="380" width="22" height="20"/><rect x="728" y="380" width="22" height="20"/><rect x="760" y="380" width="22" height="20"/><rect x="788" y="380" width="22" height="20"/><rect x="816" y="380" width="22" height="20"/><rect x="844" y="380" width="22" height="20"/><rect x="872" y="380" width="22" height="20"/><rect x="904" y="380" width="22" height="20"/><rect x="932" y="380" width="22" height="20"/><rect x="960" y="380" width="22" height="20"/><rect x="988" y="380" width="22" height="20"/><rect x="1016" y="380" width="22" height="20"/><rect x="1048" y="380" width="22" height="20"/><rect x="1076" y="380" width="22" height="20"/>
+              <rect x="0" y="406" width="22" height="20"/><rect x="32" y="406" width="22" height="20"/><rect x="60" y="406" width="22" height="20"/><rect x="88" y="406" width="22" height="20"/><rect x="116" y="406" width="22" height="20"/><rect x="144" y="406" width="22" height="20"/><rect x="176" y="406" width="22" height="20"/><rect x="204" y="406" width="22" height="20"/><rect x="232" y="406" width="22" height="20"/><rect x="268" y="406" width="22" height="20"/><rect x="296" y="406" width="22" height="20"/><rect x="328" y="406" width="22" height="20"/><rect x="356" y="406" width="22" height="20"/><rect x="384" y="406" width="22" height="20"/><rect x="412" y="406" width="22" height="20"/><rect x="440" y="406" width="22" height="20"/><rect x="472" y="406" width="22" height="20"/><rect x="500" y="406" width="22" height="20"/><rect x="528" y="406" width="22" height="20"/><rect x="556" y="406" width="22" height="20"/><rect x="584" y="406" width="22" height="20"/><rect x="616" y="406" width="22" height="20"/><rect x="644" y="406" width="22" height="20"/><rect x="672" y="406" width="22" height="20"/><rect x="700" y="406" width="22" height="20"/><rect x="728" y="406" width="22" height="20"/><rect x="760" y="406" width="22" height="20"/><rect x="788" y="406" width="22" height="20"/><rect x="816" y="406" width="22" height="20"/><rect x="844" y="406" width="22" height="20"/><rect x="872" y="406" width="22" height="20"/><rect x="904" y="406" width="22" height="20"/><rect x="932" y="406" width="22" height="20"/><rect x="960" y="406" width="22" height="20"/><rect x="988" y="406" width="22" height="20"/><rect x="1016" y="406" width="22" height="20"/><rect x="1048" y="406" width="22" height="20"/><rect x="1076" y="406" width="22" height="20"/>
+              <rect x="0" y="436" width="22" height="20"/><rect x="32" y="436" width="22" height="20"/><rect x="60" y="436" width="22" height="20"/><rect x="88" y="436" width="22" height="20"/><rect x="116" y="436" width="22" height="20"/><rect x="144" y="436" width="22" height="20"/><rect x="176" y="436" width="22" height="20"/><rect x="204" y="436" width="22" height="20"/><rect x="232" y="436" width="22" height="20"/><rect x="268" y="436" width="22" height="20"/><rect x="296" y="436" width="22" height="20"/><rect x="328" y="436" width="22" height="20"/><rect x="356" y="436" width="22" height="20"/><rect x="384" y="436" width="22" height="20"/><rect x="412" y="436" width="22" height="20"/><rect x="440" y="436" width="22" height="20"/><rect x="472" y="436" width="22" height="20"/><rect x="500" y="436" width="22" height="20"/><rect x="528" y="436" width="22" height="20"/><rect x="556" y="436" width="22" height="20"/><rect x="584" y="436" width="22" height="20"/><rect x="616" y="436" width="22" height="20"/><rect x="644" y="436" width="22" height="20"/><rect x="672" y="436" width="22" height="20"/><rect x="700" y="436" width="22" height="20"/><rect x="728" y="436" width="22" height="20"/><rect x="760" y="436" width="22" height="20"/><rect x="788" y="436" width="22" height="20"/><rect x="816" y="436" width="22" height="20"/><rect x="844" y="436" width="22" height="20"/><rect x="872" y="436" width="22" height="20"/><rect x="904" y="436" width="22" height="20"/><rect x="932" y="436" width="22" height="20"/><rect x="960" y="436" width="22" height="20"/><rect x="988" y="436" width="22" height="20"/><rect x="1016" y="436" width="22" height="20"/><rect x="1048" y="436" width="22" height="20"/><rect x="1076" y="436" width="22" height="20"/>
+              <rect x="0" y="462" width="22" height="20"/><rect x="32" y="462" width="22" height="20"/><rect x="60" y="462" width="22" height="20"/><rect x="88" y="462" width="22" height="20"/><rect x="116" y="462" width="22" height="20"/><rect x="144" y="462" width="22" height="20"/><rect x="176" y="462" width="22" height="20"/><rect x="204" y="462" width="22" height="20"/><rect x="232" y="462" width="22" height="20"/><rect x="268" y="462" width="22" height="20"/><rect x="296" y="462" width="22" height="20"/><rect x="328" y="462" width="22" height="20"/><rect x="356" y="462" width="22" height="20"/><rect x="384" y="462" width="22" height="20"/><rect x="412" y="462" width="22" height="20"/><rect x="440" y="462" width="22" height="20"/><rect x="472" y="462" width="22" height="20"/><rect x="500" y="462" width="22" height="20"/><rect x="528" y="462" width="22" height="20"/><rect x="556" y="462" width="22" height="20"/><rect x="584" y="462" width="22" height="20"/><rect x="616" y="462" width="22" height="20"/><rect x="644" y="462" width="22" height="20"/><rect x="672" y="462" width="22" height="20"/><rect x="700" y="462" width="22" height="20"/><rect x="728" y="462" width="22" height="20"/><rect x="760" y="462" width="22" height="20"/><rect x="788" y="462" width="22" height="20"/><rect x="816" y="462" width="22" height="20"/><rect x="844" y="462" width="22" height="20"/><rect x="872" y="462" width="22" height="20"/><rect x="904" y="462" width="22" height="20"/><rect x="932" y="462" width="22" height="20"/><rect x="960" y="462" width="22" height="20"/><rect x="988" y="462" width="22" height="20"/><rect x="1016" y="462" width="22" height="20"/><rect x="1048" y="462" width="22" height="20"/><rect x="1076" y="462" width="22" height="20"/>
+              <rect x="0" y="488" width="22" height="20"/><rect x="32" y="488" width="22" height="20"/><rect x="60" y="488" width="22" height="20"/><rect x="88" y="488" width="22" height="20"/><rect x="116" y="488" width="22" height="20"/><rect x="144" y="488" width="22" height="20"/><rect x="176" y="488" width="22" height="20"/><rect x="204" y="488" width="22" height="20"/><rect x="232" y="488" width="22" height="20"/><rect x="268" y="488" width="22" height="20"/><rect x="296" y="488" width="22" height="20"/><rect x="328" y="488" width="22" height="20"/><rect x="356" y="488" width="22" height="20"/><rect x="384" y="488" width="22" height="20"/><rect x="412" y="488" width="22" height="20"/><rect x="440" y="488" width="22" height="20"/><rect x="472" y="488" width="22" height="20"/><rect x="500" y="488" width="22" height="20"/><rect x="528" y="488" width="22" height="20"/><rect x="556" y="488" width="22" height="20"/><rect x="584" y="488" width="22" height="20"/><rect x="616" y="488" width="22" height="20"/><rect x="644" y="488" width="22" height="20"/><rect x="672" y="488" width="22" height="20"/><rect x="700" y="488" width="22" height="20"/><rect x="728" y="488" width="22" height="20"/><rect x="760" y="488" width="22" height="20"/><rect x="788" y="488" width="22" height="20"/><rect x="816" y="488" width="22" height="20"/><rect x="844" y="488" width="22" height="20"/><rect x="872" y="488" width="22" height="20"/><rect x="904" y="488" width="22" height="20"/><rect x="932" y="488" width="22" height="20"/><rect x="960" y="488" width="22" height="20"/><rect x="988" y="488" width="22" height="20"/><rect x="1016" y="488" width="22" height="20"/><rect x="1048" y="488" width="22" height="20"/><rect x="1076" y="488" width="22" height="20"/>
+              <rect x="0" y="514" width="22" height="20"/><rect x="32" y="514" width="22" height="20"/><rect x="60" y="514" width="22" height="20"/><rect x="88" y="514" width="22" height="20"/><rect x="116" y="514" width="22" height="20"/><rect x="144" y="514" width="22" height="20"/><rect x="176" y="514" width="22" height="20"/><rect x="204" y="514" width="22" height="20"/><rect x="232" y="514" width="22" height="20"/><rect x="268" y="514" width="22" height="20"/><rect x="296" y="514" width="22" height="20"/><rect x="328" y="514" width="22" height="20"/><rect x="356" y="514" width="22" height="20"/><rect x="384" y="514" width="22" height="20"/><rect x="412" y="514" width="22" height="20"/><rect x="440" y="514" width="22" height="20"/><rect x="472" y="514" width="22" height="20"/><rect x="500" y="514" width="22" height="20"/><rect x="528" y="514" width="22" height="20"/><rect x="556" y="514" width="22" height="20"/><rect x="584" y="514" width="22" height="20"/><rect x="616" y="514" width="22" height="20"/><rect x="644" y="514" width="22" height="20"/><rect x="672" y="514" width="22" height="20"/><rect x="700" y="514" width="22" height="20"/><rect x="728" y="514" width="22" height="20"/><rect x="760" y="514" width="22" height="20"/><rect x="788" y="514" width="22" height="20"/><rect x="816" y="514" width="22" height="20"/><rect x="844" y="514" width="22" height="20"/><rect x="872" y="514" width="22" height="20"/><rect x="904" y="514" width="22" height="20"/><rect x="932" y="514" width="22" height="20"/><rect x="960" y="514" width="22" height="20"/><rect x="988" y="514" width="22" height="20"/><rect x="1016" y="514" width="22" height="20"/><rect x="1048" y="514" width="22" height="20"/><rect x="1076" y="514" width="22" height="20"/>
+              <rect x="0" y="540" width="22" height="20"/><rect x="32" y="540" width="22" height="20"/><rect x="60" y="540" width="22" height="20"/><rect x="88" y="540" width="22" height="20"/><rect x="116" y="540" width="22" height="20"/><rect x="144" y="540" width="22" height="20"/><rect x="176" y="540" width="22" height="20"/><rect x="204" y="540" width="22" height="20"/><rect x="232" y="540" width="22" height="20"/><rect x="268" y="540" width="22" height="20"/><rect x="296" y="540" width="22" height="20"/><rect x="328" y="540" width="22" height="20"/><rect x="356" y="540" width="22" height="20"/><rect x="384" y="540" width="22" height="20"/><rect x="412" y="540" width="22" height="20"/><rect x="440" y="540" width="22" height="20"/><rect x="472" y="540" width="22" height="20"/><rect x="500" y="540" width="22" height="20"/><rect x="528" y="540" width="22" height="20"/><rect x="556" y="540" width="22" height="20"/><rect x="584" y="540" width="22" height="20"/><rect x="616" y="540" width="22" height="20"/><rect x="644" y="540" width="22" height="20"/><rect x="672" y="540" width="22" height="20"/><rect x="700" y="540" width="22" height="20"/><rect x="728" y="540" width="22" height="20"/><rect x="760" y="540" width="22" height="20"/><rect x="788" y="540" width="22" height="20"/><rect x="816" y="540" width="22" height="20"/><rect x="844" y="540" width="22" height="20"/><rect x="872" y="540" width="22" height="20"/><rect x="904" y="540" width="22" height="20"/><rect x="932" y="540" width="22" height="20"/><rect x="960" y="540" width="22" height="20"/><rect x="988" y="540" width="22" height="20"/><rect x="1016" y="540" width="22" height="20"/><rect x="1048" y="540" width="22" height="20"/><rect x="1076" y="540" width="22" height="20"/>
+              <rect x="0" y="570" width="22" height="20"/><rect x="32" y="570" width="22" height="20"/><rect x="60" y="570" width="22" height="20"/><rect x="88" y="570" width="22" height="20"/><rect x="116" y="570" width="22" height="20"/><rect x="144" y="570" width="22" height="20"/><rect x="176" y="570" width="22" height="20"/><rect x="204" y="570" width="22" height="20"/><rect x="232" y="570" width="22" height="20"/><rect x="268" y="570" width="22" height="20"/><rect x="296" y="570" width="22" height="20"/><rect x="328" y="570" width="22" height="20"/><rect x="356" y="570" width="22" height="20"/><rect x="384" y="570" width="22" height="20"/><rect x="412" y="570" width="22" height="20"/><rect x="440" y="570" width="22" height="20"/><rect x="472" y="570" width="22" height="20"/><rect x="500" y="570" width="22" height="20"/><rect x="528" y="570" width="22" height="20"/><rect x="556" y="570" width="22" height="20"/><rect x="584" y="570" width="22" height="20"/><rect x="616" y="570" width="22" height="20"/><rect x="644" y="570" width="22" height="20"/><rect x="672" y="570" width="22" height="20"/><rect x="700" y="570" width="22" height="20"/><rect x="728" y="570" width="22" height="20"/><rect x="760" y="570" width="22" height="20"/><rect x="788" y="570" width="22" height="20"/><rect x="816" y="570" width="22" height="20"/><rect x="844" y="570" width="22" height="20"/><rect x="872" y="570" width="22" height="20"/><rect x="904" y="570" width="22" height="20"/><rect x="932" y="570" width="22" height="20"/><rect x="960" y="570" width="22" height="20"/><rect x="988" y="570" width="22" height="20"/><rect x="1016" y="570" width="22" height="20"/><rect x="1048" y="570" width="22" height="20"/><rect x="1076" y="570" width="22" height="20"/>
+              <rect x="0" y="596" width="22" height="20"/><rect x="32" y="596" width="22" height="20"/><rect x="60" y="596" width="22" height="20"/><rect x="88" y="596" width="22" height="20"/><rect x="116" y="596" width="22" height="20"/><rect x="144" y="596" width="22" height="20"/><rect x="176" y="596" width="22" height="20"/><rect x="204" y="596" width="22" height="20"/><rect x="232" y="596" width="22" height="20"/><rect x="268" y="596" width="22" height="20"/><rect x="296" y="596" width="22" height="20"/><rect x="328" y="596" width="22" height="20"/><rect x="356" y="596" width="22" height="20"/><rect x="384" y="596" width="22" height="20"/><rect x="412" y="596" width="22" height="20"/><rect x="440" y="596" width="22" height="20"/><rect x="472" y="596" width="22" height="20"/><rect x="500" y="596" width="22" height="20"/><rect x="528" y="596" width="22" height="20"/><rect x="556" y="596" width="22" height="20"/><rect x="584" y="596" width="22" height="20"/><rect x="616" y="596" width="22" height="20"/><rect x="644" y="596" width="22" height="20"/><rect x="672" y="596" width="22" height="20"/><rect x="700" y="596" width="22" height="20"/><rect x="728" y="596" width="22" height="20"/><rect x="760" y="596" width="22" height="20"/><rect x="788" y="596" width="22" height="20"/><rect x="816" y="596" width="22" height="20"/><rect x="844" y="596" width="22" height="20"/><rect x="872" y="596" width="22" height="20"/><rect x="904" y="596" width="22" height="20"/><rect x="932" y="596" width="22" height="20"/><rect x="960" y="596" width="22" height="20"/><rect x="988" y="596" width="22" height="20"/><rect x="1016" y="596" width="22" height="20"/><rect x="1048" y="596" width="22" height="20"/><rect x="1076" y="596" width="22" height="20"/>
             </g>
 
-            <!-- City glow overlays -->
-            <ellipse cx="530" cy="310" rx="420" ry="280" fill="url(#cityGlow)" opacity="0.7"/>
-            <ellipse cx="530" cy="310" rx="120" ry="90" fill="url(#coreBlaze)" opacity="0.55"/>
-            <rect width="1100" height="620" fill="url(#vignette)"/>
 
-            <!-- District marker pins -->
-            <g class="ndp-markers" style="position:absolute;inset:0;">
-              <button class="ndp-district open" style="--x:48;--y:46;"
-                data-ndp-name="FILM DIVISION" data-ndp-desc="Our in-house production arm. Currently in pre-production.">
-                <span class="ndp-blip open-blip"></span>
-                <span class="d-name">Film Division</span>
-                <span class="d-meta">Open</span>
-              </button>
-              <button class="ndp-district locked" style="--x:28;--y:32;"
-                data-ndp-name="SCRIPTWRITING" data-ndp-desc="Coming soon — masterclasses and workshops for writers.">
-                <span class="ndp-blip locked-blip"></span>
-                <span class="d-name">Scriptwriting</span>
-                <span class="d-meta">Locked</span>
-              </button>
-              <button class="ndp-district locked" style="--x:68;--y:28;"
-                data-ndp-name="COMMUNITY" data-ndp-desc="The forum. Artist-to-artist. Coming soon.">
-                <span class="ndp-blip locked-blip"></span>
-                <span class="d-name">Community</span>
-                <span class="d-meta">Locked</span>
-              </button>
-              <button class="ndp-district locked" style="--x:22;--y:62;"
-                data-ndp-name="CAREER HUB" data-ndp-desc="Resources, networks, and opportunities. Locked for now.">
-                <span class="ndp-blip locked-blip"></span>
-                <span class="d-name">Career Hub</span>
-                <span class="d-meta">Locked</span>
-              </button>
-              <button class="ndp-district locked" style="--x:74;--y:66;"
-                data-ndp-name="MASTERCLASSES" data-ndp-desc="Intensive skills training from industry practitioners. Coming soon.">
-                <span class="ndp-blip locked-blip"></span>
-                <span class="d-name">Masterclasses</span>
-                <span class="d-meta">Locked</span>
-              </button>
-              <button class="ndp-district locked" style="--x:52;--y:76;"
-                data-ndp-name="MUSIC PRODUCTION" data-ndp-desc="Beat-making, mixing, and sound design. Locked.">
-                <span class="ndp-blip locked-blip"></span>
-                <span class="d-name">Music Production</span>
-                <span class="d-meta">Locked</span>
-              </button>
-            </g>
-          </svg>
+          <!-- River — outer blur shadow -->
+          <path d="M -20 580 C 40 572,90 560,150 545 C 210 530,240 515,270 500 C 300 485,320 472,345 462 C 365 454,380 452,395 455 C 412 458,422 465,435 472 C 448 479,458 484,470 484 C 482 484,492 478,505 468 C 520 456,530 442,545 432 C 558 423,570 418,585 416 C 600 414,615 416,632 420 C 650 425,662 430,672 428 C 684 426,690 418,695 406 C 700 393,700 376,698 358 C 696 340,692 324,692 310 C 692 296,696 284,706 276 C 716 268,730 264,748 262 C 768 260,790 262,812 260 C 835 258,855 252,872 244 C 890 236,905 228,925 224 C 948 220,972 220,1000 218 C 1030 216,1060 214,1120 210"
+            fill="none" stroke="#000000" stroke-opacity="0.85" stroke-width="43" filter="url(#softEdge)" clip-path="url(#mapClip)"/>
+          <!-- River — solid core -->
+          <path d="M -20 580 C 40 572,90 560,150 545 C 210 530,240 515,270 500 C 300 485,320 472,345 462 C 365 454,380 452,395 455 C 412 458,422 465,435 472 C 448 479,458 484,470 484 C 482 484,492 478,505 468 C 520 456,530 442,545 432 C 558 423,570 418,585 416 C 600 414,615 416,632 420 C 650 425,662 430,672 428 C 684 426,690 418,695 406 C 700 393,700 376,698 358 C 696 340,692 324,692 310 C 692 296,696 284,706 276 C 716 268,730 264,748 262 C 768 260,790 262,812 260 C 835 258,855 252,872 244 C 890 236,905 228,925 224 C 948 220,972 220,1000 218 C 1030 216,1060 214,1120 210"
+            fill="none" stroke="#02020a" stroke-width="20" clip-path="url(#mapClip)"/>
+          <!-- Isle of Dogs -->
+          <path d="M 636 422 C 648 432,656 446,660 462 C 664 478,662 494,656 506 C 650 518,638 526,624 528 C 610 530,596 526,585 518 C 574 510,567 498,565 484 C 563 470,567 456,575 446 C 583 436,594 430,608 426 C 618 423,628 421,636 422 Z"
+            fill="#1a1a22" stroke="#fff" stroke-opacity="0.20" stroke-width="0.8" clip-path="url(#northBank)"/>
+          <!-- River reinforcement -->
+          <path d="M -20 580 C 40 572,90 560,150 545 C 210 530,240 515,270 500 C 300 485,320 472,345 462 C 365 454,380 452,395 455 C 412 458,422 465,435 472 C 448 479,458 484,470 484 C 482 484,492 478,505 468 C 520 456,530 442,545 432 C 558 423,570 418,585 416 C 600 414,615 416,632 420 C 650 425,662 430,672 428 C 684 426,690 418,695 406 C 700 393,700 376,698 358 C 696 340,692 324,692 310 C 692 296,696 284,706 276 C 716 268,730 264,748 262 C 768 260,790 262,812 260 C 835 258,855 252,872 244 C 890 236,905 228,925 224 C 948 220,972 220,1000 218 C 1030 216,1060 214,1120 210"
+            fill="none" stroke="#010208" stroke-width="14" clip-path="url(#mapClip)"/>
+
+          <!-- North bank glow — outer halo -->
+          <path d="M -20 567 C 40 559,90 547,150 532 C 210 517,240 502,270 487 C 300 472,320 459,345 449 C 365 441,380 439,395 442 C 412 445,422 452,435 459 C 448 466,458 471,470 471 C 482 471,492 465,505 455 C 520 443,530 429,545 419 C 558 410,570 405,585 403 C 600 401,615 403,632 407 C 650 412,662 417,672 415 C 684 413,690 405,695 393 C 700 380,700 363,698 345 C 696 327,692 311,692 297 C 692 283,696 271,706 263 C 716 255,730 251,748 249 C 768 247,790 249,812 247 C 835 245,855 239,872 231 C 890 223,905 215,925 211 C 948 207,972 207,1000 205 C 1030 203,1060 201,1120 197"
+            fill="none" stroke="#ffc840" stroke-opacity="0.08" stroke-width="10" filter="url(#softEdge)" clip-path="url(#mapClip)"/>
+          <!-- North bank glow — mid -->
+          <path d="M -20 567 C 40 559,90 547,150 532 C 210 517,240 502,270 487 C 300 472,320 459,345 449 C 365 441,380 439,395 442 C 412 445,422 452,435 459 C 448 466,458 471,470 471 C 482 471,492 465,505 455 C 520 443,530 429,545 419 C 558 410,570 405,585 403 C 600 401,615 403,632 407 C 650 412,662 417,672 415 C 684 413,690 405,695 393 C 700 380,700 363,698 345 C 696 327,692 311,692 297 C 692 283,696 271,706 263 C 716 255,730 251,748 249 C 768 247,790 249,812 247 C 835 245,855 239,872 231 C 890 223,905 215,925 211 C 948 207,972 207,1000 205 C 1030 203,1060 201,1120 197"
+            fill="none" stroke="#e89030" stroke-opacity="0.28" stroke-width="6" filter="url(#streetGlow)" clip-path="url(#mapClip)"/>
+          <!-- North bank glow — bright edge -->
+          <path d="M -20 567 C 40 559,90 547,150 532 C 210 517,240 502,270 487 C 300 472,320 459,345 449 C 365 441,380 439,395 442 C 412 445,422 452,435 459 C 448 466,458 471,470 471 C 482 471,492 465,505 455 C 520 443,530 429,545 419 C 558 410,570 405,585 403 C 600 401,615 403,632 407 C 650 412,662 417,672 415 C 684 413,690 405,695 393 C 700 380,700 363,698 345 C 696 327,692 311,692 297 C 692 283,696 271,706 263 C 716 255,730 251,748 249 C 768 247,790 249,812 247 C 835 245,855 239,872 231 C 890 223,905 215,925 211 C 948 207,972 207,1000 205 C 1030 203,1060 201,1120 197"
+            fill="none" stroke="#ffc840" stroke-opacity="0.55" stroke-width="1.4" clip-path="url(#mapClip)"/>
+          <!-- South bank glow — outer halo -->
+          <path d="M -20 594 C 40 586,90 574,150 559 C 210 544,240 529,270 514 C 300 499,320 486,345 476 C 365 468,380 466,395 469 C 412 472,422 479,435 486 C 448 493,458 498,470 498 C 482 498,492 492,505 482 C 520 470,530 456,545 446 C 558 437,570 432,585 430 C 600 428,615 430,632 434 C 650 439,662 444,672 442 C 684 440,690 432,695 420 C 700 407,700 390,698 372 C 696 354,692 338,692 324 C 692 310,696 298,706 290 C 716 282,730 278,748 276 C 768 274,790 276,812 274 C 835 272,855 266,872 258 C 890 250,905 242,925 238 C 948 234,972 234,1000 232 C 1030 230,1060 228,1120 224"
+            fill="none" stroke="#ffc840" stroke-opacity="0.06" stroke-width="10" filter="url(#softEdge)" clip-path="url(#mapClip)"/>
+          <!-- South bank glow — mid -->
+          <path d="M -20 594 C 40 586,90 574,150 559 C 210 544,240 529,270 514 C 300 499,320 486,345 476 C 365 468,380 466,395 469 C 412 472,422 479,435 486 C 448 493,458 498,470 498 C 482 498,492 492,505 482 C 520 470,530 456,545 446 C 558 437,570 432,585 430 C 600 428,615 430,632 434 C 650 439,662 444,672 442 C 684 440,690 432,695 420 C 700 407,700 390,698 372 C 696 354,692 338,692 324 C 692 310,696 298,706 290 C 716 282,730 278,748 276 C 768 274,790 276,812 274 C 835 272,855 266,872 258 C 890 250,905 242,925 238 C 948 234,972 234,1000 232 C 1030 230,1060 228,1120 224"
+            fill="none" stroke="#e89030" stroke-opacity="0.22" stroke-width="6" filter="url(#streetGlow)" clip-path="url(#mapClip)"/>
+          <!-- South bank glow — bright edge -->
+          <path d="M -20 594 C 40 586,90 574,150 559 C 210 544,240 529,270 514 C 300 499,320 486,345 476 C 365 468,380 466,395 469 C 412 472,422 479,435 486 C 448 493,458 498,470 498 C 482 498,492 492,505 482 C 520 470,530 456,545 446 C 558 437,570 432,585 430 C 600 428,615 430,632 434 C 650 439,662 444,672 442 C 684 440,690 432,695 420 C 700 407,700 390,698 372 C 696 354,692 338,692 324 C 692 310,696 298,706 290 C 716 282,730 278,748 276 C 768 274,790 276,812 274 C 835 272,855 266,872 258 C 890 250,905 242,925 238 C 948 234,972 234,1000 232 C 1030 230,1060 228,1120 224"
+            fill="none" stroke="#ffc840" stroke-opacity="0.42" stroke-width="1.4" clip-path="url(#mapClip)"/>
+
+          <!-- Aerial city glow -->
+          <ellipse cx="528" cy="300" rx="560" ry="380" fill="url(#cityGlow)" opacity="0.65"/>
+
+          <!-- Wintry district blooms -->
+          <ellipse cx="155"  cy="95"  rx="220" ry="187" fill="url(#glowDistrict1)" opacity="0.99"/>
+          <ellipse cx="155"  cy="95"  rx="99"  ry="82"  fill="url(#glowDistrict2)" opacity="0.88"/>
+          <ellipse cx="658"  cy="85"  rx="220" ry="187" fill="url(#glowDistrict1)" opacity="0.99"/>
+          <ellipse cx="658"  cy="85"  rx="99"  ry="82"  fill="url(#glowDistrict2)" opacity="0.88"/>
+          <ellipse cx="845"  cy="535" rx="200" ry="170" fill="url(#glowDistrict1)" opacity="0.9"/>
+          <ellipse cx="845"  cy="535" rx="90"  ry="75"  fill="url(#glowDistrict2)" opacity="0.8"/>
+          <ellipse cx="308"  cy="396" rx="200" ry="170" fill="url(#glowDistrict1)" opacity="0.9"/>
+          <ellipse cx="308"  cy="396" rx="90"  ry="75"  fill="url(#glowDistrict2)" opacity="0.8"/>
+          <ellipse cx="510"  cy="565" rx="200" ry="170" fill="url(#glowDistrict1)" opacity="0.9"/>
+          <ellipse cx="510"  cy="565" rx="90"  ry="75"  fill="url(#glowDistrict2)" opacity="0.8"/>
+          <ellipse cx="916"  cy="310" rx="280" ry="230" fill="url(#glowDistrict1)" opacity="1.0"/>
+          <ellipse cx="916"  cy="310" rx="130" ry="110" fill="url(#glowDistrict2)" opacity="0.99"/>
+
+          <!-- Fog of war -->
+          <rect width="1100" height="620" fill="url(#fogScriptwriting)"/>
+          <rect width="1100" height="620" fill="url(#fogCommunity)"/>
+          <rect width="1100" height="620" fill="url(#fogCareer)"/>
+          <rect width="1100" height="620" fill="url(#fogSelfEmp)"/>
+          <rect width="1100" height="620" fill="url(#fogMaster)"/>
+
+          <!-- Deep vignette -->
+          <rect width="1100" height="620" fill="url(#vignette)"/>
+
+          <!-- City lights (JS-driven twinkling dots) -->
+          <g id="city-lights-layer" clip-path="url(#mapClip)"></g>
+
+          <!-- Core nucleus -->
+          <ellipse cx="528" cy="254" rx="250" ry="219" fill="url(#coreBlaze)" opacity="0.55"/>
+          <ellipse cx="528" cy="254" rx="138" ry="119" fill="url(#coreBlaze)" opacity="0.85"/>
+          <ellipse cx="528" cy="254" rx="69"  ry="58"  fill="url(#coreBlaze)" opacity="1.0"/>
+
+
+          <style>
+            @keyframes twinkle  { 0%,100%{opacity:1}   50%{opacity:0.08} }
+            @keyframes twinkleB { 0%,100%{opacity:0.85} 50%{opacity:0.04} }
+            @keyframes twinkleC { 0%,100%{opacity:0.6}  50%{opacity:0.02} }
+          </style>
+
+          <script>
+          (function(){
+            const ns = "http://www.w3.org/2000/svg";
+            const g  = document.getElementById("city-lights-layer");
+            const anims = ["twinkle","twinkleB","twinkleC"];
+            const blocks = [[11,10],[11,40],[11,66],[11,92],[11,118],[11,144],[11,174],[11,200],[11,226],[11,252],[11,278],[11,312],[11,338],[11,364],[11,390],[11,416],[11,446],[11,472],[11,498],[11,524],[11,550],[11,580],[11,606],[43,10],[43,40],[43,66],[43,92],[43,118],[43,144],[43,174],[43,200],[43,226],[43,252],[43,278],[43,312],[43,338],[43,364],[43,390],[43,416],[43,446],[43,472],[43,498],[43,524],[43,550],[43,580],[43,606],[71,10],[71,40],[71,66],[71,92],[71,118],[71,144],[71,174],[71,200],[71,226],[71,252],[71,278],[71,312],[71,338],[71,364],[71,390],[71,416],[71,446],[71,472],[71,498],[71,524],[71,550],[71,580],[71,606],[99,10],[99,40],[99,66],[99,92],[99,118],[99,144],[99,174],[99,200],[99,226],[99,252],[99,278],[99,312],[99,338],[99,364],[99,390],[99,416],[99,446],[99,472],[99,498],[99,524],[99,550],[99,580],[99,606],[127,10],[127,40],[127,66],[127,92],[127,118],[127,144],[127,174],[127,200],[127,226],[127,252],[127,278],[127,312],[127,338],[127,364],[127,390],[127,416],[127,446],[127,472],[127,498],[127,524],[127,550],[127,580],[127,606],[155,10],[155,40],[155,66],[155,92],[155,118],[155,144],[155,174],[155,200],[155,226],[155,252],[155,278],[155,312],[155,338],[155,364],[155,390],[155,416],[155,446],[155,472],[155,498],[155,524],[155,550],[155,580],[155,606],[187,10],[187,40],[187,66],[187,92],[187,118],[187,144],[187,174],[187,200],[187,226],[187,252],[187,278],[187,312],[187,338],[187,364],[187,390],[187,416],[187,446],[187,472],[187,498],[187,524],[187,550],[187,580],[187,606],[215,10],[215,40],[215,66],[215,92],[215,118],[215,144],[215,174],[215,200],[215,226],[215,252],[215,278],[215,312],[215,338],[215,364],[215,390],[215,416],[215,446],[215,472],[215,498],[215,524],[215,550],[215,580],[215,606],[243,10],[243,40],[243,66],[243,92],[243,118],[243,144],[243,174],[243,200],[243,226],[243,252],[243,278],[243,312],[243,338],[243,364],[243,390],[243,416],[243,446],[243,472],[243,498],[243,524],[243,550],[243,580],[243,606],[279,10],[279,40],[279,66],[279,92],[279,118],[279,144],[279,174],[279,200],[279,226],[279,252],[279,278],[279,312],[279,338],[279,364],[279,390],[279,416],[279,446],[279,472],[279,498],[279,524],[279,550],[279,580],[279,606],[307,10],[307,40],[307,66],[307,92],[307,118],[307,144],[307,174],[307,200],[307,226],[307,252],[307,278],[307,312],[307,338],[307,364],[307,390],[307,416],[307,446],[307,472],[307,498],[307,524],[307,550],[307,580],[307,606],[339,10],[339,40],[339,66],[339,92],[339,118],[339,144],[339,174],[339,200],[339,226],[339,252],[339,278],[339,312],[339,338],[339,364],[339,390],[339,416],[339,446],[339,472],[339,498],[339,524],[339,550],[339,580],[339,606],[367,10],[367,40],[367,66],[367,92],[367,118],[367,144],[367,174],[367,200],[367,226],[367,252],[367,278],[367,312],[367,338],[367,364],[367,390],[367,416],[367,446],[367,472],[367,498],[367,524],[367,550],[367,580],[367,606],[395,10],[395,40],[395,66],[395,92],[395,118],[395,144],[395,174],[395,200],[395,226],[395,252],[395,278],[395,312],[395,338],[395,364],[395,390],[395,416],[395,446],[395,472],[395,498],[395,524],[395,550],[395,580],[395,606],[423,10],[423,40],[423,66],[423,92],[423,118],[423,144],[423,174],[423,200],[423,226],[423,252],[423,278],[423,312],[423,338],[423,364],[423,390],[423,416],[423,446],[423,472],[423,498],[423,524],[423,550],[423,580],[423,606],[451,10],[451,40],[451,66],[451,92],[451,118],[451,144],[451,174],[451,200],[451,226],[451,252],[451,278],[451,312],[451,338],[451,364],[451,390],[451,416],[451,446],[451,472],[451,498],[451,524],[451,550],[451,580],[451,606],[483,10],[483,40],[483,66],[483,92],[483,118],[483,144],[483,174],[483,200],[483,226],[483,252],[483,278],[483,312],[483,338],[483,364],[483,390],[483,416],[483,446],[483,472],[483,498],[483,524],[483,550],[483,580],[483,606],[511,10],[511,40],[511,66],[511,92],[511,118],[511,144],[511,174],[511,200],[511,226],[511,252],[511,278],[511,312],[511,338],[511,364],[511,390],[511,416],[511,446],[511,472],[511,498],[511,524],[511,550],[511,580],[511,606],[539,10],[539,40],[539,66],[539,92],[539,118],[539,144],[539,174],[539,200],[539,226],[539,252],[539,278],[539,312],[539,338],[539,364],[539,390],[539,416],[539,446],[539,472],[539,498],[539,524],[539,550],[539,580],[539,606],[567,10],[567,40],[567,66],[567,92],[567,118],[567,144],[567,174],[567,200],[567,226],[567,252],[567,278],[567,312],[567,338],[567,364],[567,390],[567,416],[567,446],[567,472],[567,498],[567,524],[567,550],[567,580],[567,606],[595,10],[595,40],[595,66],[595,92],[595,118],[595,144],[595,174],[595,200],[595,226],[595,252],[595,278],[595,312],[595,338],[595,364],[595,390],[595,416],[595,446],[595,472],[595,498],[595,524],[595,550],[595,580],[595,606],[627,10],[627,40],[627,66],[627,92],[627,118],[627,144],[627,174],[627,200],[627,226],[627,252],[627,278],[627,312],[627,338],[627,364],[627,390],[627,416],[627,446],[627,472],[627,498],[627,524],[627,550],[627,580],[627,606],[655,10],[655,40],[655,66],[655,92],[655,118],[655,144],[655,174],[655,200],[655,226],[655,252],[655,278],[655,312],[655,338],[655,364],[655,390],[655,416],[655,446],[655,472],[655,498],[655,524],[655,550],[655,580],[655,606],[683,10],[683,40],[683,66],[683,92],[683,118],[683,144],[683,174],[683,200],[683,226],[683,252],[683,278],[683,312],[683,338],[683,364],[683,390],[683,416],[683,446],[683,472],[683,498],[683,524],[683,550],[683,580],[683,606],[711,10],[711,40],[711,66],[711,92],[711,118],[711,144],[711,174],[711,200],[711,226],[711,252],[711,278],[711,312],[711,338],[711,364],[711,390],[711,416],[711,446],[711,472],[711,498],[711,524],[711,550],[711,580],[711,606],[739,10],[739,40],[739,66],[739,92],[739,118],[739,144],[739,174],[739,200],[739,226],[739,252],[739,278],[739,312],[739,338],[739,364],[739,390],[739,416],[739,446],[739,472],[739,498],[739,524],[739,550],[739,580],[739,606],[771,10],[771,40],[771,66],[771,92],[771,118],[771,144],[771,174],[771,200],[771,226],[771,252],[771,278],[771,312],[771,338],[771,364],[771,390],[771,416],[771,446],[771,472],[771,498],[771,524],[771,550],[771,580],[771,606],[799,10],[799,40],[799,66],[799,92],[799,118],[799,144],[799,174],[799,200],[799,226],[799,252],[799,278],[799,312],[799,338],[799,364],[799,390],[799,416],[799,446],[799,472],[799,498],[799,524],[799,550],[799,580],[799,606],[827,10],[827,40],[827,66],[827,92],[827,118],[827,144],[827,174],[827,200],[827,226],[827,252],[827,278],[827,312],[827,338],[827,364],[827,390],[827,416],[827,446],[827,472],[827,498],[827,524],[827,550],[827,580],[827,606],[855,10],[855,40],[855,66],[855,92],[855,118],[855,144],[855,174],[855,200],[855,226],[855,252],[855,278],[855,312],[855,338],[855,364],[855,390],[855,416],[855,446],[855,472],[855,498],[855,524],[855,550],[855,580],[855,606],[883,10],[883,40],[883,66],[883,92],[883,118],[883,144],[883,174],[883,200],[883,226],[883,252],[883,278],[883,312],[883,338],[883,364],[883,390],[883,416],[883,446],[883,472],[883,498],[883,524],[883,550],[883,580],[883,606],[915,10],[915,40],[915,66],[915,92],[915,118],[915,144],[915,174],[915,200],[915,226],[915,252],[915,278],[915,312],[915,338],[915,364],[915,390],[915,416],[915,446],[915,472],[915,498],[915,524],[915,550],[915,580],[915,606],[943,10],[943,40],[943,66],[943,92],[943,118],[943,144],[943,174],[943,200],[943,226],[943,252],[943,278],[943,312],[943,338],[943,364],[943,390],[943,416],[943,446],[943,472],[943,498],[943,524],[943,550],[943,580],[943,606],[971,10],[971,40],[971,66],[971,92],[971,118],[971,144],[971,174],[971,200],[971,226],[971,252],[971,278],[971,312],[971,338],[971,364],[971,390],[971,416],[971,446],[971,472],[971,498],[971,524],[971,550],[971,580],[971,606],[999,10],[999,40],[999,66],[999,92],[999,118],[999,144],[999,174],[999,200],[999,226],[999,252],[999,278],[999,312],[999,338],[999,364],[999,390],[999,416],[999,446],[999,472],[999,498],[999,524],[999,550],[999,580],[999,606],[1027,10],[1027,40],[1027,66],[1027,92],[1027,118],[1027,144],[1027,174],[1027,200],[1027,226],[1027,252],[1027,278],[1027,312],[1027,338],[1027,364],[1027,390],[1027,416],[1027,446],[1027,472],[1027,498],[1027,524],[1027,550],[1027,580],[1027,606],[1059,10],[1059,40],[1059,66],[1059,92],[1059,118],[1059,144],[1059,174],[1059,200],[1059,226],[1059,252],[1059,278],[1059,312],[1059,338],[1059,364],[1059,390],[1059,416],[1059,446],[1059,472],[1059,498],[1059,524],[1059,550],[1059,580],[1059,606],[1087,10],[1087,40],[1087,66],[1087,92],[1087,118],[1087,144],[1087,174],[1087,200],[1087,226],[1087,252],[1087,278],[1087,312],[1087,338],[1087,364],[1087,390],[1087,416],[1087,446],[1087,472],[1087,498],[1087,524],[1087,550],[1087,580],[1087,606]];
+            const districts = [
+              { cx:528, cy:310, rx:115, ry:100, cols:["#ffffff","#fff8d0","#ffe890","#ffd060","#ffb830"], core:true },
+              { cx:155, cy:95,  rx:95,  ry:85,  cols:["#c8d8ff","#a0b8e8","#8090c8","#6878a8","#b0c4f0"], core:false },
+              { cx:658, cy:85,  rx:95,  ry:85,  cols:["#c8d8ff","#a0b8e8","#8090c8","#6878a8","#b0c4f0"], core:false },
+              { cx:845, cy:535, rx:95,  ry:85,  cols:["#c8d8ff","#a0b8e8","#8090c8","#6878a8","#b0c4f0"], core:false },
+              { cx:308, cy:396, rx:95,  ry:85,  cols:["#c8d8ff","#a0b8e8","#8090c8","#6878a8","#b0c4f0"], core:false },
+              { cx:510, cy:565, rx:95,  ry:85,  cols:["#c8d8ff","#a0b8e8","#8090c8","#6878a8","#b0c4f0"], core:false },
+              { cx:916, cy:310, rx:95,  ry:85,  cols:["#c8d8ff","#a0b8e8","#8090c8","#6878a8","#b0c4f0"], core:false },
+            ];
+            const riverZones = [[300,490,110,45],[440,468,90,38],[580,422,90,38],[692,348,42,88],[748,260,65,32],[900,218,110,32],[200,510,80,35],[650,440,60,30]];
+            function inRiver(x,y){ for(const [cx,cy,rx,ry] of riverZones){ if(((x-cx)/rx)**2+((y-cy)/ry)**2<1) return true; } return false; }
+            for(const d of districts){
+              const candidates = blocks.filter(([bx,by])=>{ const nx=(bx-d.cx)/d.rx,ny=(by-d.cy)/d.ry; return nx*nx+ny*ny<9.0&&!inRiver(bx,by); });
+              for(const [bx,by] of candidates){
+                const dist=Math.sqrt(((bx-d.cx)/d.rx)**2+((by-d.cy)/d.ry)**2);
+                const brightness=Math.exp(-dist*1.6);
+                if(brightness<0.04) continue;
+                const lightCount=d.core?Math.ceil(brightness*5+Math.random()*3):Math.ceil(brightness*4+Math.random()*2);
+                for(let i=0;i<lightCount;i++){
+                  const jx=bx+(Math.random()-0.5)*20, jy=by+(Math.random()-0.5)*18;
+                  const r=d.core?(0.5+Math.random()*1.8)*(0.4+brightness*0.6):(0.4+Math.random()*1.4)*(0.3+brightness*0.7);
+                  const op=d.core?Math.min(1,(0.5+Math.random()*0.5)*brightness*2.4):Math.min(1,(0.4+Math.random()*0.6)*brightness*2.0);
+                  const col=d.cols[Math.floor(Math.random()*d.cols.length)];
+                  const dur=(1.6+Math.random()*4.0).toFixed(2), del=(Math.random()*6.0).toFixed(2);
+                  const anim=anims[Math.floor(Math.random()*anims.length)];
+                  const c=document.createElementNS(ns,"circle");
+                  c.setAttribute("cx",jx.toFixed(1)); c.setAttribute("cy",jy.toFixed(1));
+                  c.setAttribute("r",r.toFixed(2)); c.setAttribute("fill",col);
+                  c.setAttribute("fill-opacity",op.toFixed(3));
+                  c.style.animation=`${anim} ${dur}s ease-in-out ${del}s infinite`;
+                  g.appendChild(c);
+                }
+              }
+            }
+          })();
+          </script>
+        </svg>
+
+          <!-- District marker pins — HTML overlay on top of SVG -->
+          <div class="ndp-markers">
+            <button class="ndp-district open" style="--x:48;--y:50;"
+              data-ndp-name="FILM DIVISION" data-ndp-desc="Our in-house production arm. Currently in pre-production.">
+              <span class="ndp-blip open-blip"></span>
+              <span class="d-name">Film Division</span>
+              <span class="d-meta">Open · Enter</span>
+            </button>
+            <button class="ndp-district locked" style="--x:22;--y:22;"
+              data-ndp-name="CAREER MAPPING" data-ndp-desc="Career roadmaps and production pathways. Coming soon.">
+              <span class="ndp-blip locked-blip"></span>
+              <span class="d-name">Career Mapping</span>
+              <span class="d-meta">Locked</span>
+            </button>
+            <button class="ndp-district locked" style="--x:72;--y:22;"
+              data-ndp-name="SCRIPTWRITING" data-ndp-desc="Coming soon — masterclasses and workshops for writers.">
+              <span class="ndp-blip locked-blip"></span>
+              <span class="d-name">Scriptwriting</span>
+              <span class="d-meta">Locked</span>
+            </button>
+            <button class="ndp-district locked" style="--x:12;--y:58;"
+              data-ndp-name="SELF EMPLOYMENT" data-ndp-desc="Tax, contracts, and going it alone. Coming soon.">
+              <span class="ndp-blip locked-blip"></span>
+              <span class="d-name">Self Employment</span>
+              <span class="d-meta">Locked</span>
+            </button>
+            <button class="ndp-district locked" style="--x:55;--y:88;"
+              data-ndp-name="MASTERCLASSES" data-ndp-desc="Intensive skills training from industry practitioners. Coming soon.">
+              <span class="ndp-blip locked-blip"></span>
+              <span class="d-name">Masterclasses</span>
+              <span class="d-meta">Locked</span>
+            </button>
+            <button class="ndp-district locked" style="--x:84;--y:82;"
+              data-ndp-name="COMMUNITY (SKOOL)" data-ndp-desc="The forum. Artist-to-artist. Coming soon.">
+              <span class="ndp-blip locked-blip"></span>
+              <span class="d-name">Community (Skool)</span>
+              <span class="d-meta">Locked</span>
+            </button>
+          </div>
 
           <div class="ndp-map-grain" aria-hidden="true"></div>
+
+          <script>
+          function syncMapGlow(){
+            const shell = document.getElementById('ndpMapShell');
+            if(!shell) return;
+            const svg = shell.querySelector('svg');
+            if(!svg) return;
+            const blip = shell.querySelector('.ndp-district.open .ndp-blip');
+            if(!blip) return;
+            const sr = shell.getBoundingClientRect();
+            if(sr.width === 0 || sr.height === 0) return;
+            const br = blip.getBoundingClientRect();
+            const px = ((br.left + br.width  * 0.5 - sr.left) / sr.width)  * 1100;
+            const py = ((br.top  + br.height * 0.5 - sr.top)  / sr.height) * 620;
+            svg.querySelectorAll('ellipse[fill="url(#coreBlaze)"]').forEach(el => {
+              el.setAttribute('cx', px.toFixed(1));
+              el.setAttribute('cy', py.toFixed(1));
+            });
+            const cg = svg.querySelector('ellipse[fill="url(#cityGlow)"]');
+            if(cg){ cg.setAttribute('cx', px.toFixed(1)); cg.setAttribute('cy', py.toFixed(1)); }
+            if(window._mapCanvasCentre) window._mapCanvasCentre(px/1100, py/620);
+          }
+          window.syncMapGlow = syncMapGlow;
+          window.addEventListener('resize', syncMapGlow);
+          </script>
         </div><!-- /ndp-map-shell -->
 
         <div class="ndp-map-footer">
@@ -731,6 +896,69 @@
           </div>
         </div>
       </div><!-- /ndp-map-wrap -->
+    </section>
+
+    <!-- ── FILM DIVISION ── -->
+    <section id="film-division" style="display:none; min-height:100vh; background:#020202; flex-direction:column; align-items:center; justify-content:center; padding: 60px 24px;" class="fd-shell">
+      <style>
+        .fridge-body {
+          opacity: 0;
+          transform: translateY(14px);
+          transition: opacity 1.4s ease, transform 1.4s ease;
+        }
+        .fridge-body.revealed { opacity: 1; transform: translateY(0); }
+        .fridge-reveal-title {
+          opacity: 0;
+          transform: scale(0.92);
+          transition: opacity 1.4s ease, transform 1.4s ease;
+          font-size: 15px; letter-spacing: 4px; color: #ffc840;
+          text-transform: uppercase; margin-top: 40px; display: block;
+        }
+        .fridge-reveal-title.revealed { opacity: 1; transform: scale(1); }
+      </style>
+      <button onclick="window.showSection('map')" style="align-self:flex-start; max-width:720px; width:100%; margin:0 auto 48px; background:none; border:none; color:#555; font-size:10px; letter-spacing:3px; cursor:pointer; padding:0; text-transform:uppercase; text-align:left; display:block;">← Back to Map</button>
+      <div style="max-width:720px; width:100%; margin:0 auto; display:flex; justify-content:center;">
+        <article class="founder-card" id="card-fridge" style="flex:1; min-width:180px; max-width:210px; cursor:pointer; text-align:center;" onclick="revealFridgeSynopsis()">
+          <div class="image-frame" style="overflow:hidden; background:#1a1a1a; aspect-ratio:12/16;">
+            <img src="Fridge visual.png" alt="Fridge" style="width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div>
+            <h3 style="text-align:center;">Fridge</h3>
+            <p style="text-align:center; color:#888; font-size:10px; letter-spacing:1px; margin-bottom:2px;">Written by Louis Martino</p>
+            <p style="text-align:center;">Status: Pre-production</p>
+          </div>
+        </article>
+      </div>
+      <div id="fridge-synopsis" style="max-height:0; overflow:hidden; transition: max-height 1.0s ease; max-width:560px; width:100%; margin:40px auto 0; text-align:center;">
+        <div style="padding-top:32px; border-top:1px solid #2a2a2a;">
+        <div class="fridge-body">
+          <p style="font-size:13px; color:#FAFAFA; line-height:1.8; margin-bottom:20px;">A young detective investigates a hit-and-run outside a nightclub during a surge of violent crime in early 2000's Brixton. When the system gets in her way, she breaks protocol in pursuit of a confession — only to find herself tangled in a web of truth, guilt, and coercion.</p>
+          <p style="font-size:13px; color:#FAFAFA; line-height:1.8; margin-bottom:20px;">Fridge peels back the curtain on an era where institutional corruption and abuse of power thrived in the shadows — shielded by paperwork and procedure. The story bridges the gap between this hidden rot, and the open dysfunction we see today, where systems still fail the people they're meant to serve, only now those in charge have stopped pretending.</p>
+          <p style="font-size:13px; color:#FAFAFA; line-height:1.8;">Fridge exposes the roots of a problem we're only now fully seeing — a reminder that truth and justice have long been misaligned. The difference is simple: they used to hide it better.</p>
+        </div>
+        <span class="fridge-reveal-title" id="fridge-coming">Coming 2026.</span>
+        </div>
+      </div>
+      <script>
+      var _fridgeOpen = false;
+      function revealFridgeSynopsis(){
+        const syn = document.getElementById('fridge-synopsis');
+        const body = syn.querySelector('.fridge-body');
+        const title = document.getElementById('fridge-coming');
+        if(_fridgeOpen){
+          body.classList.remove('revealed');
+          title.classList.remove('revealed');
+          syn.style.maxHeight = '0';
+          _fridgeOpen = false;
+          return;
+        }
+        _fridgeOpen = true;
+        syn.style.maxHeight = '800px';
+        setTimeout(()=>{ body.classList.add('revealed'); }, 40);
+        setTimeout(()=>{ title.classList.add('revealed'); }, 1600);
+      }
+      window.revealFridgeSynopsis = revealFridgeSynopsis;
+      </script>
     </section>
 
     <!-- ── CONTACT ── -->
@@ -782,7 +1010,7 @@
   <!-- ── FOOTER ── -->
   <footer class="site-footer">
     <p>New District Productions</p>
-    <p class="footer-meta">© 2025 — All Rights Reserved</p>
+    <p class="footer-meta">© 2026 — All Rights Reserved</p>
   </footer>
 
   <script>
@@ -791,10 +1019,12 @@
       const panel = document.getElementById('bio-' + name);
       if (!panel) return;
       const isOpen = panel.classList.contains('open');
+      // Close all panels smoothly
       document.querySelectorAll('.founder-bio-panel').forEach(p => p.classList.remove('open'));
+      // Open the target if it wasn't already open
       if (!isOpen) {
         panel.classList.add('open');
-        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
       }
     }
 
@@ -815,16 +1045,21 @@
     // ── Founder bio toggle is defined globally above ─────────
 
     const allSections = {
-      landing: document.getElementById('landing'),
-      map:     document.getElementById('map'),
-      who:     document.getElementById('who'),
-      contact: document.getElementById('contact'),
+      landing:       document.getElementById('landing'),
+      map:           document.getElementById('map'),
+      who:           document.getElementById('who'),
+      contact:       document.getElementById('contact'),
+      'film-division': document.getElementById('film-division'),
     };
 
     function showSection(id) {
       Object.entries(allSections).forEach(([key, el]) => {
         if (!el) return;
-        el.style.display = (key === id) ? '' : 'none';
+        if (key === id) {
+          el.style.display = (key === 'film-division') ? 'flex' : '';
+        } else {
+          el.style.display = 'none';
+        }
       });
       // Re-hide news/projects — they're never shown via nav
       ['news','projects'].forEach(s => {
@@ -832,7 +1067,9 @@
         if (el) el.style.display = 'none';
       });
       window.scrollTo(0, 0);
+      if (id === 'map') setTimeout(syncMapGlow, 50);
     }
+    window.showSection = showSection; // expose for inline onclick handlers
 
     // Default: show landing only
     showSection('landing');
@@ -900,6 +1137,12 @@
         e.preventDefault();
         openModal(locked.dataset.ndpName || 'Restricted', locked.dataset.ndpDesc || LOCKED_MSG);
       });
+      shell.addEventListener('click', (e) => {
+        const open = e.target.closest('.ndp-district.open');
+        if (!open) return;
+        e.preventDefault();
+        showSection('film-division');
+      });
     })();
 
     // ── City lights canvas ──────────────────────────────────
@@ -911,63 +1154,112 @@
       canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;mix-blend-mode:screen;';
       shell.appendChild(canvas);
 
+      let _normCx = 0.48, _normCy = 0.42;
+      window._mapCanvasCentre = (nx, ny) => { _normCx = nx; _normCy = ny; drawLights(); };
+
+      // District centres as % of map [x, y, radius, intensity 0-1, warm?]
+      // warm=true: amber/gold tones. warm=false: cool blue-white tones (locked districts)
+      const DISTRICTS = [
+        { nx:0.48, ny:0.42, rx:0.22, ry:0.28, intensity:1.0,  warm:true  }, // Film Division (open)
+        { nx:0.22, ny:0.22, rx:0.16, ry:0.20, intensity:0.45, warm:false }, // Career Mapping
+        { nx:0.72, ny:0.22, rx:0.16, ry:0.20, intensity:0.45, warm:false }, // Scriptwriting
+        { nx:0.12, ny:0.58, rx:0.14, ry:0.18, intensity:0.38, warm:false }, // Self Employment
+        { nx:0.48, ny:0.82, rx:0.14, ry:0.16, intensity:0.38, warm:false }, // Masterclasses
+        { nx:0.84, ny:0.78, rx:0.16, ry:0.18, intensity:0.42, warm:false }, // Community
+      ];
+
       function drawLights() {
         const W = shell.offsetWidth, H = shell.offsetHeight;
+        if (!W || !H) return;
         canvas.width = W; canvas.height = H;
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, W, H);
-        const cx = W * 0.50, cy = H * 0.50;
-        const inRiver = (x, y) => { const ry = H * 0.625 - (x / W) * H * 0.14; return y > ry - 18 && y < ry + 18; };
 
-        for (let i = 0; i < 1100; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const dist  = Math.pow(Math.random(), 0.35) * Math.max(W, H) * 0.52;
-          const x = cx + Math.cos(angle) * dist, y = cy + Math.sin(angle) * dist * 0.65;
-          if (x < 0 || x > W || y < 0 || y > H || inRiver(x, y)) continue;
-          const falloff = Math.max(0, 1 - dist / (Math.max(W, H) * 0.52));
-          const alpha = Math.random() * 0.5 * falloff + 0.06;
-          const size  = Math.random() * 1.2 * falloff + 0.15;
-          const roll  = Math.random();
-          let r, g, b;
-          if      (roll > 0.95) { r=255; g=245; b=200; }
-          else if (roll > 0.75) { r=255; g=200; b=75;  }
-          else if (roll > 0.48) { r=220; g=145; b=40;  }
-          else if (roll > 0.22) { r=185; g=100; b=18;  }
-          else                  { r=140; g=70;  b=8;   }
-          const grd = ctx.createRadialGradient(x, y, 0, x, y, size * 2.2);
+        // River exclusion — rough diagonal band
+        const inRiver = (x, y) => {
+          const ry = H * 0.625 - (x / W) * H * 0.14;
+          return y > ry - 16 && y < ry + 16;
+        };
+
+        // Helper: draw one light dot
+        const dot = (x, y, size, r, g, b, alpha) => {
+          if (x < 0 || x > W || y < 0 || y > H || inRiver(x, y)) return;
+          const grd = ctx.createRadialGradient(x, y, 0, x, y, size * 2.5);
           grd.addColorStop(0,   `rgba(${r},${g},${b},${alpha})`);
-          grd.addColorStop(0.5, `rgba(${r},${g},${b},${alpha * 0.3})`);
+          grd.addColorStop(0.5, `rgba(${r},${g},${b},${(alpha * 0.25).toFixed(3)})`);
           grd.addColorStop(1,   'rgba(0,0,0,0)');
-          ctx.beginPath(); ctx.arc(x, y, size * 2.2, 0, Math.PI * 2);
+          ctx.beginPath(); ctx.arc(x, y, size * 2.5, 0, Math.PI * 2);
           ctx.fillStyle = grd; ctx.fill();
-        }
-        for (let i = 0; i < 350; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const dist  = Math.pow(Math.random(), 0.32) * Math.max(W, H) * 0.50;
-          const x = cx + Math.cos(angle) * dist, y = cy + Math.sin(angle) * dist * 0.68;
-          if (x < 0 || x > W || y < 0 || y > H || inRiver(x, y)) continue;
-          const falloff = Math.max(0, 1 - dist / (Math.max(W, H) * 0.50));
-          const alpha   = Math.random() * 0.65 * falloff + 0.08;
-          ctx.beginPath(); ctx.arc(x, y, 0.7, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255,215,100,${alpha})`; ctx.fill();
-        }
-        for (let i = 0; i < 60; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const dist  = Math.pow(Math.random(), 0.45) * Math.max(W, H) * 0.38;
-          const bx = cx + Math.cos(angle) * dist, by = cy + Math.sin(angle) * dist * 0.62;
-          if (inRiver(bx, by)) continue;
-          const clusterSize = Math.floor(Math.random() * 3) + 2;
-          for (let j = 0; j < clusterSize; j++) {
-            const ox = bx + (Math.random() - 0.5) * 18, oy = by + (Math.random() - 0.5) * 10;
-            if (inRiver(ox, oy)) continue;
-            const falloff = Math.max(0, 1 - dist / (Math.max(W, H) * 0.38));
-            const alpha   = Math.random() * 0.55 * falloff + 0.12;
-        
-            ctx.beginPath(); ctx.arc(ox, oy, 0.6, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255,200,80,${alpha})`; ctx.fill();
+        };
+
+        // For each district, scatter lights that grow denser near centre
+        for (const d of DISTRICTS) {
+          const cx = W * d.nx, cy = H * d.ny;
+          const rx = W * d.rx, ry = H * d.ry;
+          const count = Math.round(900 * d.intensity);
+
+          for (let i = 0; i < count; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const t     = Math.pow(Math.random(), 0.4);
+            const x = cx + Math.cos(angle) * rx * t;
+            const y = cy + Math.sin(angle) * ry * t;
+            const falloff = 1 - t;
+            const alpha = (Math.random() * 0.72 + 0.12) * falloff * d.intensity;
+            const size  = (Math.random() * 1.4 + 0.3) * (0.5 + falloff * 0.5);
+            if (d.warm) {
+              const roll = Math.random();
+              let r, g, b;
+              if      (roll > 0.92) { r=255; g=248; b=210; }
+              else if (roll > 0.70) { r=255; g=205; b=80;  }
+              else if (roll > 0.42) { r=230; g=155; b=45;  }
+              else if (roll > 0.18) { r=195; g=108; b=22;  }
+              else                  { r=150; g=75;  b=10;  }
+              dot(x, y, size, r, g, b, alpha);
+            } else {
+              const roll = Math.random();
+              let r, g, b;
+              if      (roll > 0.88) { r=200; g=220; b=255; }
+              else if (roll > 0.60) { r=150; g=175; b=230; }
+              else if (roll > 0.32) { r=110; g=135; b=200; }
+              else                  { r=80;  g=105; b=170; }
+              dot(x, y, size, r, g, b, alpha * 0.85);
+            }
+          }
+
+          // Tight bright cluster at the very centre of each district
+          const clusterCount = Math.round(120 * d.intensity);
+          for (let i = 0; i < clusterCount; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const t     = Math.pow(Math.random(), 0.2) * 0.3;
+            const x = cx + Math.cos(angle) * rx * t;
+            const y = cy + Math.sin(angle) * ry * t;
+            const alpha = (Math.random() * 0.75 + 0.25) * d.intensity;
+            if (d.warm) {
+              dot(x, y, 0.7, 255, 230, 140, alpha);
+            } else {
+              dot(x, y, 0.6, 160, 195, 255, alpha * 0.8);
+            }
           }
         }
+
+        // Fine ambient scatter across whole map
+        for (let i = 0; i < 500; i++) {
+          const x = Math.random() * W;
+          const y = Math.random() * H;
+          if (inRiver(x, y)) continue;
+          let boost = 0;
+          for (const d of DISTRICTS) {
+            const dx = (x/W - d.nx) / d.rx, dy = (y/H - d.ny) / d.ry;
+            const dist2 = dx*dx + dy*dy;
+            if (dist2 < 1) boost = Math.max(boost, (1 - Math.sqrt(dist2)) * d.intensity);
+          }
+          const alpha = (0.04 + boost * 0.18) * (Math.random() * 0.6 + 0.4);
+          dot(x, y, 0.4, 200, 165, 85, alpha);
+        }
       }
+
+      drawLights();
+      window.addEventListener('resize', drawLights);
     })();
 
   }); // end DOMContentLoaded
