@@ -899,7 +899,7 @@
     </section>
 
     <!-- ── FILM DIVISION ── -->
-    <section id="film-division" style="display:none; min-height:100vh; background:#020202; flex-direction:column; align-items:center; justify-content:center; padding: 60px 24px;" class="fd-shell">
+    <section id="film-division" style="display:none; min-height:100vh; background:#020202; flex-direction:column; align-items:center; justify-content:center; padding: 80px 24px 60px; position:relative;" class="fd-shell">
       <style>
         .fridge-body {
           opacity: 0;
@@ -916,9 +916,9 @@
         }
         .fridge-reveal-title.revealed { opacity: 1; transform: scale(1); }
       </style>
-      <button onclick="window.showSection('map')" style="align-self:flex-start; max-width:720px; width:100%; margin:0 auto 48px; background:none; border:none; color:#555; font-size:10px; letter-spacing:3px; cursor:pointer; padding:0; text-transform:uppercase; text-align:left; display:block;">← Back to Map</button>
-      <div style="max-width:720px; width:100%; margin:0 auto; display:flex; justify-content:center;">
-        <article class="founder-card" id="card-fridge" style="flex:1; min-width:180px; max-width:210px; cursor:pointer; text-align:center;" onclick="revealFridgeSynopsis()">
+      <button onclick="window.showSection('map')" style="position:absolute; top:24px; left:32px; background:none; border:none; color:#555; font-size:10px; letter-spacing:3px; cursor:pointer; padding:0; text-transform:uppercase;">← Back to Map</button>
+      <div style="width:100%; display:flex; justify-content:center;">
+        <article class="founder-card" id="card-fridge" style="width:420px; max-width:85vw; cursor:pointer; text-align:center;" onclick="revealFridgeSynopsis()">
           <div class="image-frame" style="overflow:hidden; background:#1a1a1a; aspect-ratio:12/16;">
             <img src="Fridge visual.png" alt="Fridge" style="width:100%; height:100%; object-fit:cover; display:block;">
           </div>
@@ -1067,7 +1067,7 @@
         if (el) el.style.display = 'none';
       });
       window.scrollTo(0, 0);
-      if (id === 'map') setTimeout(syncMapGlow, 50);
+      if (id === 'map') setTimeout(() => { syncMapGlow(); if(window._drawMapLights) window._drawMapLights(); }, 50);
     }
     window.showSection = showSection; // expose for inline onclick handlers
 
@@ -1151,22 +1151,26 @@
       if (!shell) return;
       const canvas = document.createElement('canvas');
       canvas.setAttribute('aria-hidden', 'true');
-      canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;mix-blend-mode:screen;';
+      canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;mix-blend-mode:normal;';
       shell.appendChild(canvas);
 
-      let _normCx = 0.48, _normCy = 0.42;
-      window._mapCanvasCentre = (nx, ny) => { _normCx = nx; _normCy = ny; drawLights(); };
+      // Block centres in SVG space (1100x620) — same grid as SVG rects
+      const BXS = [11,43,71,99,127,155,187,215,243,279,307,339,367,395,423,451,483,511,539,567,595,627,655,683,711,739,771,799,827,855,883,915,943,971,999,1027,1059,1087];
+      const BYS = [10,40,66,92,118,144,174,200,226,252,278,312,338,364,390,416,446,472,498,524,550,580,606];
 
-      // District centres as % of map [x, y, radius, intensity 0-1, warm?]
-      // warm=true: amber/gold tones. warm=false: cool blue-white tones (locked districts)
-      const DISTRICTS = [
-        { nx:0.48, ny:0.42, rx:0.22, ry:0.28, intensity:1.0,  warm:true  }, // Film Division (open)
-        { nx:0.22, ny:0.22, rx:0.16, ry:0.20, intensity:0.45, warm:false }, // Career Mapping
-        { nx:0.72, ny:0.22, rx:0.16, ry:0.20, intensity:0.45, warm:false }, // Scriptwriting
-        { nx:0.12, ny:0.58, rx:0.14, ry:0.18, intensity:0.38, warm:false }, // Self Employment
-        { nx:0.48, ny:0.82, rx:0.14, ry:0.16, intensity:0.38, warm:false }, // Masterclasses
-        { nx:0.84, ny:0.78, rx:0.16, ry:0.18, intensity:0.42, warm:false }, // Community
+      // Districts in SVG space — large radii so influence spreads well across map
+      const DIST = [
+        { cx:528, cy:270, rx:420, ry:380, warm:true,  base:1.0  }, // Film Division
+        { cx:242, cy:136, rx:340, ry:300, warm:false, base:0.75 }, // Career Mapping
+        { cx:792, cy:136, rx:340, ry:300, warm:false, base:0.75 }, // Scriptwriting
+        { cx:132, cy:360, rx:300, ry:280, warm:false, base:0.68 }, // Self Employment
+        { cx:528, cy:508, rx:300, ry:270, warm:false, base:0.68 }, // Masterclasses
+        { cx:924, cy:484, rx:320, ry:290, warm:false, base:0.72 }, // Community
       ];
+
+      // River exclusion in SVG space
+      const riverZones = [[300,490,110,45],[440,468,90,38],[580,422,90,38],[692,348,42,88],[748,260,65,32],[900,218,110,32],[200,510,80,35],[650,440,60,30]];
+      function inRiver(x,y){ for(const [cx,cy,rx,ry] of riverZones){ if(((x-cx)/rx)**2+((y-cy)/ry)**2<1) return true; } return false; }
 
       function drawLights() {
         const W = shell.offsetWidth, H = shell.offsetHeight;
@@ -1175,91 +1179,66 @@
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, W, H);
 
-        // River exclusion — rough diagonal band
-        const inRiver = (x, y) => {
-          const ry = H * 0.625 - (x / W) * H * 0.14;
-          return y > ry - 16 && y < ry + 16;
-        };
+        const scaleX = W / 1100, scaleY = H / 620;
+        // Block size in canvas px (~22px wide, ~20px tall in SVG)
+        const bw = 22 * scaleX, bh = 20 * scaleY;
 
-        // Helper: draw one light dot
-        const dot = (x, y, size, r, g, b, alpha) => {
-          if (x < 0 || x > W || y < 0 || y > H || inRiver(x, y)) return;
-          const grd = ctx.createRadialGradient(x, y, 0, x, y, size * 2.5);
-          grd.addColorStop(0,   `rgba(${r},${g},${b},${alpha})`);
-          grd.addColorStop(0.5, `rgba(${r},${g},${b},${(alpha * 0.25).toFixed(3)})`);
-          grd.addColorStop(1,   'rgba(0,0,0,0)');
-          ctx.beginPath(); ctx.arc(x, y, size * 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = grd; ctx.fill();
-        };
+        for (const bx of BXS) {
+          for (const by of BYS) {
+            if (inRiver(bx, by)) continue;
 
-        // For each district, scatter lights that grow denser near centre
-        for (const d of DISTRICTS) {
-          const cx = W * d.nx, cy = H * d.ny;
-          const rx = W * d.rx, ry = H * d.ry;
-          const count = Math.round(900 * d.intensity);
+            // Compute influence from each district
+            let warmInfluence = 0, coolInfluence = 0;
+            for (const d of DIST) {
+              const nx = (bx - d.cx) / d.rx;
+              const ny = (by - d.cy) / d.ry;
+              const dist = Math.sqrt(nx*nx + ny*ny);
+              if (dist > 1) continue;
+              // Soft falloff: 1 at centre, 0 at edge
+              const influence = d.base * Math.pow(1 - dist, 1.4);
+              if (d.warm) warmInfluence = Math.max(warmInfluence, influence);
+              else        coolInfluence = Math.max(coolInfluence, influence);
+            }
 
-          for (let i = 0; i < count; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const t     = Math.pow(Math.random(), 0.4);
-            const x = cx + Math.cos(angle) * rx * t;
-            const y = cy + Math.sin(angle) * ry * t;
-            const falloff = 1 - t;
-            const alpha = (Math.random() * 0.72 + 0.12) * falloff * d.intensity;
-            const size  = (Math.random() * 1.4 + 0.3) * (0.5 + falloff * 0.5);
-            if (d.warm) {
-              const roll = Math.random();
+            const totalInfluence = warmInfluence + coolInfluence * 0.75;
+            if (totalInfluence < 0.015) continue;
+
+            // Number of dots to place in this block — more near district centres
+            const dotCount = Math.floor(0.5 + totalInfluence * 5 + Math.random() * (0.8 + totalInfluence * 3));
+            if (dotCount < 1) continue;
+
+            const cx = bx * scaleX, cy = by * scaleY;
+
+            for (let d = 0; d < dotCount; d++) {
+              const jx = cx + (Math.random() - 0.5) * bw * 0.82;
+              const jy = cy + (Math.random() - 0.5) * bh * 0.82;
+
+              const alpha = Math.min(0.92, (0.18 + totalInfluence * 0.72) * (0.4 + Math.random() * 0.6));
+              const size  = 0.5 + Math.random() * 0.8;
+
               let r, g, b;
-              if      (roll > 0.92) { r=255; g=248; b=210; }
-              else if (roll > 0.70) { r=255; g=205; b=80;  }
-              else if (roll > 0.42) { r=230; g=155; b=45;  }
-              else if (roll > 0.18) { r=195; g=108; b=22;  }
-              else                  { r=150; g=75;  b=10;  }
-              dot(x, y, size, r, g, b, alpha);
-            } else {
-              const roll = Math.random();
-              let r, g, b;
-              if      (roll > 0.88) { r=200; g=220; b=255; }
-              else if (roll > 0.60) { r=150; g=175; b=230; }
-              else if (roll > 0.32) { r=110; g=135; b=200; }
-              else                  { r=80;  g=105; b=170; }
-              dot(x, y, size, r, g, b, alpha * 0.85);
+              if (warmInfluence >= coolInfluence) {
+                r=255; g=200; b=64;  // #ffc840
+              } else {
+                r=136; g=153; b=187; // #8899bb
+              }
+
+              const grd = ctx.createRadialGradient(jx, jy, 0, jx, jy, size * 2.2);
+              grd.addColorStop(0,   `rgba(${r},${g},${b},${alpha.toFixed(3)})`);
+              grd.addColorStop(0.5, `rgba(${r},${g},${b},${(alpha*0.12).toFixed(3)})`);
+              grd.addColorStop(1,   'rgba(0,0,0,0)');
+              ctx.beginPath();
+              ctx.arc(jx, jy, size * 2.2, 0, Math.PI * 2);
+              ctx.fillStyle = grd;
+              ctx.fill();
             }
           }
-
-          // Tight bright cluster at the very centre of each district
-          const clusterCount = Math.round(120 * d.intensity);
-          for (let i = 0; i < clusterCount; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const t     = Math.pow(Math.random(), 0.2) * 0.3;
-            const x = cx + Math.cos(angle) * rx * t;
-            const y = cy + Math.sin(angle) * ry * t;
-            const alpha = (Math.random() * 0.75 + 0.25) * d.intensity;
-            if (d.warm) {
-              dot(x, y, 0.7, 255, 230, 140, alpha);
-            } else {
-              dot(x, y, 0.6, 160, 195, 255, alpha * 0.8);
-            }
-          }
-        }
-
-        // Fine ambient scatter across whole map
-        for (let i = 0; i < 500; i++) {
-          const x = Math.random() * W;
-          const y = Math.random() * H;
-          if (inRiver(x, y)) continue;
-          let boost = 0;
-          for (const d of DISTRICTS) {
-            const dx = (x/W - d.nx) / d.rx, dy = (y/H - d.ny) / d.ry;
-            const dist2 = dx*dx + dy*dy;
-            if (dist2 < 1) boost = Math.max(boost, (1 - Math.sqrt(dist2)) * d.intensity);
-          }
-          const alpha = (0.04 + boost * 0.18) * (Math.random() * 0.6 + 0.4);
-          dot(x, y, 0.4, 200, 165, 85, alpha);
         }
       }
 
       drawLights();
       window.addEventListener('resize', drawLights);
+      window._drawMapLights = drawLights;
     })();
 
   }); // end DOMContentLoaded
