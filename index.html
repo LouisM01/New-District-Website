@@ -433,7 +433,7 @@
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
     .modal-header h3 { font-size: 14px; letter-spacing: 4px; color: #ffc840; }
     .modal-close { background: none; border: none; color: #999999; font-size: 14px; cursor: pointer; }
-    .modal-body { font-size: 12px; color: #FAFAFA; line-height: 1.7; margin-bottom: 16px; }
+    .modal-body { font-size: 12px; color: #FAFAFA; line-height: 1.7; margin-bottom: 16px; text-align: justify; }
     .modal-tag { font-size: 9px; letter-spacing: 2px; color: #444444; text-transform: uppercase; }
 
     /* ── FOOTER ── */
@@ -829,31 +829,31 @@
               <span class="d-meta">Open · Enter</span>
             </button>
             <button class="ndp-district locked" style="--x:22;--y:22;"
-              data-ndp-name="CAREER MAPPING" data-ndp-desc="Career roadmaps and production pathways. Coming soon.">
+              data-ndp-name="CAREER MAPPING" data-ndp-desc="Career roadmaps and production pathways. Coming soon." data-ndp-modal="Feel like your career's in a rut? Or just wanting assistance pivoting, growing, or developing? Look no further than our career mapping division. Our network of industry professionals spanning songwriting, music production, scriptwriting, acting and filmmaking, are here to help inspire your next steps. COMING SOON.">
               <span class="ndp-blip locked-blip"></span>
               <span class="d-name">Career Mapping</span>
               <span class="d-meta">Locked</span>
             </button>
             <button class="ndp-district locked" style="--x:72;--y:22;"
-              data-ndp-name="SCRIPTWRITING" data-ndp-desc="Coming soon — masterclasses and workshops for writers.">
+              data-ndp-name="SCRIPTWRITING" data-ndp-desc="Progress your script in our specialist division. Coming soon." data-ndp-modal="Whether you're working on a play, short, feature, or TV series pilot, our specialist writers division is the place for you. Get detailed feedback, schedule 1-on-1 workshop time with our team of in-house writers, and get your script ready for its next step. COMING SOON.">
               <span class="ndp-blip locked-blip"></span>
               <span class="d-name">Scriptwriting</span>
               <span class="d-meta">Locked</span>
             </button>
             <button class="ndp-district locked" style="--x:12;--y:58;"
-              data-ndp-name="SELF EMPLOYMENT" data-ndp-desc="Tax, contracts, and going it alone. Coming soon.">
+              data-ndp-name="SELF EMPLOYMENT" data-ndp-desc="Tax, contracts, and going it alone. Coming soon." data-ndp-modal="Learn how to leverage your skills as a creative to earn a consistent income, without relying entirely on sporadic employment. Give yourself a financial leg-up, so you can continue pursuing your dream career. Here you'll find resources to help you navigate self-employment, contracts, tax, and much more. COMING SOON.">
               <span class="ndp-blip locked-blip"></span>
               <span class="d-name">Self Employment</span>
               <span class="d-meta">Locked</span>
             </button>
             <button class="ndp-district locked" style="--x:55;--y:88;"
-              data-ndp-name="MASTERCLASSES" data-ndp-desc="Intensive skills training from industry practitioners. Coming soon.">
+              data-ndp-name="MASTERCLASSES" data-ndp-desc="Intensive skills training from industry practitioners. Coming soon." data-ndp-modal="In-depth tutorials, panels, and guidance from a mix of our in-house network and industry special guests on how to refine and develop your professional practice, whatever medium you specialise in. COMING SOON.">
               <span class="ndp-blip locked-blip"></span>
               <span class="d-name">Masterclasses</span>
               <span class="d-meta">Locked</span>
             </button>
             <button class="ndp-district locked" style="--x:84;--y:82;"
-              data-ndp-name="COMMUNITY (SKOOL)" data-ndp-desc="The forum. Artist-to-artist. Coming soon.">
+              data-ndp-name="COMMUNITY (SKOOL)" data-ndp-desc="The forum. Artist-to-artist. Coming soon." data-ndp-modal="The forum for all things New District. A space for you to get to know your peers, keep up to date with developments, build relationships, and ask questions. Artist-to-artist. COMING SOON.">
               <span class="ndp-blip locked-blip"></span>
               <span class="d-name">Community (Skool)</span>
               <span class="d-meta">Locked</span>
@@ -1135,7 +1135,7 @@
         const locked = e.target.closest('.ndp-district.locked');
         if (!locked) return;
         e.preventDefault();
-        openModal(locked.dataset.ndpName || 'Restricted', locked.dataset.ndpDesc || LOCKED_MSG);
+        openModal(locked.dataset.ndpName || 'Restricted', locked.dataset.ndpModal || locked.dataset.ndpDesc || LOCKED_MSG);
       });
       shell.addEventListener('click', (e) => {
         const open = e.target.closest('.ndp-district.open');
