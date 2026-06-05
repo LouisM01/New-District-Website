@@ -1253,33 +1253,33 @@
       position: fixed; inset: 0; z-index: 1000;
       background: #000;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
       padding: 60px 80px;
       font-family: 'Courier New', Courier, monospace;
-      color: #fff;
+      color: #00ff41;
     }
     #pnc-loader.open { display: flex; }
-    #pnc-log { font-size: 13px; line-height: 2; letter-spacing: 1px; margin-bottom: 32px; min-height: 120px; }
-    #pnc-log .log-line { display: block; opacity: 0; }
+    #pnc-log { font-size: 15.6px; line-height: 2; letter-spacing: 1px; margin-bottom: 38px; min-height: 144px; text-align: left; }
+    #pnc-log .log-line { display: block; opacity: 0; color: #00ff41; }
     #pnc-log .log-line.show { opacity: 1; }
     #pnc-bar-wrap {
-      width: 420px; max-width: 80vw;
-      border: 1px solid #fff;
-      height: 18px; position: relative; margin-bottom: 10px;
+      width: 504px; max-width: 80vw;
+      border: 1px solid #00ff41;
+      height: 22px; position: relative; margin-bottom: 12px;
     }
     #pnc-bar-fill {
       height: 100%; width: 0%;
-      background: #fff;
+      background: #00ff41;
       transition: width 0.25s linear;
     }
     #pnc-bar-pct {
-      font-size: 12px; letter-spacing: 2px; margin-bottom: 32px; color: #fff;
+      font-size: 14px; letter-spacing: 2px; margin-bottom: 38px; color: #00ff41;
     }
     #pnc-granted {
-      font-size: 18px; letter-spacing: 6px; font-weight: bold;
+      font-size: 21.6px; letter-spacing: 6px; font-weight: bold;
       opacity: 0; transition: opacity 0.6s ease;
-      color: #fff;
+      color: #00ff41;
     }
     #pnc-granted.show { opacity: 1; }
 
@@ -1298,32 +1298,33 @@
     #pnc-icons {
       position: absolute;
       top: 16px; left: 16px;
-      display: flex; flex-direction: column; gap: 8px;
+      display: flex; flex-direction: column; gap: 14px;
     }
     .pnc-icon {
       display: flex; flex-direction: column;
       align-items: center;
-      width: 72px; cursor: default;
-      padding: 4px;
+      width: 94px; cursor: default;
+      padding: 6px;
       border: 1px solid transparent;
     }
     .pnc-icon:hover, .pnc-icon.selected {
       background: #000080;
       border: 1px dotted #fff;
     }
-    .pnc-icon img, .pnc-icon svg { width: 32px; height: 32px; }
+    .pnc-icon img, .pnc-icon svg { width: 42px; height: 42px; }
     .pnc-icon-label {
       font-size: 11px; color: #fff;
-      text-align: center; margin-top: 3px;
+      text-align: center; margin-top: 8px;
       text-shadow: 1px 1px 0 #000;
       word-break: break-word;
+      line-height: 1.5;
     }
     .pnc-icon.selected .pnc-icon-label { background: #000080; }
 
     /* Centre crest */
-   #pnc-crest {
+    #pnc-crest {
       position: absolute;
-      inset: 0;
+      top: 0; left: 0; right: 0; bottom: 32px;
       pointer-events: none;
       display: flex;
       align-items: center;
@@ -1331,11 +1332,9 @@
       overflow: hidden;
     }
     #pnc-crest img {
-      width: 420px;
-      max-width: 60vw;
+      width: 380px;
+      max-width: 50vw;
       height: auto;
-      opacity: 0.18;
-      filter: grayscale(1);
       user-select: none;
     }
 
@@ -1575,8 +1574,6 @@
     </div>
 
     <!-- Desktop icons — sibling of crest, not nested inside it -->
-    <div id="pnc-icons">
-    <!-- Desktop icons -->
     <div id="pnc-icons">
       <!-- My Computer - classic Win98 monitor with keyboard -->
       <div class="pnc-icon" ondblclick="pncOpenExplorer()">
@@ -1917,9 +1914,39 @@ newdistrict.co.uk</div>
     <div id="folder-1999"    class="pnc-folder-win" data-title="Case files — Jan-Dec 1999 [RESTRICTED]" data-path="C:\FRIDGE\Case_files_Jan-Dec_1999"></div>
     <div id="folder-2000"    class="pnc-folder-win" data-title="Case files — Jan-Dec 2000 [RESTRICTED]" data-path="C:\FRIDGE\Case_files_Jan-Dec_2000"></div>
 
-    <!-- Stills lightbox -->
-    <div id="pnc-lightbox" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;" onclick="this.style.display='none'">
-      <img id="pnc-lightbox-img" src="" style="max-width:90vw;max-height:90vh;box-shadow:0 0 40px #000;">
+    <!-- Stills viewer — Win98 image viewer window -->
+    <div id="pnc-viewer" style="display:none; position:absolute; z-index:50; font-family:'MS Sans Serif',Tahoma,Arial,sans-serif; font-size:12px;
+      border-top:2px solid #fff; border-left:2px solid #fff; border-right:2px solid #404040; border-bottom:2px solid #404040;
+      box-shadow:2px 2px 0 #000; background:#c0c0c0;">
+      <!-- Titlebar -->
+      <div id="pnc-viewer-titlebar"
+        style="background:linear-gradient(to right,#000080,#1084d0); color:#fff; font-weight:bold; font-size:12px;
+          padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none;"
+        onmousedown="pncDragStart(event,'pnc-viewer')">
+        <span id="pnc-viewer-title">Image Viewer</span>
+        <div style="display:flex;gap:2px;">
+          <div class="pnc-win-btn" style="width:16px;height:14px;" onclick="document.getElementById('pnc-viewer').style.display='none'">✕</div>
+        </div>
+      </div>
+      <!-- Black inset display area -->
+      <div style="padding:8px; background:#c0c0c0;">
+        <div id="pnc-viewer-screen"
+          style="background:#000; border-top:2px solid #808080; border-left:2px solid #808080; border-right:2px solid #fff; border-bottom:2px solid #fff;
+            overflow:hidden; display:flex; align-items:center; justify-content:center;">
+          <img id="pnc-viewer-img" src="" style="display:block; width:100%; height:100%; object-fit:contain;">
+        </div>
+      </div>
+      <!-- Nav bar -->
+      <div style="background:#c0c0c0; padding:6px 8px 8px; display:flex; align-items:center; justify-content:center; gap:16px;
+        border-top:1px solid #808080;">
+        <button onclick="pncViewerPrev()"
+          style="width:24px;height:22px; background:#c0c0c0; border-top:2px solid #fff; border-left:2px solid #fff;
+            border-right:2px solid #808080; border-bottom:2px solid #808080; cursor:pointer; font-size:10px; display:flex; align-items:center; justify-content:center;">◀</button>
+        <span id="pnc-viewer-counter" style="font-size:11px; color:#000; letter-spacing:1px;">1 / 6</span>
+        <button onclick="pncViewerNext()"
+          style="width:24px;height:22px; background:#c0c0c0; border-top:2px solid #fff; border-left:2px solid #fff;
+            border-right:2px solid #808080; border-bottom:2px solid #808080; cursor:pointer; font-size:10px; display:flex; align-items:center; justify-content:center;">▶</button>
+      </div>
     </div>
   </div><!-- end pnc-desktop -->
 
@@ -2035,21 +2062,18 @@ newdistrict.co.uk</div>
 
   // WAV icon for Demos
 function makeWavIconSVG() {
-  return `<svg viewBox="0 0 40 48" xmlns="http://www.w3.org/2000/svg" width="40" height="48">
+  return `<svg viewBox="0 0 40 48" xmlns="http://www.w3.org/2000/svg" width="40" height="48" style="display:block;">
     <polygon points="0,0 28,0 40,12 40,48 0,48" fill="#fff" stroke="#000" stroke-width="1.2"/>
     <polygon points="28,0 28,12 40,12" fill="#c8c8c8" stroke="#000" stroke-width="1.2"/>
-    <rect x="4" y="20" width="1.5" height="14" fill="#000"/>
-    <rect x="7" y="17" width="1.5" height="20" fill="#000"/>
-    <rect x="10" y="22" width="1.5" height="10" fill="#000"/>
-    <rect x="13" y="15" width="1.5" height="24" fill="#000"/>
-    <rect x="16" y="19" width="1.5" height="16" fill="#000"/>
-    <rect x="19" y="23" width="1.5" height="8" fill="#000"/>
-    <rect x="22" y="16" width="1.5" height="22" fill="#000"/>
-    <rect x="25" y="21" width="1.5" height="12" fill="#000"/>
-    <rect x="28" y="18" width="1.5" height="18" fill="#000"/>
-    <rect x="31" y="24" width="1.5" height="6" fill="#000"/>
-    <rect x="4" y="40" width="32" height="5" fill="#000"/>
-    <text x="20" y="46" text-anchor="middle" font-size="4.5" fill="#fff" font-family="Arial" font-weight="bold">WAV</text>
+    <rect x="5"  y="22" width="2" height="12" fill="#000"/>
+    <rect x="9"  y="18" width="2" height="20" fill="#000"/>
+    <rect x="13" y="24" width="2" height="8"  fill="#000"/>
+    <rect x="17" y="15" width="2" height="22" fill="#000"/>
+    <rect x="21" y="20" width="2" height="14" fill="#000"/>
+    <rect x="25" y="25" width="2" height="6"  fill="#000"/>
+    <rect x="29" y="17" width="2" height="20" fill="#000"/>
+    <rect x="4"  y="38" width="32" height="6" fill="#000"/>
+    <text x="20" y="44" text-anchor="middle" font-size="5" fill="#fff" font-family="Arial Black, Arial" font-weight="900">WAV</text>
   </svg>`;
 }
   // WAV files hosted in repo root
@@ -2108,7 +2132,7 @@ function makeWavIconSVG() {
         body.style.cssText = 'background:#fff;min-height:180px;padding:16px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:16px 20px;';
         body.innerHTML = WAV_FILES.map((f, i) => `
           <div class="pnc-file" style="width:72px;" ondblclick="pncPlayWav(${i})">
-            <div style="width:40px;height:40px;">${makeWavIconSVG()}</div>
+            <div style="width:40px;height:48px;">${makeWavIconSVG()}</div>
             <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-all;">${f.name}</div>
           </div>`).join('');
         // Update status
@@ -2159,10 +2183,53 @@ function makeWavIconSVG() {
     {name:"Img.005", src:"NDP_still_005.jpeg"},
     {name:"Img.006", src:"NDP_still_006.jpeg"},
   ];
+  // ── Stills viewer ─────────────────────────────────────
+  let _viewerIdx = 0;
+
   function pncViewStill(idx) {
-    const lb = document.getElementById('pnc-lightbox');
-    document.getElementById('pnc-lightbox-img').src = STILLS_DATA[idx].src;
-    lb.style.display = 'flex';
+    _viewerIdx = idx;
+    const viewer  = document.getElementById('pnc-viewer');
+    const screen  = document.getElementById('pnc-viewer-screen');
+    const img     = document.getElementById('pnc-viewer-img');
+    const title   = document.getElementById('pnc-viewer-title');
+    const counter = document.getElementById('pnc-viewer-counter');
+    const still   = STILLS_DATA[idx];
+
+    // Detect orientation by loading the image first
+    const probe = new Image();
+    probe.onload = function() {
+      const isLandscape = probe.naturalWidth >= probe.naturalHeight;
+      // 16:9 landscape → ~640×360px screen area. 9:16 portrait → ~360×640px.
+      const screenW = isLandscape ? 640 : 360;
+      const screenH = isLandscape ? 360 : 560;
+
+      screen.style.width  = screenW + 'px';
+      screen.style.height = screenH + 'px';
+      img.src = still.src;
+      title.textContent = still.name + ' — FRIDGE Stills';
+      counter.textContent = (idx + 1) + ' / ' + STILLS_DATA.length;
+
+      // Centre the window on the desktop
+      const desktop = document.getElementById('pnc-desktop');
+      const dw = desktop.offsetWidth;
+      const dh = desktop.offsetHeight;
+      const totalW = screenW + 16 + 4; // padding + borders
+      const totalH = screenH + 24 + 16 + 38 + 4; // titlebar + screen padding + navbar + borders
+      viewer.style.left = Math.max(120, (dw - totalW) / 2) + 'px';
+      viewer.style.top  = Math.max(40,  (dh - totalH) / 2) + 'px';
+      viewer.style.display = 'block';
+    };
+    probe.src = still.src;
+  }
+
+  function pncViewerPrev() {
+    _viewerIdx = (_viewerIdx - 1 + STILLS_DATA.length) % STILLS_DATA.length;
+    pncViewStill(_viewerIdx);
+  }
+
+  function pncViewerNext() {
+    _viewerIdx = (_viewerIdx + 1) % STILLS_DATA.length;
+    pncViewStill(_viewerIdx);
   }
 
   // ── Wire double-click on Fridge card ──────────────────
