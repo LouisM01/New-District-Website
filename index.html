@@ -2118,14 +2118,7 @@ function makeWavIconSVG() {
       if (id === 'Stills') {
         const body = frame.querySelector('.pnc-folder-body');
         body.style.cssText = 'background:#fff;min-height:200px;padding:16px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:16px 20px;';
-        const STILLS = [
-  {name:"Img.001", src:"NDP_still_001.jpeg"},
-  {name:"Img.002", src:"NDP_still_002.jpeg"},
-  {name:"Img.003", src:"NDP_still_003.jpeg"},
-  {name:"Img.004", src:"NDP_still_004.jpeg"},
-  {name:"Img.005", src:"NDP_still_005.jpeg"},
-  {name:"Img.006", src:"NDP_still_006.jpeg"},
-];
+       const STILLS = STILLS_DATA;
         const DOC_SVG = `<svg viewBox="0 0 40 48" xmlns="http://www.w3.org/2000/svg" width="40" height="48">
   <polygon points="0,0 28,0 40,12 40,48 0,48" fill="#fff" stroke="#aaa" stroke-width="1.5"/>
   <polygon points="28,0 28,12 40,12" fill="#ddd" stroke="#aaa" stroke-width="1.5"/>
@@ -2157,14 +2150,15 @@ function makeWavIconSVG() {
 
 
   // Stills data
- const STILLS_DATA = [
-  {name:"Img.001", src:"NDP_still_001.jpeg"},
-  {name:"Img.002", src:"NDP_still_002.jpeg"},
-  {name:"Img.003", src:"NDP_still_003.jpeg"},
-  {name:"Img.004", src:"NDP_still_004.jpeg"},
-  {name:"Img.005", src:"NDP_still_005.jpeg"},
-  {name:"Img.006", src:"NDP_still_006.jpeg"},
-];
+// FIX 8: single shared stills array — used by both pncOpenFolder and pncViewStill
+  const STILLS_DATA = [
+    {name:"Img.001", src:"NDP_still_001.jpeg"},
+    {name:"Img.002", src:"NDP_still_002.jpeg"},
+    {name:"Img.003", src:"NDP_still_003.jpeg"},
+    {name:"Img.004", src:"NDP_still_004.jpeg"},
+    {name:"Img.005", src:"NDP_still_005.jpeg"},
+    {name:"Img.006", src:"NDP_still_006.jpeg"},
+  ];
   function pncViewStill(idx) {
     const lb = document.getElementById('pnc-lightbox');
     document.getElementById('pnc-lightbox-img').src = STILLS_DATA[idx].src;
