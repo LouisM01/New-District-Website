@@ -1979,6 +1979,11 @@ newdistrict.co.uk</div>
         <span id="pnc-pdf-counter" style="font-size:10px; color:#000; padding:0 4px;">1 / 1</span>
         <button onclick="pncPdfNext()" style="padding:1px 8px; font-size:10px; background:#c0c0c0; border-top:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #808080; border-bottom:1px solid #808080; cursor:pointer;">▶</button>
         <span style="font-size:10px; color:#666; margin-left:8px;" id="pnc-pdf-filename"></span>
+        <span style="margin-left:auto; display:flex; gap:4px;">
+          <button onclick="pncZoom('pdf',-0.15)" style="padding:1px 7px; font-size:11px; background:#c0c0c0; border-top:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #808080; border-bottom:1px solid #808080; cursor:pointer;">−</button>
+          <span id="pnc-pdf-zoom-label" style="font-size:10px; color:#000; min-width:30px; text-align:center; line-height:20px;">100%</span>
+          <button onclick="pncZoom('pdf',0.15)" style="padding:1px 7px; font-size:11px; background:#c0c0c0; border-top:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #808080; border-bottom:1px solid #808080; cursor:pointer;">+</button>
+        </span>
       </div>
       <!-- Document display area — black inset -->
       <div style="padding:8px; background:#808080;">
@@ -2003,7 +2008,12 @@ newdistrict.co.uk</div>
           padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none;"
         onmousedown="pncDragStart(event,'pnc-cad-viewer')">
         <span>CAD_5012_09Mar1998</span>
-        <div class="pnc-win-btn" onclick="document.getElementById('pnc-cad-viewer').style.display='none'">✕</div>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <button onclick="pncZoom('cad',-0.15)" style="padding:0 5px; font-size:11px; background:#c0c0c0; color:#000; border:none; cursor:pointer; height:14px; line-height:14px;">−</button>
+          <span id="pnc-cad-zoom-label" style="font-size:9px; min-width:28px; text-align:center;">100%</span>
+          <button onclick="pncZoom('cad',0.15)" style="padding:0 5px; font-size:11px; background:#c0c0c0; color:#000; border:none; cursor:pointer; height:14px; line-height:14px;">+</button>
+          <div class="pnc-win-btn" onclick="document.getElementById('pnc-cad-viewer').style.display='none'" style="margin-left:4px;">✕</div>
+        </div>
       </div>
       <div style="padding:8px; background:#c0c0c0;">
         <div style="background:#000; border-top:2px solid #808080; border-left:2px solid #808080;
@@ -2029,7 +2039,12 @@ newdistrict.co.uk</div>
           padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none;"
         onmousedown="pncDragStart(event,'pnc-cr-viewer')">
         <span>Aaron_Turner_Criminal_Record</span>
-        <div class="pnc-win-btn" onclick="document.getElementById('pnc-cr-viewer').style.display='none'">✕</div>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <button onclick="pncZoom('cr',-0.15)" style="padding:0 5px; font-size:11px; background:#c0c0c0; color:#000; border:none; cursor:pointer; height:14px; line-height:14px;">−</button>
+          <span id="pnc-cr-zoom-label" style="font-size:9px; min-width:28px; text-align:center;">100%</span>
+          <button onclick="pncZoom('cr',0.15)" style="padding:0 5px; font-size:11px; background:#c0c0c0; color:#000; border:none; cursor:pointer; height:14px; line-height:14px;">+</button>
+          <div class="pnc-win-btn" onclick="document.getElementById('pnc-cr-viewer').style.display='none'" style="margin-left:4px;">✕</div>
+        </div>
       </div>
       <div style="padding:8px; background:#c0c0c0;">
         <div style="background:#000; border-top:2px solid #808080; border-left:2px solid #808080;
@@ -2208,8 +2223,8 @@ function makeWavIconSVG() {
 }
   // WAV files hosted in repo root
   const WAV_FILES = [
-    { name: 'Atmospheric DnB.wav', src: 'FRIDGE_MONTAGE_ATMOS_DEMO_1.wav' },
-    { name: 'techstep.wav',        src: 'FRIDGE_DEMO_2_-_v1.wav' },
+    { name: 'Atmospheric DnB.wav', src: 'FRIDGE MONTAGE ATMOS DEMO 1.wav' },
+    { name: 'techstep.wav',        src: 'FRIDGE DEMO 2 - v1.wav' },
   ];
 
   function pncOpenFolder(id) {
@@ -2665,7 +2680,9 @@ function makeWavIconSVG() {
     viewer.style.left = Math.max(120, (dw - 562) / 2) + 'px';
     viewer.style.top  = Math.max(40,  (dh - 870) / 2) + 'px';
     viewer.querySelector('div[style*="overflow-y"]').scrollTop = 0;
+    _zoomLevels.cr = 1;
     viewer.style.display = 'block';
+    _pncApplyZoom('cr');
   }
 
   function pncOpenCadReport() {
@@ -2675,7 +2692,47 @@ function makeWavIconSVG() {
     viewer.style.left = Math.max(120, (dw - 562) / 2) + 'px';
     viewer.style.top  = Math.max(40,  (dh - 870) / 2) + 'px';
     viewer.querySelector('div[style*="overflow-y"]').scrollTop = 0;
+    _zoomLevels.cad = 1;
     viewer.style.display = 'block';
+    _pncApplyZoom('cad');
+  }
+
+  // ── Zoom engine ────────────────────────────────────────
+  const _zoomLevels = { pdf: 1, cr: 1, cad: 1 };
+  const _zoomBoxIds = {
+    pdf: 'pnc-pdf-imgbox',
+    cr:  'pnc-cr-viewer',
+    cad: 'pnc-cad-viewer',
+  };
+  const _zoomLabelIds = {
+    pdf: 'pnc-pdf-zoom-label',
+    cr:  'pnc-cr-zoom-label',
+    cad: 'pnc-cad-zoom-label',
+  };
+
+  function pncZoom(type, delta) {
+    _zoomLevels[type] = Math.min(3, Math.max(0.4, _zoomLevels[type] + delta));
+    _pncApplyZoom(type);
+  }
+
+  function _pncApplyZoom(type) {
+    const scale = _zoomLevels[type];
+    const label = document.getElementById(_zoomLabelIds[type]);
+    if (label) label.textContent = Math.round(scale * 100) + '%';
+
+    // For pdf: zoom images inside imgbox
+    if (type === 'pdf') {
+      const box = document.getElementById('pnc-pdf-imgbox');
+      if (box) box.querySelectorAll('img').forEach(img => { img.style.width = (scale * 100) + '%'; });
+      return;
+    }
+    // For cr and cad: zoom images inside the scrollable div
+    const viewer = document.getElementById(
+      type === 'cr' ? 'pnc-cr-viewer' : 'pnc-cad-viewer'
+    );
+    if (!viewer) return;
+    const box = viewer.querySelector('div[style*="overflow-y"]');
+    if (box) box.querySelectorAll('img').forEach(img => { img.style.width = (scale * 100) + '%'; });
   }
 
   let _pdfIdx  = 0;
@@ -2704,6 +2761,8 @@ function makeWavIconSVG() {
     imgbox.innerHTML = (file.pages || []).map(src =>
       `<img src="${src}" style="display:block; width:100%; height:auto;">`
     ).join('');
+    _zoomLevels.pdf = 1;
+    _pncApplyZoom('pdf');
   }
 
   function pncPdfPrev() {
