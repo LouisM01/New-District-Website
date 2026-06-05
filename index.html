@@ -1982,8 +1982,8 @@ newdistrict.co.uk</div>
       </div>
       <!-- Document display area — black inset -->
       <div style="padding:8px; background:#808080;">
-        <div style="background:#000; border-top:2px solid #808080; border-left:2px solid #808080; border-right:2px solid #fff; border-bottom:2px solid #fff; overflow:hidden; height:792px; display:flex; align-items:flex-start; justify-content:center;">
-          <iframe id="pnc-pdf-frame" src="" style="width:100%; height:100%; border:none; background:#fff;" title="Document viewer"></iframe>
+        <div style="background:#000; border-top:2px solid #808080; border-left:2px solid #808080; border-right:2px solid #fff; border-bottom:2px solid #fff; overflow-y:auto; height:792px;" id="pnc-pdf-imgbox">
+          <!-- pages rendered here by pncOpenPdf -->
         </div>
       </div>
       <!-- Status bar -->
@@ -2009,8 +2009,8 @@ newdistrict.co.uk</div>
         <div style="background:#000; border-top:2px solid #808080; border-left:2px solid #808080;
           border-right:2px solid #fff; border-bottom:2px solid #fff;
           overflow-y:auto; height:792px;">
-          <img src="cad_5012_09mar98_p1__1_.jpg" style="display:block; width:100%; height:auto;">
-          <img src="cad_5012_09mar98_p2__1_.jpg" style="display:block; width:100%; height:auto;">
+          <img src="cad_5012_09mar98_p1.jpg" style="display:block; width:100%; height:auto;">
+          <img src="cad_5012_09mar98_p2.jpg" style="display:block; width:100%; height:auto;">
         </div>
       </div>
       <div style="background:#c0c0c0; border-top:1px solid #808080; padding:2px 6px; font-size:10px;">
@@ -2634,28 +2634,28 @@ function makeWavIconSVG() {
   ];
   // ── Case files ─────────────────────────────────────────
   const CASE_FILES_1994 = [
-    { name: '__cad_report__',                                    label: 'CAD_5012_09Mar1998' },
-    { name: 'BX_Harvey_Burns_ASB_30_Apr_1994.pdf',             label: 'Harvey_Burns_Apr_1994' },
-    { name: 'Aaron_Turner_IA_Skinner_Assault_13_Dec_1995.pdf', label: 'Aaron_Turner_Dec_1995' },
-    { name: 'Aaron_Turner_SS_Keating_Estate_08_Aug_1996.pdf',  label: 'Aaron_Turner_Aug_1996' },
-    { name: 'Aaron_Turner_SS_Dogstar_23_Jul_1998.pdf',         label: 'Aaron_Turner_Jul_1998' },
+    { name: '__cad_report__', label: 'CAD_5012_09Mar1998' },
+    { label: 'Harvey_Burns_Apr_1994',      pages: ['BX_Harvey_Burns_ASB_30_Apr_1994-1.png','BX_Harvey_Burns_ASB_30_Apr_1994-2.png'] },
+    { label: 'Aaron_Turner_Dec_1995',      pages: ['Aaron_Turner_IA_Skinner_Assault_13_Dec_1995-1.png','Aaron_Turner_IA_Skinner_Assault_13_Dec_1995-2.png'] },
+    { label: 'Aaron_Turner_Aug_1996',      pages: ['Aaron_Turner_SS_Keating_Estate_08_Aug_1996-1.png','Aaron_Turner_SS_Keating_Estate_08_Aug_1996-2.png'] },
+    { label: 'Aaron_Turner_Jul_1998',      pages: ['Aaron_Turner_SS_Dogstar_23_Jul_1998-1.png','Aaron_Turner_SS_Dogstar_23_Jul_1998-2.png'] },
   ];
 
   const CASE_FILES_1999 = [
-    { name: 'BX_06_Incident_Record_19_Feb_1999.pdf',       label: 'Theft_Feb_1999' },
-    { name: 'BX_11_Police_Incident_Report_07_Apr_1999.pdf', label: 'Theft_Apr_1999' },
-    { name: 'BX_16_Arrest_Report_22_Jul_1999.pdf',          label: 'Arrest_Jul_1999' },
-    { name: 'BX_12_Police_Incident_Report_29_Nov_1999.pdf', label: 'Assault_Nov_1999' },
+    { label: 'Theft_Feb_1999',    pages: ['BX_06_Incident_Record_19_Feb_1999-1.png','BX_06_Incident_Record_19_Feb_1999-2.png'] },
+    { label: 'Theft_Apr_1999',    pages: ['BX_11_Police_Incident_Report_07_Apr_1999-1.png','BX_11_Police_Incident_Report_07_Apr_1999-2.png'] },
+    { label: 'Arrest_Jul_1999',   pages: ['BX_16_Arrest_Report_22_Jul_1999-1.png','BX_16_Arrest_Report_22_Jul_1999-2.png'] },
+    { label: 'Assault_Nov_1999',  pages: ['BX_12_Police_Incident_Report_29_Nov_1999-1.png','BX_12_Police_Incident_Report_29_Nov_1999-2.png'] },
   ];
 
   const CASE_FILES_2000 = [
-    { name: '__criminal_record__', label: 'Aaron_Turner_Criminal_Record' },
-    { name: 'EV_BX17_Harrington_Burglary_16Mar2000.pdf', label: 'Harrington_Burglary_Mar_2000' },
-    { name: 'EV_BX09_Darkovic_Firearms_03Sep2001.pdf',   label: 'Darkovic_Firearms_Sep_2001' },
-    { name: 'BX_19_Arrest_Report_27_Jan_2002.pdf',       label: 'Arrest_Jan_2002' },
-    { name: 'EV_BX10_Williams_Murder_11Apr2002.pdf',     label: 'Williams_Murder_Apr_2002' },
-    { name: 'BX_20_Arrest_Report_13_May_2002.pdf',       label: 'Arrest_May_2002' },
-    { name: 'EV_BX20_Ellis_Murder_13May2002.pdf',        label: 'Ellis_Murder_May_2002' },
+    { name: '__criminal_record__',          label: 'Aaron_Turner_Criminal_Record' },
+    { label: 'Harrington_Burglary_Mar_2000', pages: ['EV_BX17_Harrington_Burglary_16Mar2000-1.png'] },
+    { label: 'Darkovic_Firearms_Sep_2001',   pages: ['EV_BX09_Darkovic_Firearms_03Sep2001-1.png'] },
+    { label: 'Arrest_Jan_2002',              pages: ['BX_19_Arrest_Report_27_Jan_2002-1.png','BX_19_Arrest_Report_27_Jan_2002-2.png'] },
+    { label: 'Williams_Murder_Apr_2002',     pages: ['EV_BX10_Williams_Murder_11Apr2002-1.png'] },
+    { label: 'Arrest_May_2002',              pages: ['BX_20_Arrest_Report_13_May_2002-1.png','BX_20_Arrest_Report_13_May_2002-2.png'] },
+    { label: 'Ellis_Murder_May_2002',        pages: ['EV_BX20_Ellis_Murder_13May2002-1.png'] },
   ];
 
   function pncOpenCriminalRecord() {
@@ -2688,17 +2688,22 @@ function makeWavIconSVG() {
   }
 
   function _pncShowPdf() {
-    const file   = _pdfList[_pdfIdx];
-    const viewer = document.getElementById('pnc-pdf-viewer');
+    const file    = _pdfList[_pdfIdx];
+    const viewer  = document.getElementById('pnc-pdf-viewer');
+    const imgbox  = document.getElementById('pnc-pdf-imgbox');
     const desktop = document.getElementById('pnc-desktop');
     const dw = desktop.offsetWidth, dh = desktop.offsetHeight;
     viewer.style.left = Math.max(120, (dw - 562) / 2) + 'px';
     viewer.style.top  = Math.max(40,  (dh - 870) / 2) + 'px';
     viewer.style.display = 'block';
     document.getElementById('pnc-pdf-title').textContent    = file.label;
-    document.getElementById('pnc-pdf-filename').textContent = file.name;
+    document.getElementById('pnc-pdf-filename').textContent = file.label;
     document.getElementById('pnc-pdf-counter').textContent  = (_pdfIdx + 1) + ' / ' + _pdfList.length;
-    document.getElementById('pnc-pdf-frame').src = file.name;
+    // Render pages as stacked images — same pattern as criminal record viewer
+    imgbox.scrollTop = 0;
+    imgbox.innerHTML = (file.pages || []).map(src =>
+      `<img src="${src}" style="display:block; width:100%; height:auto;">`
+    ).join('');
   }
 
   function pncPdfPrev() {
