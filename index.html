@@ -1321,10 +1321,22 @@
     .pnc-icon.selected .pnc-icon-label { background: #000080; }
 
     /* Centre crest */
-    #pnc-crest {
+   #pnc-crest {
       position: absolute;
       inset: 0;
       pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    #pnc-crest img {
+      width: 420px;
+      max-width: 60vw;
+      height: auto;
+      opacity: 0.18;
+      filter: grayscale(1);
+      user-select: none;
     }
 
     /* Taskbar */
@@ -1557,9 +1569,13 @@
 
   <!-- PNC DESKTOP -->
   <div id="pnc-desktop">
-    <!-- Met Police crest watermark -->
+  <!-- Centre crest — decorative only, self-contained -->
     <div id="pnc-crest">
-<img src="NDP_met police crest.jpeg" />
+      <img src="NDP_met police crest.jpeg" alt="">
+    </div>
+
+    <!-- Desktop icons — sibling of crest, not nested inside it -->
+    <div id="pnc-icons">
     <!-- Desktop icons -->
     <div id="pnc-icons">
       <!-- My Computer - classic Win98 monitor with keyboard -->
