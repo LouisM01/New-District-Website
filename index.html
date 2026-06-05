@@ -2308,20 +2308,21 @@ function makeWavIconSVG() {
       if (id === '1994') {
         const body = frame.querySelector('.pnc-folder-body');
         body.style.cssText = 'background:#fff;min-height:200px;padding:16px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:16px 20px;';
-        window._pdfOnly1994 = CASE_FILES_1994.filter(f => f.name !== '__cad_report__');
         let pdfCounter = 0;
         body.innerHTML = CASE_FILES_1994.map((f) => {
           const isCAD = f.name === '__cad_report__';
-          const onclick = isCAD
-            ? 'pncOpenCadReport()'
-            : `pncOpenPdf(window._pdfOnly1994, ${pdfCounter++})`;
-          const displayLabel = f.label.replace(/_/g, ' ');
+          const isCR  = f.name === '__criminal_record__';
+          let onclick;
+          if (isCAD) onclick = 'pncOpenCadReport()';
+          else if (isCR) onclick = 'pncOpenCriminalRecord()';
+          else onclick = `pncOpenPdf(window._pdfOnly1994, ${pdfCounter++})`;
           return `<div class="pnc-file" style="width:90px;" ondblclick="${onclick}">
             <div style="width:40px;height:40px;margin:0 auto;"><img src="https://win98icons.alexmeub.com/icons/png/file_eye.png" style="width:40px;height:40px;image-rendering:pixelated;display:block;"></div>
-            <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-word;overflow-wrap:break-word;">${displayLabel}</div>
+            <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-word;overflow-wrap:break-word;">${f.label}</div>
           </div>`;
         }).join('');
-        frame.querySelector('.pnc-folder-status-cell').textContent = '5 object(s)';
+        window._pdfOnly1994 = CASE_FILES_1994.filter(f => !f.name);
+        frame.querySelector('.pnc-folder-status-cell').textContent = '6 object(s)';
       }
       // Populate 1999 case files folder
       if (id === '1999') {
@@ -2338,20 +2339,12 @@ function makeWavIconSVG() {
       if (id === '2000') {
         const body = frame.querySelector('.pnc-folder-body');
         body.style.cssText = 'background:#fff;min-height:200px;padding:16px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:16px 20px;';
-        window._pdfOnly2000 = CASE_FILES_2000.filter(f => f.name !== '__criminal_record__');
-        let pdfCounter = 0;
-        body.innerHTML = CASE_FILES_2000.map((f) => {
-          const isCR = f.name === '__criminal_record__';
-          const onclick = isCR
-            ? 'pncOpenCriminalRecord()'
-            : `pncOpenPdf(window._pdfOnly2000, ${pdfCounter++})`;
-          const displayLabel = f.label.replace(/_/g, ' ');
-          return `<div class="pnc-file" style="width:90px;" ondblclick="${onclick}">
+        body.innerHTML = CASE_FILES_2000.map((f, i) => `
+          <div class="pnc-file" style="width:90px;" ondblclick="pncOpenPdf(CASE_FILES_2000, ${i})">
             <div style="width:40px;height:40px;margin:0 auto;"><img src="https://win98icons.alexmeub.com/icons/png/file_eye.png" style="width:40px;height:40px;image-rendering:pixelated;display:block;"></div>
-            <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-word;overflow-wrap:break-word;">${displayLabel}</div>
-          </div>`;
-        }).join('');
-        frame.querySelector('.pnc-folder-status-cell').textContent = '7 object(s)';
+            <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-word;overflow-wrap:break-word;">${f.label}</div>
+          </div>`).join('');
+        frame.querySelector('.pnc-folder-status-cell').textContent = '6 object(s)';
       }
     }
 
@@ -2649,29 +2642,30 @@ function makeWavIconSVG() {
     {name:"Img.006", src:"NDP_still_006.jpeg"},
   ];
   // ── Case files ─────────────────────────────────────────
+  // ── Case files ─────────────────────────────────────────
   const CASE_FILES_1994 = [
-    { name: '__cad_report__', label: 'CAD_5012_09Mar1998' },
-    { label: 'Harvey_Burns_Apr_1994',      pages: ['BX_Harvey_Burns_ASB_30_Apr_1994-1.png','BX_Harvey_Burns_ASB_30_Apr_1994-2.png'] },
-    { label: 'Aaron_Turner_Dec_1995',      pages: ['Aaron_Turner_IA_Skinner_Assault_13_Dec_1995-1.png','Aaron_Turner_IA_Skinner_Assault_13_Dec_1995-2.png'] },
-    { label: 'Aaron_Turner_Aug_1996',      pages: ['Aaron_Turner_SS_Keating_Estate_08_Aug_1996-1.png','Aaron_Turner_SS_Keating_Estate_08_Aug_1996-2.png'] },
-    { label: 'Aaron_Turner_Jul_1998',      pages: ['Aaron_Turner_SS_Dogstar_23_Jul_1998-1.png','Aaron_Turner_SS_Dogstar_23_Jul_1998-2.png'] },
+    { name: '__cad_report__',       label: 'CAD 5012 09Mar1998' },
+    { label: 'Harvey Burns Apr 1994',      pages: ['BX_Harvey_Burns_ASB_30_Apr_1994-1.png','BX_Harvey_Burns_ASB_30_Apr_1994-2.png'] },
+    { label: 'Aaron Turner Dec 1995',      pages: ['Aaron_Turner_IA_Skinner_Assault_13_Dec_1995-1.png','Aaron_Turner_IA_Skinner_Assault_13_Dec_1995-2.png'] },
+    { label: 'Aaron Turner Aug 1996',      pages: ['Aaron_Turner_SS_Keating_Estate_08_Aug_1996-1.png','Aaron_Turner_SS_Keating_Estate_08_Aug_1996-2.png'] },
+    { label: 'Aaron Turner Jul 1998',      pages: ['Aaron_Turner_SS_Dogstar_23_Jul_1998-1.png','Aaron_Turner_SS_Dogstar_23_Jul_1998-2.png'] },
+    { name: '__criminal_record__',  label: 'Aaron Turner Criminal Record' },
   ];
 
   const CASE_FILES_1999 = [
-    { label: 'Theft_Feb_1999',    pages: ['BX_06_Incident_Record_19_Feb_1999-1.png','BX_06_Incident_Record_19_Feb_1999-2.png'] },
-    { label: 'Theft_Apr_1999',    pages: ['BX_11_Police_Incident_Report_07_Apr_1999-1.png','BX_11_Police_Incident_Report_07_Apr_1999-2.png'] },
-    { label: 'Arrest_Jul_1999',   pages: ['BX_16_Arrest_Report_22_Jul_1999-1.png','BX_16_Arrest_Report_22_Jul_1999-2.png'] },
-    { label: 'Assault_Nov_1999',  pages: ['BX_12_Police_Incident_Report_29_Nov_1999-1.png','BX_12_Police_Incident_Report_29_Nov_1999-2.png'] },
+    { label: 'Theft Feb 1999',    pages: ['BX_06_Incident_Record_19_Feb_1999-1.png','BX_06_Incident_Record_19_Feb_1999-2.png'] },
+    { label: 'Theft Apr 1999',    pages: ['BX_11_Police_Incident_Report_07_Apr_1999-1.png','BX_11_Police_Incident_Report_07_Apr_1999-2.png'] },
+    { label: 'Assault Nov 1999',  pages: ['BX_12_Police_Incident_Report_29_Nov_1999-1.png','BX_12_Police_Incident_Report_29_Nov_1999-2.png'] },
+    { label: 'Arrest Jul 1999',   pages: ['BX_16_Arrest_Report_22_Jul_1999-1.png','BX_16_Arrest_Report_22_Jul_1999-2.png'] },
   ];
 
   const CASE_FILES_2000 = [
-    { name: '__criminal_record__',          label: 'Aaron_Turner_Criminal_Record' },
-    { label: 'Harrington_Burglary_Mar_2000', pages: ['EV_BX17_Harrington_Burglary_16Mar2000-1.png'] },
-    { label: 'Darkovic_Firearms_Sep_2001',   pages: ['EV_BX09_Darkovic_Firearms_03Sep2001-1.png'] },
-    { label: 'Arrest_Jan_2002',              pages: ['BX_19_Arrest_Report_27_Jan_2002-1.png','BX_19_Arrest_Report_27_Jan_2002-2.png'] },
-    { label: 'Williams_Murder_Apr_2002',     pages: ['EV_BX10_Williams_Murder_11Apr2002-1.png'] },
-    { label: 'Arrest_May_2002',              pages: ['BX_20_Arrest_Report_13_May_2002-1.png','BX_20_Arrest_Report_13_May_2002-2.png'] },
-    { label: 'Ellis_Murder_May_2002',        pages: ['EV_BX20_Ellis_Murder_13May2002-1.png'] },
+    { label: 'Burglary Mar 2000',    pages: ['EV_BX17_Harrington_Burglary_16Mar2000-1.png'] },
+    { label: 'Firearms Sep 2001',    pages: ['EV_BX09_Darkovic_Firearms_03Sep2001-1.png'] },
+    { label: 'Arrest Jan 2002',      pages: ['BX_19_Arrest_Report_27_Jan_2002-1.png','BX_19_Arrest_Report_27_Jan_2002-2.png'] },
+    { label: 'Murder Apr 2002',      pages: ['EV_BX10_Williams_Murder_11Apr2002-1.png'] },
+    { label: 'Arrest May 2002',      pages: ['BX_20_Arrest_Report_13_May_2002-1.png','BX_20_Arrest_Report_13_May_2002-2.png'] },
+    { label: 'Murder May 2002',      pages: ['EV_BX20_Ellis_Murder_13May2002-1.png'] },
   ];
 
   function pncOpenCriminalRecord() {
