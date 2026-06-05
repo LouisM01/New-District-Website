@@ -2309,15 +2309,16 @@ function makeWavIconSVG() {
         const body = frame.querySelector('.pnc-folder-body');
         body.style.cssText = 'background:#fff;min-height:200px;padding:16px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:16px 20px;';
         window._pdfOnly1994 = CASE_FILES_1994.filter(f => f.name !== '__cad_report__');
+        let pdfCounter = 0;
         body.innerHTML = CASE_FILES_1994.map((f) => {
           const isCAD = f.name === '__cad_report__';
-          const pdfIdx = window._pdfOnly1994.indexOf(f);
           const onclick = isCAD
             ? 'pncOpenCadReport()'
-            : `pncOpenPdf(window._pdfOnly1994, ${pdfIdx})`;
+            : `pncOpenPdf(window._pdfOnly1994, ${pdfCounter++})`;
+          const displayLabel = f.label.replace(/_/g, ' ');
           return `<div class="pnc-file" style="width:90px;" ondblclick="${onclick}">
             <div style="width:40px;height:40px;margin:0 auto;"><img src="https://win98icons.alexmeub.com/icons/png/file_eye.png" style="width:40px;height:40px;image-rendering:pixelated;display:block;"></div>
-            <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-word;overflow-wrap:break-word;">${f.label}</div>
+            <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-word;overflow-wrap:break-word;">${displayLabel}</div>
           </div>`;
         }).join('');
         frame.querySelector('.pnc-folder-status-cell').textContent = '5 object(s)';
@@ -2329,7 +2330,7 @@ function makeWavIconSVG() {
         body.innerHTML = CASE_FILES_1999.map((f, i) => `
           <div class="pnc-file" style="width:90px;" ondblclick="pncOpenPdf(CASE_FILES_1999, ${i})">
             <div style="width:40px;height:40px;margin:0 auto;"><img src="https://win98icons.alexmeub.com/icons/png/file_eye.png" style="width:40px;height:40px;image-rendering:pixelated;display:block;"></div>
-            <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-word;overflow-wrap:break-word;">${f.label}</div>
+            <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-word;overflow-wrap:break-word;">${f.label.replace(/_/g,' ')}</div>
           </div>`).join('');
         frame.querySelector('.pnc-folder-status-cell').textContent = '4 object(s)';
       }
@@ -2337,17 +2338,17 @@ function makeWavIconSVG() {
       if (id === '2000') {
         const body = frame.querySelector('.pnc-folder-body');
         body.style.cssText = 'background:#fff;min-height:200px;padding:16px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:16px 20px;';
-        // Build PDF-only list for the viewer (excludes criminal record)
         window._pdfOnly2000 = CASE_FILES_2000.filter(f => f.name !== '__criminal_record__');
+        let pdfCounter = 0;
         body.innerHTML = CASE_FILES_2000.map((f) => {
           const isCR = f.name === '__criminal_record__';
-          const pdfIdx = window._pdfOnly2000.indexOf(f);
           const onclick = isCR
             ? 'pncOpenCriminalRecord()'
-            : `pncOpenPdf(window._pdfOnly2000, ${pdfIdx})`;
+            : `pncOpenPdf(window._pdfOnly2000, ${pdfCounter++})`;
+          const displayLabel = f.label.replace(/_/g, ' ');
           return `<div class="pnc-file" style="width:90px;" ondblclick="${onclick}">
             <div style="width:40px;height:40px;margin:0 auto;"><img src="https://win98icons.alexmeub.com/icons/png/file_eye.png" style="width:40px;height:40px;image-rendering:pixelated;display:block;"></div>
-            <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-word;overflow-wrap:break-word;">${f.label}</div>
+            <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-word;overflow-wrap:break-word;">${displayLabel}</div>
           </div>`;
         }).join('');
         frame.querySelector('.pnc-folder-status-cell').textContent = '7 object(s)';
