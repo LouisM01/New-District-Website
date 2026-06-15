@@ -1291,12 +1291,17 @@
        horizontally-scrollable viewport so nothing gets squashed. */
     @media (max-width: 768px) {
       #pnc-loader {
-        padding: 28px 18px;
+        padding: 24px 16px;
+        box-sizing: border-box;
+        overflow: hidden;
       }
       #pnc-log {
-        font-size: 11px;
+        font-size: 10px;
         line-height: 1.9;
-        min-height: 102px;
+        min-height: 96px;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
       }
       #pnc-bar-wrap {
         width: 100%;
@@ -1437,7 +1442,7 @@
     #pnc-explorer {
       position: absolute;
       top: 40px; left: 120px;
-      width: 680px; max-width: calc(100vw - 140px);
+      width: 680px; max-width: calc(100% - 140px);
       background: #c0c0c0;
       border-top: 2px solid #fff;
       border-left: 2px solid #fff;
@@ -1452,7 +1457,7 @@
       color: #fff; font-weight: bold; font-size: 12px;
       padding: 3px 4px;
       display: flex; align-items: center; justify-content: space-between;
-      cursor: move; user-select: none;
+      cursor: move; user-select: none; touch-action: none;
     }
     #pnc-exp-titlebar-left { display: flex; align-items: center; gap: 5px; }
     .pnc-win-btn {
@@ -1533,7 +1538,7 @@
     /* Credits window */
     #pnc-credits {
       position: absolute; top: 80px; left: 180px;
-      width: 480px; max-width: calc(100vw - 160px);
+      width: 480px; max-width: calc(100% - 160px);
       background: #fff;
       border-top: 2px solid #fff; border-left: 2px solid #fff;
       border-right: 2px solid #404040; border-bottom: 2px solid #404040;
@@ -1547,7 +1552,7 @@
       color: #fff; font-weight: bold; font-size: 12px;
       padding: 3px 4px; display: flex;
       align-items: center; justify-content: space-between;
-      cursor: move; user-select: none;
+      cursor: move; user-select: none; touch-action: none;
     }
     #pnc-cred-body {
       padding: 16px; font-size: 12px; line-height: 1.9;
@@ -1559,7 +1564,7 @@
     /* Individual folder windows */
     .pnc-folder-win-frame {
       position: absolute;
-      width: 560px; max-width: calc(100vw - 40px);
+      width: 560px; max-width: calc(100% - 40px);
       background: #c0c0c0;
       border-top: 2px solid #fff;
       border-left: 2px solid #fff;
@@ -1576,7 +1581,7 @@
       color: #fff; font-weight: bold; font-size: 12px;
       padding: 3px 4px; display: flex;
       align-items: center; justify-content: space-between;
-      cursor: move; user-select: none;
+      cursor: move; user-select: none; touch-action: none;
     }
     .pnc-folder-body {
       background: #fff; min-height: 180px;
@@ -1800,7 +1805,7 @@
 
     <!-- Explorer window -->
     <div id="pnc-explorer">
-      <div id="pnc-exp-titlebar" onmousedown="pncDragStart(event,'pnc-explorer')">
+      <div id="pnc-exp-titlebar" onmousedown="pncDragStart(event,'pnc-explorer')" ontouchstart="pncDragStart(event,'pnc-explorer')">
         <div id="pnc-exp-titlebar-left">
           <svg width="16" height="16" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
             <rect x="2" y="7" width="28" height="22" rx="1" fill="#f5d76e" stroke="#000" stroke-width="0.8"/>
@@ -1938,7 +1943,7 @@
 
     <!-- Credits window -->
     <div id="pnc-credits">
-      <div id="pnc-cred-titlebar" onmousedown="pncDragStart(event,'pnc-credits')">
+      <div id="pnc-cred-titlebar" onmousedown="pncDragStart(event,'pnc-credits')" ontouchstart="pncDragStart(event,'pnc-credits')">
         <span>📄 CREDITS.txt — Notepad</span>
         <div style="display:flex;gap:2px;">
           <div class="pnc-win-btn">_</div>
@@ -1974,8 +1979,8 @@ newdistrict.co.uk</div>
       box-shadow:2px 2px 0 #000; background:#c0c0c0;">
       <div id="pnc-ap-titlebar"
         style="background:linear-gradient(to right,#000080,#1084d0); color:#fff; font-weight:bold; font-size:12px;
-          padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none;"
-        onmousedown="pncDragStart(event,'pnc-audio-player')">
+          padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none; touch-action:none;"
+        onmousedown="pncDragStart(event,'pnc-audio-player')" ontouchstart="pncDragStart(event,'pnc-audio-player')">
         <span id="pnc-ap-title">track.wav</span>
         <div class="pnc-win-btn" onclick="pncAudioStop(); document.getElementById('pnc-audio-player').style.display='none'">✕</div>
       </div>
@@ -2017,8 +2022,8 @@ newdistrict.co.uk</div>
       box-shadow:2px 2px 0 #000; background:#c0c0c0;">
       <div id="pnc-pdf-titlebar"
         style="background:linear-gradient(to right,#000080,#1084d0); color:#fff; font-weight:bold; font-size:12px;
-          padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none;"
-        onmousedown="pncDragStart(event,'pnc-pdf-viewer')">
+          padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none; touch-action:none;"
+        onmousedown="pncDragStart(event,'pnc-pdf-viewer')" ontouchstart="pncDragStart(event,'pnc-pdf-viewer')">
         <span id="pnc-pdf-title">Document</span>
         <div style="display:flex;gap:2px;">
           <div class="pnc-win-btn" onclick="document.getElementById('pnc-pdf-viewer').style.display='none'">✕</div>
@@ -2056,8 +2061,8 @@ newdistrict.co.uk</div>
       border-right:2px solid #404040; border-bottom:2px solid #404040;
       box-shadow:2px 2px 0 #000; background:#c0c0c0;">
       <div style="background:linear-gradient(to right,#000080,#1084d0); color:#fff; font-weight:bold; font-size:12px;
-          padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none;"
-        onmousedown="pncDragStart(event,'pnc-cad-viewer')">
+          padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none; touch-action:none;"
+        onmousedown="pncDragStart(event,'pnc-cad-viewer')" ontouchstart="pncDragStart(event,'pnc-cad-viewer')">
         <span>CAD_5012_09Mar1998</span>
         <div style="display:flex;align-items:center;gap:4px;">
           <button onclick="pncZoom('cad',-0.15)" style="padding:0 5px; font-size:11px; background:#c0c0c0; color:#000; border:none; cursor:pointer; height:14px; line-height:14px;">−</button>
@@ -2087,8 +2092,8 @@ newdistrict.co.uk</div>
       border-right:2px solid #404040; border-bottom:2px solid #404040;
       box-shadow:2px 2px 0 #000; background:#c0c0c0;">
       <div style="background:linear-gradient(to right,#000080,#1084d0); color:#fff; font-weight:bold; font-size:12px;
-          padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none;"
-        onmousedown="pncDragStart(event,'pnc-cr-viewer')">
+          padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none; touch-action:none;"
+        onmousedown="pncDragStart(event,'pnc-cr-viewer')" ontouchstart="pncDragStart(event,'pnc-cr-viewer')">
         <span>Aaron_Turner_Criminal_Record</span>
         <div style="display:flex;align-items:center;gap:4px;">
           <button onclick="pncZoom('cr',-0.15)" style="padding:0 5px; font-size:11px; background:#c0c0c0; color:#000; border:none; cursor:pointer; height:14px; line-height:14px;">−</button>
@@ -2117,8 +2122,8 @@ newdistrict.co.uk</div>
       <!-- Titlebar -->
       <div id="pnc-viewer-titlebar"
         style="background:linear-gradient(to right,#000080,#1084d0); color:#fff; font-weight:bold; font-size:12px;
-          padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none;"
-        onmousedown="pncDragStart(event,'pnc-viewer')">
+          padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none; touch-action:none;"
+        onmousedown="pncDragStart(event,'pnc-viewer')" ontouchstart="pncDragStart(event,'pnc-viewer')">
         <span id="pnc-viewer-title">Image Viewer</span>
         <div style="display:flex;gap:2px;">
           <div class="pnc-win-btn" style="width:16px;height:14px;" onclick="document.getElementById('pnc-viewer').style.display='none'">✕</div>
@@ -2239,20 +2244,59 @@ newdistrict.co.uk</div>
   let _pncDrag = null;
   function pncDragStart(e, id) {
     const el = document.getElementById(id);
-    const rect = el.getBoundingClientRect();
-    _pncDrag = { el, ox: e.clientX - rect.left, oy: e.clientY - rect.top };
-    document.addEventListener('mousemove', pncDragMove);
-    document.addEventListener('mouseup',  pncDragEnd);
+    const point = e.touches ? e.touches[0] : e;
+    _pncDrag = {
+      el,
+      startX: point.clientX,
+      startY: point.clientY,
+      startLeft: parseFloat(el.style.left) || 0,
+      startTop:  parseFloat(el.style.top)  || 0,
+    };
+    if (e.touches) {
+      document.addEventListener('touchmove', pncDragMove, { passive: false });
+      document.addEventListener('touchend', pncDragEnd);
+      document.addEventListener('touchcancel', pncDragEnd);
+    } else {
+      document.addEventListener('mousemove', pncDragMove);
+      document.addEventListener('mouseup',  pncDragEnd);
+    }
+    e.preventDefault();
   }
   function pncDragMove(e) {
     if (!_pncDrag) return;
-    _pncDrag.el.style.left = (e.clientX - _pncDrag.ox) + 'px';
-    _pncDrag.el.style.top  = (e.clientY - _pncDrag.oy) + 'px';
+    const point = e.touches ? e.touches[0] : e;
+    const dx = point.clientX - _pncDrag.startX;
+    const dy = point.clientY - _pncDrag.startY;
+    _pncDrag.el.style.left = (_pncDrag.startLeft + dx) + 'px';
+    _pncDrag.el.style.top  = (_pncDrag.startTop  + dy) + 'px';
+    if (e.cancelable) e.preventDefault();
   }
   function pncDragEnd() {
     _pncDrag = null;
     document.removeEventListener('mousemove', pncDragMove);
     document.removeEventListener('mouseup',  pncDragEnd);
+    document.removeEventListener('touchmove', pncDragMove);
+    document.removeEventListener('touchend', pncDragEnd);
+    document.removeEventListener('touchcancel', pncDragEnd);
+  }
+
+  // ── Phone popup fit — scale + centre any popup within the
+  //    visible viewport on phones, so it's never partially
+  //    off-screen and never needs the desktop scrolled. ──
+  function pncFitPopupPhone(el, nativeW, nativeH) {
+    if (window.innerWidth > 768) {
+      el.style.transform = '';
+      return;
+    }
+    const margin = 8;
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const scale = Math.min(1, (vw - margin * 2) / nativeW, (vh - margin * 2) / nativeH);
+    el.style.transformOrigin = 'top left';
+    el.style.transform = `scale(${scale})`;
+    const desktop = document.getElementById('pnc-desktop');
+    desktop.scrollLeft = 0; // align canvas origin with viewport origin
+    el.style.left = Math.max(margin, (vw - nativeW * scale) / 2) + 'px';
+    el.style.top  = Math.max(margin, (vh - nativeH * scale) / 2) + 'px';
   }
 
 
@@ -2299,7 +2343,7 @@ function makeWavIconSVG() {
       frame.style.left = off[0] + 'px';
 
       frame.innerHTML = `
-        <div class="pnc-folder-titlebar" onmousedown="pncDragStart(event,'${frameId}')">
+        <div class="pnc-folder-titlebar" onmousedown="pncDragStart(event,'${frameId}')" ontouchstart="pncDragStart(event,'${frameId}')">
           <span>
             <svg width="14" height="14" viewBox="0 0 32 32" style="vertical-align:middle;margin-right:4px">
               <rect x="2" y="9" width="28" height="19" rx="1" fill="#f5d76e" stroke="#806000" stroke-width="0.6"/>
@@ -2581,6 +2625,7 @@ function makeWavIconSVG() {
     player.style.left = Math.max(120, (dw - 360) / 2) + 'px';
     player.style.top  = Math.max(40,  (dh - 480) / 2) + 'px';
     player.style.display = 'block';
+    pncFitPopupPhone(player, 360, 480);
 
     document.getElementById('pnc-ap-title').textContent = file.name;
     document.getElementById('pnc-ap-status').textContent = 'Loading…';
@@ -2732,6 +2777,7 @@ function makeWavIconSVG() {
     _zoomLevels.cr = 1;
     viewer.style.display = 'block';
     _pncApplyZoom('cr');
+    pncFitPopupPhone(viewer, 562, 870);
   }
 
   function pncOpenCadReport() {
@@ -2744,6 +2790,7 @@ function makeWavIconSVG() {
     _zoomLevels.cad = 1;
     viewer.style.display = 'block';
     _pncApplyZoom('cad');
+    pncFitPopupPhone(viewer, 562, 870);
   }
 
   // ── Zoom engine ────────────────────────────────────────
@@ -2812,6 +2859,7 @@ function makeWavIconSVG() {
     ).join('');
     _zoomLevels.pdf = 1;
     _pncApplyZoom('pdf');
+    pncFitPopupPhone(viewer, 562, 870);
   }
 
   function pncPdfPrev() {
@@ -2857,6 +2905,7 @@ function makeWavIconSVG() {
       viewer.style.left = Math.max(120, (dw - totalW) / 2) + 'px';
       viewer.style.top  = Math.max(40,  (dh - totalH) / 2) + 'px';
       viewer.style.display = 'block';
+      pncFitPopupPhone(viewer, totalW, totalH);
     };
     probe.src = still.src;
   }
