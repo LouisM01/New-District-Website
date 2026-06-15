@@ -1327,6 +1327,30 @@
         height: 100%;
       }
 
+      /* Explorer ("My Computer") has an extra left description panel
+         that folder windows don't — it collapses #pnc-exp-files into
+         a single narrow column with heavy label wrapping. Hide it on
+         phone so the explorer's body layout matches the (working)
+         folder windows. */
+      #pnc-exp-left {
+        display: none;
+      }
+      .pnc-file {
+        width: 90px;
+      }
+      /* Menu bar (File Edit View Go Favorites Tools Help) — shrink
+         to keep it on one line within the popup's width. */
+      #pnc-exp-menubar {
+        flex-wrap: nowrap;
+        gap: 0;
+        padding: 2px 2px;
+      }
+      .pnc-menu-item {
+        font-size: 8px;
+        padding: 2px 3px;
+        white-space: nowrap;
+      }
+
       /* Bigger close/min/max buttons — popups get scaled down via
          pncFitPopupPhone, so a larger base size here keeps the
          rendered close button easily tappable. */
@@ -1336,13 +1360,18 @@
         font-size: 22px;
         position: relative;
       }
-      /* Expand the close button's tappable area ~50% beyond what's
+      /* Expand the close button's tappable area well beyond what's
          visible, without changing how it looks. Scoped to the close
-         button only (not min/max) to avoid overlapping hit-areas. */
+         button only (not min/max) to avoid overlapping hit-areas.
+         Note: this inset is in the popup's UNSCALED coordinate space —
+         pncFitPopupPhone scales popups down to as little as 0.55x, so
+         a -30px inset here still gives a real ~16px+ expansion after
+         scaling, growing toward -30px effective for popups that don't
+         need to shrink as much. */
       .pnc-win-close::after {
         content: '';
         position: absolute;
-        inset: -11px;
+        inset: -30px;
       }
     }
 
@@ -1846,17 +1875,7 @@
         <span class="pnc-menu-item"><u>T</u>ools</span>
         <span class="pnc-menu-item"><u>H</u>elp</span>
       </div>
-      <div id="pnc-exp-toolbar">
-        <div class="pnc-tool-btn">← Back</div>
-        <div class="pnc-tool-btn">→</div>
-        <div class="pnc-tool-btn">↑ Up</div>
-        <div style="width:1px;height:20px;background:#808080;margin:0 2px;"></div>
-        <div class="pnc-tool-btn">✂ Cut</div>
-        <div class="pnc-tool-btn">⎘ Copy</div>
-        <div class="pnc-tool-btn">📋 Paste</div>
-        <div style="width:1px;height:20px;background:#808080;margin:0 2px;"></div>
-        <div class="pnc-tool-btn">🗑 Delete</div>
-      </div>
+      
       <div id="pnc-exp-addr">
         <span>Address</span>
         <input id="pnc-addr-field" type="text" value="C:\FRIDGE" readonly>
