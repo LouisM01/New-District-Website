@@ -1334,6 +1334,15 @@
         width: 46px;
         height: 42px;
         font-size: 22px;
+        position: relative;
+      }
+      /* Expand the close button's tappable area ~50% beyond what's
+         visible, without changing how it looks. Scoped to the close
+         button only (not min/max) to avoid overlapping hit-areas. */
+      .pnc-win-close::after {
+        content: '';
+        position: absolute;
+        inset: -11px;
       }
     }
 
@@ -1500,7 +1509,7 @@
       border-bottom: 1px solid #808080; font-size: 11px;
     }
     #pnc-addr-field {
-      flex: 1; background: #fff;
+      flex: 1; min-width: 0; box-sizing: border-box; background: #fff;
       border-top: 1px solid #808080; border-left: 1px solid #808080;
       border-right: 1px solid #fff; border-bottom: 1px solid #fff;
       padding: 1px 4px; font-size: 11px; font-family: inherit;
@@ -1825,7 +1834,7 @@
         <div style="display:flex;gap:2px;">
           <div class="pnc-win-btn">_</div>
           <div class="pnc-win-btn">□</div>
-          <div class="pnc-win-btn" onclick="document.getElementById('pnc-explorer').classList.remove('open')">✕</div>
+          <div class="pnc-win-btn pnc-win-close" onclick="document.getElementById('pnc-explorer').classList.remove('open')">✕</div>
         </div>
       </div>
       <div id="pnc-exp-menubar">
@@ -1957,7 +1966,7 @@
         <div style="display:flex;gap:2px;">
           <div class="pnc-win-btn">_</div>
           <div class="pnc-win-btn">□</div>
-          <div class="pnc-win-btn" onclick="document.getElementById('pnc-credits').classList.remove('open')">✕</div>
+          <div class="pnc-win-btn pnc-win-close" onclick="document.getElementById('pnc-credits').classList.remove('open')">✕</div>
         </div>
       </div>
       <div id="pnc-cred-body">FRIDGE (2026)
@@ -1991,7 +2000,7 @@ newdistrict.co.uk</div>
           padding:3px 4px; display:flex; align-items:center; justify-content:space-between; cursor:move; user-select:none; touch-action:none;"
         onmousedown="pncDragStart(event,'pnc-audio-player')" ontouchstart="pncDragStart(event,'pnc-audio-player')">
         <span id="pnc-ap-title">track.wav</span>
-        <div class="pnc-win-btn" onclick="pncAudioStop(); document.getElementById('pnc-audio-player').style.display='none'">✕</div>
+        <div class="pnc-win-btn pnc-win-close" onclick="pncAudioStop(); document.getElementById('pnc-audio-player').style.display='none'">✕</div>
       </div>
       <div style="background:#c0c0c0; padding:4px 6px; display:flex; align-items:center; gap:4px; border-bottom:1px solid #808080;">
         <button id="pnc-ap-play" onclick="pncAudioPlayPause()"
@@ -2035,7 +2044,7 @@ newdistrict.co.uk</div>
         onmousedown="pncDragStart(event,'pnc-pdf-viewer')" ontouchstart="pncDragStart(event,'pnc-pdf-viewer')">
         <span id="pnc-pdf-title">Document</span>
         <div style="display:flex;gap:2px;">
-          <div class="pnc-win-btn" onclick="document.getElementById('pnc-pdf-viewer').style.display='none'">✕</div>
+          <div class="pnc-win-btn pnc-win-close" onclick="document.getElementById('pnc-pdf-viewer').style.display='none'">✕</div>
         </div>
       </div>
       <!-- Toolbar -->
@@ -2077,7 +2086,7 @@ newdistrict.co.uk</div>
           <button onclick="pncZoom('cad',-0.15)" style="padding:0 5px; font-size:11px; background:#c0c0c0; color:#000; border:none; cursor:pointer; height:14px; line-height:14px;">−</button>
           <span id="pnc-cad-zoom-label" style="font-size:9px; min-width:28px; text-align:center;">100%</span>
           <button onclick="pncZoom('cad',0.15)" style="padding:0 5px; font-size:11px; background:#c0c0c0; color:#000; border:none; cursor:pointer; height:14px; line-height:14px;">+</button>
-          <div class="pnc-win-btn" onclick="document.getElementById('pnc-cad-viewer').style.display='none'" style="margin-left:4px;">✕</div>
+          <div class="pnc-win-btn pnc-win-close" onclick="document.getElementById('pnc-cad-viewer').style.display='none'" style="margin-left:4px;">✕</div>
         </div>
       </div>
       <div style="padding:8px; background:#c0c0c0;">
@@ -2108,7 +2117,7 @@ newdistrict.co.uk</div>
           <button onclick="pncZoom('cr',-0.15)" style="padding:0 5px; font-size:11px; background:#c0c0c0; color:#000; border:none; cursor:pointer; height:14px; line-height:14px;">−</button>
           <span id="pnc-cr-zoom-label" style="font-size:9px; min-width:28px; text-align:center;">100%</span>
           <button onclick="pncZoom('cr',0.15)" style="padding:0 5px; font-size:11px; background:#c0c0c0; color:#000; border:none; cursor:pointer; height:14px; line-height:14px;">+</button>
-          <div class="pnc-win-btn" onclick="document.getElementById('pnc-cr-viewer').style.display='none'" style="margin-left:4px;">✕</div>
+          <div class="pnc-win-btn pnc-win-close" onclick="document.getElementById('pnc-cr-viewer').style.display='none'" style="margin-left:4px;">✕</div>
         </div>
       </div>
       <div style="padding:8px; background:#c0c0c0;">
@@ -2135,7 +2144,7 @@ newdistrict.co.uk</div>
         onmousedown="pncDragStart(event,'pnc-viewer')" ontouchstart="pncDragStart(event,'pnc-viewer')">
         <span id="pnc-viewer-title">Image Viewer</span>
         <div style="display:flex;gap:2px;">
-          <div class="pnc-win-btn" onclick="document.getElementById('pnc-viewer').style.display='none'">✕</div>
+          <div class="pnc-win-btn pnc-win-close" onclick="document.getElementById('pnc-viewer').style.display='none'">✕</div>
         </div>
       </div>
       <!-- Black inset display area -->
@@ -2382,12 +2391,12 @@ function makeWavIconSVG() {
           <div style="display:flex;gap:2px;">
             <div class="pnc-win-btn">_</div>
             <div class="pnc-win-btn">□</div>
-            <div class="pnc-win-btn" onclick="document.getElementById('${frameId}').classList.remove('open')">✕</div>
+            <div class="pnc-win-btn pnc-win-close" onclick="document.getElementById('${frameId}').classList.remove('open')">✕</div>
           </div>
         </div>
-        <div style="background:#c0c0c0;padding:2px 4px;border-bottom:1px solid #808080;font-size:11px;">
-          <span style="padding:2px 6px;">Address</span>
-          <input type="text" value="${path}" readonly style="width:380px;font-family:inherit;font-size:11px;border-top:1px solid #808080;border-left:1px solid #808080;border-right:1px solid #fff;border-bottom:1px solid #fff;padding:1px 4px;background:#fff;">
+        <div style="background:#c0c0c0;padding:2px 4px;border-bottom:1px solid #808080;font-size:11px;display:flex;align-items:center;gap:4px;">
+          <span style="padding:2px 6px;flex-shrink:0;">Address</span>
+          <input type="text" value="${path}" readonly style="flex:1;min-width:0;box-sizing:border-box;font-family:inherit;font-size:11px;border-top:1px solid #808080;border-left:1px solid #808080;border-right:1px solid #fff;border-bottom:1px solid #fff;padding:1px 4px;background:#fff;">
         </div>
         <div class="pnc-folder-body" id="${frameId}-body">0 object(s)</div>
         <div class="pnc-folder-statusbar">
