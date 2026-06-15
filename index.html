@@ -1680,7 +1680,7 @@
     <!-- Desktop icons — sibling of crest, not nested inside it -->
     <div id="pnc-icons">
       <!-- My Computer - classic Win98 monitor with keyboard -->
-      <div class="pnc-icon" ondblclick="pncOpenExplorer()">
+      <div class="pnc-icon" ondblclick="pncOpenExplorer()" ontouchend="event.preventDefault();pncOpenExplorer()">
         <svg class="pnc-icon-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <!-- Monitor body -->
           <rect x="3" y="2" width="22" height="17" rx="2" fill="#c8c8c8" stroke="#666" stroke-width="0.8"/>
@@ -1705,7 +1705,7 @@
         <span class="pnc-icon-label">My Computer</span>
       </div>
       <!-- Stills -->
-      <div class="pnc-icon" ondblclick="pncOpenFolder('Stills')">
+      <div class="pnc-icon" ondblclick="pncOpenFolder('Stills')" ontouchend="event.preventDefault();pncOpenFolder('Stills')">
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <rect x="2" y="7" width="28" height="22" rx="1" fill="#f5d76e" stroke="#000" stroke-width="0.8"/>
           <path d="M2 6 Q2 4 4 4 L11 4 Q13 4 14 6 L14 7 L2 7 Z" fill="#f5d76e" stroke="#000" stroke-width="0.8"/>
@@ -1713,7 +1713,7 @@
         <span class="pnc-icon-label">Stills</span>
       </div>
       <!-- Demos - CD icon -->
-      <div class="pnc-icon" ondblclick="pncOpenFolder('Demos')">
+      <div class="pnc-icon" ondblclick="pncOpenFolder('Demos')" ontouchend="event.preventDefault();pncOpenFolder('Demos')">
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <!-- CD disc -->
           <circle cx="16" cy="16" r="13" fill="#e0e0e0" stroke="#666" stroke-width="0.8"/>
@@ -1740,7 +1740,7 @@
         <span class="pnc-icon-label">Demos</span>
       </div>
       <!-- Case files 1994-1998 - open folder -->
-      <div class="pnc-icon" ondblclick="pncOpenFolder('1994')">
+      <div class="pnc-icon" ondblclick="pncOpenFolder('1994')" ontouchend="event.preventDefault();pncOpenFolder('1994')">
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <!-- Folder back -->
           <rect x="2" y="9" width="28" height="19" rx="1" fill="#c8a030" stroke="#806000" stroke-width="0.6"/>
@@ -1757,7 +1757,7 @@
         <span class="pnc-icon-label">Case files_1994-1998</span>
       </div>
       <!-- Case files 1999 - open folder -->
-      <div class="pnc-icon" ondblclick="pncOpenFolder('1999')">
+      <div class="pnc-icon" ondblclick="pncOpenFolder('1999')" ontouchend="event.preventDefault();pncOpenFolder('1999')">
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <!-- Folder back -->
           <rect x="2" y="9" width="28" height="19" rx="1" fill="#c8a030" stroke="#806000" stroke-width="0.6"/>
@@ -1774,7 +1774,7 @@
         <span class="pnc-icon-label">Case files_Jan-Dec_1999</span>
       </div>
       <!-- Case files 2000-2002 - open folder -->
-      <div class="pnc-icon" ondblclick="pncOpenFolder('2000')">
+      <div class="pnc-icon" ondblclick="pncOpenFolder('2000')" ontouchend="event.preventDefault();pncOpenFolder('2000')">
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <!-- Folder back -->
           <rect x="2" y="9" width="28" height="19" rx="1" fill="#c8a030" stroke="#806000" stroke-width="0.6"/>
@@ -1821,7 +1821,7 @@
         <span class="pnc-icon-label">The Need for Speed DEMO</span>
       </div>
       <!-- credits.txt - notepad icon -->
-      <div class="pnc-icon" ondblclick="pncOpenCredits()">
+      <div class="pnc-icon" ondblclick="pncOpenCredits()" ontouchend="event.preventDefault();pncOpenCredits()">
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <rect x="5" y="3" width="22" height="26" rx="1" fill="#fff" stroke="#4a7aaa" stroke-width="1.2"/>
           <rect x="10" y="3" width="1.5" height="26" fill="#4a7aaa" opacity="0.5"/>
@@ -1888,14 +1888,14 @@
           <div id="pnc-exp-left-desc">Select an item to view its description.</div>
         </div>
         <div id="pnc-exp-files">
-          <div class="pnc-file" onmouseenter="pncFileHover('Stills','Film photography and production stills.')" onmouseleave="pncFileHoverClear()" ondblclick="pncOpenFolder('Stills')">
+          <div class="pnc-file" onmouseenter="pncFileHover('Stills','Film photography and production stills.')" onmouseleave="pncFileHoverClear()" ondblclick="pncOpenFolder('Stills')" ontouchend="event.preventDefault();pncOpenFolder('Stills')">
             <svg class="pnc-file-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="7" width="28" height="22" rx="1" fill="#f5d76e" stroke="#000" stroke-width="0.6"/>
               <path d="M2 6 Q2 4 4 4 L11 4 Q13 4 14 6 L14 7 L2 7 Z" fill="#f5d76e" stroke="#000" stroke-width="0.6"/>
             </svg>
             <div class="pnc-file-label">Stills</div>
           </div>
-          <div class="pnc-file" onmouseenter="pncFileHover('Demos','Audio demos and test recordings.')" onmouseleave="pncFileHoverClear()" ondblclick="pncOpenFolder('Demos')">
+          <div class="pnc-file" onmouseenter="pncFileHover('Demos','Audio demos and test recordings.')" onmouseleave="pncFileHoverClear()" ondblclick="pncOpenFolder('Demos')" ontouchend="event.preventDefault();pncOpenFolder('Demos')">
             <svg class="pnc-file-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
               <circle cx="16" cy="16" r="13" fill="#e0e0e0" stroke="#666" stroke-width="0.8"/>
               <circle cx="16" cy="16" r="13" fill="url(#cdSheen2)" opacity="0.6"/>
@@ -1907,7 +1907,7 @@
             </svg>
             <div class="pnc-file-label">Demos</div>
           </div>
-          <div class="pnc-file" onmouseenter="pncFileHover('Case files_1994-1998','RESTRICTED — Authorised personnel only.')" onmouseleave="pncFileHoverClear()" ondblclick="pncOpenFolder('1994')">
+          <div class="pnc-file" onmouseenter="pncFileHover('Case files_1994-1998','RESTRICTED — Authorised personnel only.')" onmouseleave="pncFileHoverClear()" ondblclick="pncOpenFolder('1994')" ontouchend="event.preventDefault();pncOpenFolder('1994')">
             <svg class="pnc-file-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="9" width="28" height="19" rx="1" fill="#c8a030" stroke="#806000" stroke-width="0.6"/>
               <path d="M2 8 Q2 6 4 6 L12 6 Q14 6 15 8 L15 9 L2 9 Z" fill="#c8a030" stroke="#806000" stroke-width="0.6"/>
@@ -1919,7 +1919,7 @@
             </svg>
             <div class="pnc-file-label">Case files_1994-1998 — RESTRICTED</div>
           </div>
-          <div class="pnc-file" onmouseenter="pncFileHover('Case files_Jan-Dec_1999','RESTRICTED — Authorised personnel only.')" onmouseleave="pncFileHoverClear()" ondblclick="pncOpenFolder('1999')">
+          <div class="pnc-file" onmouseenter="pncFileHover('Case files_Jan-Dec_1999','RESTRICTED — Authorised personnel only.')" onmouseleave="pncFileHoverClear()" ondblclick="pncOpenFolder('1999')" ontouchend="event.preventDefault();pncOpenFolder('1999')">
             <svg class="pnc-file-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="9" width="28" height="19" rx="1" fill="#c8a030" stroke="#806000" stroke-width="0.6"/>
               <path d="M2 8 Q2 6 4 6 L12 6 Q14 6 15 8 L15 9 L2 9 Z" fill="#c8a030" stroke="#806000" stroke-width="0.6"/>
@@ -1931,7 +1931,7 @@
             </svg>
             <div class="pnc-file-label">Case files_Jan-Dec_1999 — RESTRICTED</div>
           </div>
-          <div class="pnc-file" onmouseenter="pncFileHover('Case files_2000-2002','RESTRICTED — Authorised personnel only.')" onmouseleave="pncFileHoverClear()" ondblclick="pncOpenFolder('2000')">
+          <div class="pnc-file" onmouseenter="pncFileHover('Case files_2000-2002','RESTRICTED — Authorised personnel only.')" onmouseleave="pncFileHoverClear()" ondblclick="pncOpenFolder('2000')" ontouchend="event.preventDefault();pncOpenFolder('2000')">
             <svg class="pnc-file-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="9" width="28" height="19" rx="1" fill="#c8a030" stroke="#806000" stroke-width="0.6"/>
               <path d="M2 8 Q2 6 4 6 L12 6 Q14 6 15 8 L15 9 L2 9 Z" fill="#c8a030" stroke="#806000" stroke-width="0.6"/>
@@ -1960,7 +1960,7 @@
             </svg>
             <div class="pnc-file-label">The Need for Speed DEMO</div>
           </div>
-          <div class="pnc-file" onmouseenter="pncFileHover('CREDITS.txt','Text document — 1 KB')" onmouseleave="pncFileHoverClear()" ondblclick="pncOpenCredits()">
+          <div class="pnc-file" onmouseenter="pncFileHover('CREDITS.txt','Text document — 1 KB')" onmouseleave="pncFileHoverClear()" ondblclick="pncOpenCredits()" ontouchend="event.preventDefault();pncOpenCredits()">
             <svg class="pnc-file-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
               <rect x="4" y="2" width="18" height="26" fill="#fff" stroke="#000" stroke-width="0.8"/>
               <path d="M22 2 L28 8 L22 8 Z" fill="#c0c0c0" stroke="#000" stroke-width="0.8"/>
@@ -2282,22 +2282,12 @@ newdistrict.co.uk</div>
     pncFitPopupPhone(el);
   }
 
-  // ── Touch double-tap for files (iOS doesn't fire ondblclick) ──
-  // First tap selects (highlights), second tap within 600ms opens.
-  let _pncTouchLast = { el: null, t: 0 };
+  // ── Touch handler for files (iOS doesn't fire ondblclick) ──
+  // Single tap opens immediately on touch devices.
   function pncTouchFile(e, el, action) {
     e.preventDefault();
     e.stopPropagation();
-    const now = Date.now();
-    if (_pncTouchLast.el === el && now - _pncTouchLast.t < 600) {
-      _pncTouchLast = { el: null, t: 0 };
-      action();
-    } else {
-      // First tap — highlight
-      document.querySelectorAll('.pnc-file.selected').forEach(f => f.classList.remove('selected'));
-      el.classList.add('selected');
-      _pncTouchLast = { el, t: now };
-    }
+    action();
   }
   let _pncDrag = null;
   function pncDragStart(e, id) {
