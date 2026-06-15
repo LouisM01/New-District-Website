@@ -2699,9 +2699,22 @@ function makeWavIconSVG() {
     // Attempt real load via Web Audio API (works when served, not local file://)
     if (!_pncAudioCtx) { _pncAudioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
     if (_pncAudioCtx.state === 'suspended') { _pncAudioCtx.resume(); }
+    // iOS unlock — play a silent buffer synchronously within this
+    // gesture. .resume() alone is unreliable on some iOS versions;
+    // this is the standard WebAudio unlock workaround.
+    try {
+      const unlockBuf = _pncAudioCtx.createBuffer(1, 1, 22050);
+      const unlockSrc = _pncAudioCtx.createBufferSource();
+      unlockSrc.buffer = unlockBuf;
+      unlockSrc.connect(_pncAudioCtx.destination);
+      unlockSrc.start(0);
+    } catch (e) {}
 
-    fetch(file.src)
-      .then(r => { if (!r.ok) throw new Error('not ok'); return r.arrayBuffer(); })
+    const tryFetch = (url) => fetch(url).then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); });
+
+    // Try encoded URL first (GitHub Pages), then literal (some servers prefer unencoded spaces)
+    tryFetch(encodeURI(file.src))
+      .catch(() => tryFetch(file.src))
       .then(ab => _pncAudioCtx.decodeAudioData(ab))
       .then(buf => {
         _pncAudioBuf = buf;
@@ -2712,8 +2725,9 @@ function makeWavIconSVG() {
         _pncDrawWaveform(buf);
         _pncAudioStart_play();
       })
-      .catch(() => {
-        document.getElementById('pnc-ap-status').textContent = 'Ready (preview mode)';
+      .catch((err) => {
+        console.error('WAV load failed:', file.src, err);
+        document.getElementById('pnc-ap-status').textContent = 'Error: ' + file.src + ' (' + err + ')';
       });
   }
 
