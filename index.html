@@ -1329,11 +1329,11 @@
 
       /* Bigger close/min/max buttons — popups get scaled down via
          pncFitPopupPhone, so a larger base size here keeps the
-         rendered close button tappable. */
+         rendered close button easily tappable. */
       .pnc-win-btn {
-        width: 30px;
-        height: 26px;
-        font-size: 16px;
+        width: 46px;
+        height: 42px;
+        font-size: 22px;
       }
     }
 
@@ -2916,8 +2916,16 @@ function makeWavIconSVG() {
     probe.onload = function() {
       const isLandscape = probe.naturalWidth >= probe.naturalHeight;
       // 16:9 landscape → ~640×360px screen area. 9:16 portrait → ~360×640px.
-      const screenW = isLandscape ? 640 : 360;
-      const screenH = isLandscape ? 360 : 560;
+      let screenW = isLandscape ? 640 : 360;
+      let screenH = isLandscape ? 360 : 560;
+
+      // On phone, the stills popup otherwise takes up almost the whole
+      // screen — shrink it further before the general phone-fit scale.
+      if (window.innerWidth <= 768) {
+        const factor = isLandscape ? 0.85 : 0.70; // 15% / 30% smaller
+        screenW = Math.round(screenW * factor);
+        screenH = Math.round(screenH * factor);
+      }
 
       screen.style.width  = screenW + 'px';
       screen.style.height = screenH + 'px';
