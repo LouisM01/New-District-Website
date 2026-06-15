@@ -1326,6 +1326,15 @@
         width: 1280px;
         height: 100%;
       }
+
+      /* Bigger close/min/max buttons — popups get scaled down via
+         pncFitPopupPhone, so a larger base size here keeps the
+         rendered close button tappable. */
+      .pnc-win-btn {
+        width: 30px;
+        height: 26px;
+        font-size: 16px;
+      }
     }
 
     /* ── PNC DESKTOP ── */
@@ -2126,7 +2135,7 @@ newdistrict.co.uk</div>
         onmousedown="pncDragStart(event,'pnc-viewer')" ontouchstart="pncDragStart(event,'pnc-viewer')">
         <span id="pnc-viewer-title">Image Viewer</span>
         <div style="display:flex;gap:2px;">
-          <div class="pnc-win-btn" style="width:16px;height:14px;" onclick="document.getElementById('pnc-viewer').style.display='none'">✕</div>
+          <div class="pnc-win-btn" onclick="document.getElementById('pnc-viewer').style.display='none'">✕</div>
         </div>
       </div>
       <!-- Black inset display area -->
@@ -2222,7 +2231,9 @@ newdistrict.co.uk</div>
 
   // ── Explorer ───────────────────────────────────────────
   function pncOpenExplorer() {
-    document.getElementById('pnc-explorer').classList.add('open');
+    const el = document.getElementById('pnc-explorer');
+    el.classList.add('open');
+    pncFitPopupPhone(el);
   }
   function pncFileHover(name, desc) {
     document.getElementById('pnc-exp-left-title').textContent = name;
@@ -2237,7 +2248,9 @@ newdistrict.co.uk</div>
 
   // ── Credits ────────────────────────────────────────────
   function pncOpenCredits() {
-    document.getElementById('pnc-credits').classList.add('open');
+    const el = document.getElementById('pnc-credits');
+    el.classList.add('open');
+    pncFitPopupPhone(el);
   }
 
   // ── Drag ───────────────────────────────────────────────
@@ -2245,12 +2258,13 @@ newdistrict.co.uk</div>
   function pncDragStart(e, id) {
     const el = document.getElementById(id);
     const point = e.touches ? e.touches[0] : e;
+    const cs = window.getComputedStyle(el);
     _pncDrag = {
       el,
       startX: point.clientX,
       startY: point.clientY,
-      startLeft: parseFloat(el.style.left) || 0,
-      startTop:  parseFloat(el.style.top)  || 0,
+      startLeft: parseFloat(el.style.left || cs.left) || 0,
+      startTop:  parseFloat(el.style.top  || cs.top)  || 0,
     };
     if (e.touches) {
       document.addEventListener('touchmove', pncDragMove, { passive: false });
@@ -2282,15 +2296,29 @@ newdistrict.co.uk</div>
 
   // ── Phone popup fit — scale + centre any popup within the
   //    visible viewport on phones, so it's never partially
-  //    off-screen and never needs the desktop scrolled. ──
-  function pncFitPopupPhone(el, nativeW, nativeH) {
+  //    off-screen and never needs the desktop scrolled.
+  //    Measures the element's own natural (unscaled) size, so
+  //    it works for fixed-size viewers AND variable-height
+  //    folder windows alike. Scale is clamped to a minimum so
+  //    buttons/controls stay tappable even on very tall content
+  //    (the popup may then slightly exceed the viewport — it's
+  //    draggable, so the rest stays reachable). ──
+  function pncFitPopupPhone(el) {
     if (window.innerWidth > 768) {
       el.style.transform = '';
       return;
     }
+    // Clear any previous transform so we measure the true natural size
+    el.style.transform = '';
+    const rect = el.getBoundingClientRect();
+    const nativeW = rect.width, nativeH = rect.height;
+    if (!nativeW || !nativeH) return;
+
     const margin = 8;
     const vw = window.innerWidth, vh = window.innerHeight;
-    const scale = Math.min(1, (vw - margin * 2) / nativeW, (vh - margin * 2) / nativeH);
+    let scale = Math.min(1, (vw - margin * 2) / nativeW, (vh - margin * 2) / nativeH);
+    scale = Math.max(scale, 0.55); // keep controls tappable even if content overflows
+
     el.style.transformOrigin = 'top left';
     el.style.transform = `scale(${scale})`;
     const desktop = document.getElementById('pnc-desktop');
@@ -2447,6 +2475,7 @@ function makeWavIconSVG() {
     }
 
     frame.classList.add('open');
+    pncFitPopupPhone(frame);
   }
 
   // ── Audio player engine ────────────────────────────────
@@ -2625,7 +2654,7 @@ function makeWavIconSVG() {
     player.style.left = Math.max(120, (dw - 360) / 2) + 'px';
     player.style.top  = Math.max(40,  (dh - 480) / 2) + 'px';
     player.style.display = 'block';
-    pncFitPopupPhone(player, 360, 480);
+    pncFitPopupPhone(player);
 
     document.getElementById('pnc-ap-title').textContent = file.name;
     document.getElementById('pnc-ap-status').textContent = 'Loading…';
@@ -2777,7 +2806,7 @@ function makeWavIconSVG() {
     _zoomLevels.cr = 1;
     viewer.style.display = 'block';
     _pncApplyZoom('cr');
-    pncFitPopupPhone(viewer, 562, 870);
+    pncFitPopupPhone(viewer);
   }
 
   function pncOpenCadReport() {
@@ -2790,7 +2819,7 @@ function makeWavIconSVG() {
     _zoomLevels.cad = 1;
     viewer.style.display = 'block';
     _pncApplyZoom('cad');
-    pncFitPopupPhone(viewer, 562, 870);
+    pncFitPopupPhone(viewer);
   }
 
   // ── Zoom engine ────────────────────────────────────────
@@ -2859,7 +2888,7 @@ function makeWavIconSVG() {
     ).join('');
     _zoomLevels.pdf = 1;
     _pncApplyZoom('pdf');
-    pncFitPopupPhone(viewer, 562, 870);
+    pncFitPopupPhone(viewer);
   }
 
   function pncPdfPrev() {
@@ -2905,7 +2934,7 @@ function makeWavIconSVG() {
       viewer.style.left = Math.max(120, (dw - totalW) / 2) + 'px';
       viewer.style.top  = Math.max(40,  (dh - totalH) / 2) + 'px';
       viewer.style.display = 'block';
-      pncFitPopupPhone(viewer, totalW, totalH);
+      pncFitPopupPhone(viewer);
     };
     probe.src = still.src;
   }
