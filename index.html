@@ -1564,6 +1564,7 @@
       align-items: center; width: 72px; cursor: default;
     }
     .pnc-file-icon { width: 40px; height: 40px; }
+    .pnc-file.selected { background: rgba(0,0,128,0.15); outline: 1px dotted #000080; }
     .pnc-file-label {
       font-size: 11px; text-align: center; color: #000;
       margin-top: 3px; padding: 1px 2px; word-break: break-word;
@@ -2281,7 +2282,23 @@ newdistrict.co.uk</div>
     pncFitPopupPhone(el);
   }
 
-  // ── Drag ───────────────────────────────────────────────
+  // ── Touch double-tap for files (iOS doesn't fire ondblclick) ──
+  // First tap selects (highlights), second tap within 600ms opens.
+  let _pncTouchLast = { el: null, t: 0 };
+  function pncTouchFile(e, el, action) {
+    e.preventDefault();
+    e.stopPropagation();
+    const now = Date.now();
+    if (_pncTouchLast.el === el && now - _pncTouchLast.t < 600) {
+      _pncTouchLast = { el: null, t: 0 };
+      action();
+    } else {
+      // First tap — highlight
+      document.querySelectorAll('.pnc-file.selected').forEach(f => f.classList.remove('selected'));
+      el.classList.add('selected');
+      _pncTouchLast = { el, t: now };
+    }
+  }
   let _pncDrag = null;
   function pncDragStart(e, id) {
     const el = document.getElementById(id);
@@ -2430,7 +2447,7 @@ function makeWavIconSVG() {
         const body = frame.querySelector('.pnc-folder-body');
         body.style.cssText = 'background:#fff;min-height:180px;padding:16px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:16px 20px;';
         body.innerHTML = WAV_FILES.map((f, i) => `
-          <div class="pnc-file" style="width:72px;" ondblclick="pncPlayWav(${i})">
+          <div class="pnc-file" style="width:72px;" ondblclick="pncPlayWav(${i})" ontouchend="pncTouchFile(event,this,function(){pncPlayWav(${i})})">
             <div style="width:40px;height:48px;">${makeWavIconSVG()}</div>
             <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-all;">${f.name}</div>
           </div>`).join('');
@@ -2452,7 +2469,7 @@ function makeWavIconSVG() {
   <rect x="6" y="34" width="14" height="1.5" fill="#ccc"/>
 </svg>`;
         body.innerHTML = STILLS.map((s, i) => `
-          <div class="pnc-file" style="width:72px;" ondblclick="pncViewStill(${i})">
+          <div class="pnc-file" style="width:72px;" ondblclick="pncViewStill(${i})" ontouchend="pncTouchFile(event,this,function(){pncViewStill(${i})})">
             <div style="width:40px;height:48px;margin:0 auto;">${DOC_SVG}</div>
             <div class="pnc-file-label" style="font-size:10px;text-align:center;">${s.name}</div>
           </div>`).join('');
@@ -2470,7 +2487,7 @@ function makeWavIconSVG() {
           if (isCAD) onclick = 'pncOpenCadReport()';
           else if (isCR) onclick = 'pncOpenCriminalRecord()';
           else onclick = `pncOpenPdf(window._pdfOnly1994, ${pdfCounter++})`;
-          return `<div class="pnc-file" style="width:90px;" ondblclick="${onclick}">
+          return `<div class="pnc-file" style="width:90px;" ondblclick="${onclick}" ontouchend="pncTouchFile(event,this,function(){${onclick}})">
             <div style="width:40px;height:40px;margin:0 auto;"><img src="https://win98icons.alexmeub.com/icons/png/file_eye.png" style="width:40px;height:40px;image-rendering:pixelated;display:block;"></div>
             <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-word;overflow-wrap:break-word;">${f.label}</div>
           </div>`;
@@ -2483,7 +2500,7 @@ function makeWavIconSVG() {
         const body = frame.querySelector('.pnc-folder-body');
         body.style.cssText = 'background:#fff;min-height:200px;padding:16px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:16px 20px;';
         body.innerHTML = CASE_FILES_1999.map((f, i) => `
-          <div class="pnc-file" style="width:90px;" ondblclick="pncOpenPdf(CASE_FILES_1999, ${i})">
+          <div class="pnc-file" style="width:90px;" ondblclick="pncOpenPdf(CASE_FILES_1999, ${i})" ontouchend="pncTouchFile(event,this,function(){pncOpenPdf(CASE_FILES_1999, ${i})})">
             <div style="width:40px;height:40px;margin:0 auto;"><img src="https://win98icons.alexmeub.com/icons/png/file_eye.png" style="width:40px;height:40px;image-rendering:pixelated;display:block;"></div>
             <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-word;overflow-wrap:break-word;">${f.label.replace(/_/g,' ')}</div>
           </div>`).join('');
@@ -2494,7 +2511,7 @@ function makeWavIconSVG() {
         const body = frame.querySelector('.pnc-folder-body');
         body.style.cssText = 'background:#fff;min-height:200px;padding:16px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:16px 20px;';
         body.innerHTML = CASE_FILES_2000.map((f, i) => `
-          <div class="pnc-file" style="width:90px;" ondblclick="pncOpenPdf(CASE_FILES_2000, ${i})">
+          <div class="pnc-file" style="width:90px;" ondblclick="pncOpenPdf(CASE_FILES_2000, ${i})" ontouchend="pncTouchFile(event,this,function(){pncOpenPdf(CASE_FILES_2000, ${i})})">
             <div style="width:40px;height:40px;margin:0 auto;"><img src="https://win98icons.alexmeub.com/icons/png/file_eye.png" style="width:40px;height:40px;image-rendering:pixelated;display:block;"></div>
             <div class="pnc-file-label" style="font-size:10px;text-align:center;word-break:break-word;overflow-wrap:break-word;">${f.label}</div>
           </div>`).join('');
@@ -2672,6 +2689,22 @@ function makeWavIconSVG() {
   }
 
   function pncPlayWav(idx) {
+    // ── iOS AudioContext unlock — must be the FIRST thing that
+    //    runs inside the user-gesture call stack. iOS Safari
+    //    closes the gesture window as soon as the call stack
+    //    yields (DOM work, measurements, etc.), so context
+    //    creation and the silent-buffer unlock must happen here,
+    //    synchronously, before anything else. ──
+    if (!_pncAudioCtx) { _pncAudioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    if (_pncAudioCtx.state === 'suspended') { _pncAudioCtx.resume(); }
+    try {
+      const unlockBuf = _pncAudioCtx.createBuffer(1, 1, 22050);
+      const unlockSrc = _pncAudioCtx.createBufferSource();
+      unlockSrc.buffer = unlockBuf;
+      unlockSrc.connect(_pncAudioCtx.destination);
+      unlockSrc.start(0);
+    } catch (e) {}
+
     const file = WAV_FILES[idx];
     pncAudioStop();
 
@@ -2695,20 +2728,6 @@ function makeWavIconSVG() {
 
     // Draw placeholder waveform immediately so graphic is always visible
     _pncDrawPlaceholderWaveform(idx);
-
-    // Attempt real load via Web Audio API (works when served, not local file://)
-    if (!_pncAudioCtx) { _pncAudioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
-    if (_pncAudioCtx.state === 'suspended') { _pncAudioCtx.resume(); }
-    // iOS unlock — play a silent buffer synchronously within this
-    // gesture. .resume() alone is unreliable on some iOS versions;
-    // this is the standard WebAudio unlock workaround.
-    try {
-      const unlockBuf = _pncAudioCtx.createBuffer(1, 1, 22050);
-      const unlockSrc = _pncAudioCtx.createBufferSource();
-      unlockSrc.buffer = unlockBuf;
-      unlockSrc.connect(_pncAudioCtx.destination);
-      unlockSrc.start(0);
-    } catch (e) {}
 
     const tryFetch = (url) => fetch(url).then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); });
 
