@@ -1283,16 +1283,27 @@
     }
     #pnc-granted.show { opacity: 1; }
 
-    /* ── PNC DESKTOP ── */
-    #pnc-desktop {
+    /* ── SCALED STAGE — fixed 1920x1080 design canvas, scaled to fit any viewport ── */
+    #pnc-stage {
       display: none;
       position: fixed; inset: 0; z-index: 1000;
+      background: #000; /* letterbox / monitor bezel */
+      align-items: center; justify-content: center;
+    }
+    #pnc-stage.open { display: flex; }
+
+    /* ── PNC DESKTOP ── */
+    #pnc-desktop {
+      display: block;
+      position: relative;
+      width: 1920px; height: 1080px;
+      flex-shrink: 0;
+      transform-origin: center center;
       background: #808080; /* Win98 grey */
       font-family: 'MS Sans Serif', 'Tahoma', Arial, sans-serif;
       font-size: 12px;
       overflow: hidden;
     }
-    #pnc-desktop.open { display: block; }
 
     /* Desktop icons on left */
     #pnc-icons {
@@ -1333,7 +1344,7 @@
     }
     #pnc-crest img {
       width: 380px;
-      max-width: 50vw;
+      max-width: 50%;
       height: auto;
       user-select: none;
     }
@@ -1387,7 +1398,7 @@
     #pnc-explorer {
       position: absolute;
       top: 40px; left: 120px;
-      width: 680px; max-width: calc(100vw - 140px);
+      width: 680px; max-width: calc(100% - 140px);
       background: #c0c0c0;
       border-top: 2px solid #fff;
       border-left: 2px solid #fff;
@@ -1483,7 +1494,7 @@
     /* Credits window */
     #pnc-credits {
       position: absolute; top: 80px; left: 180px;
-      width: 480px; max-width: calc(100vw - 160px);
+      width: 480px; max-width: calc(100% - 160px);
       background: #fff;
       border-top: 2px solid #fff; border-left: 2px solid #fff;
       border-right: 2px solid #404040; border-bottom: 2px solid #404040;
@@ -1509,7 +1520,7 @@
     /* Individual folder windows */
     .pnc-folder-win-frame {
       position: absolute;
-      width: 560px; max-width: calc(100vw - 40px);
+      width: 560px; max-width: calc(100% - 40px);
       background: #c0c0c0;
       border-top: 2px solid #fff;
       border-left: 2px solid #fff;
@@ -1566,7 +1577,8 @@
     <div id="pnc-granted">ACCESS GRANTED</div>
   </div>
 
-  <!-- PNC DESKTOP -->
+  <!-- PNC DESKTOP — scaled stage wrapper -->
+  <div id="pnc-stage">
   <div id="pnc-desktop">
   <!-- Centre crest — decorative only, self-contained -->
     <div id="pnc-crest">
@@ -2094,6 +2106,7 @@ newdistrict.co.uk</div>
       </div>
     </div>
   </div><!-- end pnc-desktop -->
+  </div><!-- end pnc-stage -->
 
   <script>
   // ── PNC LOADER ──────────────────────────────────────────
@@ -2140,14 +2153,28 @@ newdistrict.co.uk</div>
     }, 5600);
     setTimeout(() => {
       document.getElementById('pnc-loader').classList.remove('open');
-      document.getElementById('pnc-desktop').classList.add('open');
+      document.getElementById('pnc-stage').classList.add('open');
+      pncFitStage();
       pncUpdateClock();
     }, 6800);
   }
 
   function closePncDesktop() {
-    document.getElementById('pnc-desktop').classList.remove('open');
+    document.getElementById('pnc-stage').classList.remove('open');
   }
+
+  // ── Scaled stage — fit 1920x1080 design canvas to viewport ─
+  function pncFitStage() {
+    const desktop = document.getElementById('pnc-desktop');
+    const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    desktop.style.transform = `scale(${scale})`;
+  }
+  window.addEventListener('resize', () => {
+    if (document.getElementById('pnc-stage').classList.contains('open')) pncFitStage();
+  });
+  window.addEventListener('orientationchange', () => {
+    if (document.getElementById('pnc-stage').classList.contains('open')) pncFitStage();
+  });
 
   // ── Clock ─────────────────────────────────────────────
   function pncUpdateClock() {
