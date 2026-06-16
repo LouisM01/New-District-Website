@@ -2513,20 +2513,31 @@ function makeWavIconSVG() {
     pncFitPopupPhone(frame);
   }
 
-  // ── Audio player engine ────────────────────────────────
-  let _pncAudio       = null;
-  let _pncAudioCtx    = null;
-  let _pncAudioBuf    = null;
-  let _pncAudioSrc    = null;
-  let _pncAudioStart  = 0;   // AudioContext time when playback began
-  let _pncAudioOffset = 0;   // offset into track when play pressed
-  let _pncAudioPlaying = false;
-  let _pncAudioRAF    = null;
-  let _pncAudioDur    = 0;
+  // ── Audio player engine — HTML <audio> based ──────────
+  // Web Audio API (AudioContext + decodeAudioData) is unreliable
+  // on iOS Safari. A plain <audio> element is universally supported.
+  let _pncAudio = null;
+  let _pncAudioDur = 0;
+  let _pncAudioRAF = null;
 
   function _pncFmtTime(s) {
+    if (!s || isNaN(s)) return '0:00';
     const m = Math.floor(s / 60);
     return m + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+  }
+
+  function _pncUpdatePlayhead() {
+    if (!_pncAudio || _pncAudio.paused) return;
+    const frac = _pncAudioDur ? _pncAudio.currentTime / _pncAudioDur : 0;
+    const wf  = document.getElementById('pnc-ap-waveform');
+    const ph  = document.getElementById('pnc-ap-playhead');
+    const sel = document.getElementById('pnc-ap-selection');
+    const w   = wf ? wf.offsetWidth : 344;
+    if (ph)  ph.style.left   = (frac * w) + 'px';
+    if (sel) sel.style.width = (frac * w) + 'px';
+    document.getElementById('pnc-ap-scrub').value = Math.round(frac * 1000);
+    document.getElementById('pnc-ap-time').textContent = _pncFmtTime(_pncAudio.currentTime) + ' / ' + _pncFmtTime(_pncAudioDur);
+    _pncAudioRAF = requestAnimationFrame(_pncUpdatePlayhead);
   }
 
   function _pncDrawPlaceholderWaveform(seed) {
@@ -2534,171 +2545,23 @@ function makeWavIconSVG() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const W = canvas.width, H = canvas.height;
-
-    ctx.fillStyle = '#1a1a2e';
-    ctx.fillRect(0, 0, W, H);
-
-    // Subtle grid lines
-    ctx.strokeStyle = '#252545';
-    ctx.lineWidth = 1;
-    for (let i = 1; i < 4; i++) {
-      const y = (H / 4) * i;
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-    }
-
-    // Zero lines per channel
-    ctx.strokeStyle = '#333366';
-    [H * 0.25, H * 0.75].forEach(y => {
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-    });
-
-    // Draw two channels with deterministic pseudo-random waveform
-    const nCh = 2;
-    const chH = H / nCh;
-    let r = (seed + 1) * 9301 + 49297;
-
-    for (let c = 0; c < nCh; c++) {
-      const midY = chH * c + chH / 2;
-      const amp  = chH * 0.42;
-
-      ctx.fillStyle = '#4a7fc1';
-      let env = 0;
-      for (let x = 0; x < W; x++) {
-        // pseudo-random with smooth envelope
-        r = (r * 9301 + 49297) % 233280;
-        const noise = (r / 233280) * 2 - 1;
-        env = env * 0.92 + noise * 0.08;
-        // burst envelope — louder in middle sections
-        const burstFrac = Math.sin((x / W) * Math.PI * (3 + seed));
-        const val = env * (0.3 + Math.abs(burstFrac) * 0.7);
-        const h = Math.max(1, Math.abs(val) * amp * 2);
-        ctx.fillRect(x, midY - h / 2, 1, h);
-      }
-
-      // Highlight line
-      ctx.strokeStyle = '#6ba3e8';
-      ctx.lineWidth = 0.5;
-      r = (seed + 1) * 9301 + 49297;
-      ctx.beginPath();
-      let env2 = 0;
-      for (let x = 0; x < W; x++) {
-        r = (r * 9301 + 49297) % 233280;
-        const noise = (r / 233280) * 2 - 1;
-        env2 = env2 * 0.92 + noise * 0.08;
-        const burstFrac = Math.sin((x / W) * Math.PI * (3 + seed));
-        const val = env2 * (0.3 + Math.abs(burstFrac) * 0.7);
-        const y = midY - Math.abs(val) * amp;
-        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-    }
-  }
-
-  function _pncDrawWaveform(buf) {
-    const canvas = document.getElementById('pnc-ap-canvas');
-    if (!canvas || !buf) return;
-    const ctx = canvas.getContext('2d');
-    const W = canvas.width, H = canvas.height;
     ctx.clearRect(0, 0, W, H);
-
-    // Dark background
-    ctx.fillStyle = '#1a1a2e';
+    ctx.fillStyle = '#1a1a1a';
     ctx.fillRect(0, 0, W, H);
-
-    // Zero line (both channels)
-    ctx.strokeStyle = '#333355';
-    ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(0, H * 0.25); ctx.lineTo(W, H * 0.25); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(0, H * 0.75); ctx.lineTo(W, H * 0.75); ctx.stroke();
-
-    // Draw up to 2 channels stacked
-    const nCh = Math.min(buf.numberOfChannels, 2);
-    const chH = H / nCh;
-
-    for (let c = 0; c < nCh; c++) {
-      const data = buf.getChannelData(c);
-      const step = Math.ceil(data.length / W);
-      const midY = chH * c + chH / 2;
-      const amp  = chH * 0.45;
-
-      ctx.fillStyle = '#4a7fc1';
-      for (let x = 0; x < W; x++) {
-        let min = 1, max = -1;
-        for (let s = x * step; s < (x + 1) * step && s < data.length; s++) {
-          if (data[s] < min) min = data[s];
-          if (data[s] > max) max = data[s];
-        }
-        const y1 = midY + min * amp;
-        const y2 = midY + max * amp;
-        ctx.fillRect(x, y1, 1, Math.max(1, y2 - y1));
-      }
-
-      // Brighter highlight line on top of waveform
-      ctx.strokeStyle = '#6ba3e8';
-      ctx.lineWidth = 0.5;
-      ctx.beginPath();
-      for (let x = 0; x < W; x++) {
-        let max = -1;
-        const start = x * step;
-        for (let s = start; s < start + step && s < data.length; s++) {
-          if (Math.abs(data[s]) > max) max = Math.abs(data[s]);
-        }
-        const y = midY - max * amp;
-        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-    }
-  }
-
-  function _pncUpdatePlayhead() {
-    if (!_pncAudioPlaying || !_pncAudioCtx) return;
-    const elapsed = _pncAudioCtx.currentTime - _pncAudioStart + _pncAudioOffset;
-    const dur     = _pncAudioDur;
-    const frac    = dur > 0 ? Math.min(elapsed / dur, 1) : 0;
-
-    const wf = document.getElementById('pnc-ap-waveform');
-    const ph = document.getElementById('pnc-ap-playhead');
-    const sel = document.getElementById('pnc-ap-selection');
-    const scrub = document.getElementById('pnc-ap-scrub');
-    const timeEl = document.getElementById('pnc-ap-time');
-    const status = document.getElementById('pnc-ap-status');
-
-    if (wf && ph) { ph.style.left = (frac * wf.offsetWidth) + 'px'; }
-    if (sel) { sel.style.width = (frac * (wf ? wf.offsetWidth : 344)) + 'px'; }
-    if (scrub) { scrub.value = Math.round(frac * 1000); }
-    if (timeEl) { timeEl.textContent = _pncFmtTime(elapsed) + ' / ' + _pncFmtTime(dur); }
-    if (status) { status.textContent = 'Playing — ' + _pncFmtTime(elapsed); }
-
-    if (elapsed < dur) {
-      _pncAudioRAF = requestAnimationFrame(_pncUpdatePlayhead);
-    } else {
-      _pncAudioPlaying = false;
-      document.getElementById('pnc-ap-play').textContent = '▶ Play';
-      if (status) status.textContent = 'Stopped';
+    // Deterministic pseudo-random bars seeded by track index
+    const bars = 80;
+    for (let i = 0; i < bars; i++) {
+      const x = (i / bars) * W;
+      const h = (0.2 + 0.7 * Math.abs(Math.sin(seed * 7.3 + i * 0.37 + Math.cos(i * 0.13 + seed)))) * H * 0.85;
+      ctx.fillStyle = '#3a8a3a';
+      ctx.fillRect(x + 1, (H - h) / 2, (W / bars) - 2, h);
     }
   }
 
   function pncPlayWav(idx) {
-    // ── iOS AudioContext unlock — must be the FIRST thing that
-    //    runs inside the user-gesture call stack. iOS Safari
-    //    closes the gesture window as soon as the call stack
-    //    yields (DOM work, measurements, etc.), so context
-    //    creation and the silent-buffer unlock must happen here,
-    //    synchronously, before anything else. ──
-    if (!_pncAudioCtx) { _pncAudioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
-    if (_pncAudioCtx.state === 'suspended') { _pncAudioCtx.resume(); }
-    try {
-      const unlockBuf = _pncAudioCtx.createBuffer(1, 1, 22050);
-      const unlockSrc = _pncAudioCtx.createBufferSource();
-      unlockSrc.buffer = unlockBuf;
-      unlockSrc.connect(_pncAudioCtx.destination);
-      unlockSrc.start(0);
-    } catch (e) {}
-
     const file = WAV_FILES[idx];
-    pncAudioStop();
 
-    // Show the player window, centred on desktop
+    // Show the player window
     const player  = document.getElementById('pnc-audio-player');
     const desktop = document.getElementById('pnc-desktop-inner');
     const dw = desktop.offsetWidth, dh = desktop.offsetHeight;
@@ -2710,107 +2573,96 @@ function makeWavIconSVG() {
     document.getElementById('pnc-ap-title').textContent = file.name;
     document.getElementById('pnc-ap-status').textContent = 'Loading…';
     document.getElementById('pnc-ap-time').textContent = '0:00 / 0:00';
-
-    // Reset playhead
     document.getElementById('pnc-ap-playhead').style.left = '0';
     document.getElementById('pnc-ap-selection').style.width = '0';
     document.getElementById('pnc-ap-scrub').value = 0;
-
-    // Draw placeholder waveform immediately so graphic is always visible
+    document.getElementById('pnc-ap-play').textContent = '▶ Play';
     _pncDrawPlaceholderWaveform(idx);
 
-    const tryFetch = (url) => fetch(url).then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); });
+    if (_pncAudio) { _pncAudio.pause(); _pncAudio.src = ''; }
+    if (_pncAudioRAF) { cancelAnimationFrame(_pncAudioRAF); _pncAudioRAF = null; }
 
-    // Try encoded URL first (GitHub Pages), then literal (some servers prefer unencoded spaces)
-    tryFetch(encodeURI(file.src))
-      .catch(() => tryFetch(file.src))
-      .then(ab => _pncAudioCtx.decodeAudioData(ab))
-      .then(buf => {
-        _pncAudioBuf = buf;
-        _pncAudioDur = buf.duration;
-        _pncAudioOffset = 0;
-        document.getElementById('pnc-ap-time').textContent = '0:00 / ' + _pncFmtTime(buf.duration);
-        document.getElementById('pnc-ap-status').textContent = 'Ready — ' + _pncFmtTime(buf.duration);
-        _pncDrawWaveform(buf);
-        _pncAudioStart_play();
-      })
-      .catch((err) => {
-        console.error('WAV load failed:', file.src, err);
-        document.getElementById('pnc-ap-status').textContent = 'Error: ' + file.src + ' (' + err + ')';
-      });
-  }
+    _pncAudio = new Audio();
+    _pncAudio.src = encodeURI(file.src);
+    _pncAudio.preload = 'auto';
 
-  function _pncAudioStart_play() {
-    if (!_pncAudioBuf || !_pncAudioCtx) return;
-    if (_pncAudioCtx.state === 'suspended') { _pncAudioCtx.resume(); }
-    if (_pncAudioSrc) { try { _pncAudioSrc.stop(); } catch(e){} }
-    _pncAudioSrc = _pncAudioCtx.createBufferSource();
-    _pncAudioSrc.buffer = _pncAudioBuf;
-    _pncAudioSrc.connect(_pncAudioCtx.destination);
-    _pncAudioSrc.start(0, _pncAudioOffset);
-    _pncAudioStart = _pncAudioCtx.currentTime;
-    _pncAudioPlaying = true;
-    document.getElementById('pnc-ap-play').textContent = '⏸ Pause';
-    if (_pncAudioRAF) cancelAnimationFrame(_pncAudioRAF);
-    _pncAudioRAF = requestAnimationFrame(_pncUpdatePlayhead);
+    _pncAudio.addEventListener('loadedmetadata', () => {
+      _pncAudioDur = _pncAudio.duration;
+      document.getElementById('pnc-ap-time').textContent = '0:00 / ' + _pncFmtTime(_pncAudioDur);
+      document.getElementById('pnc-ap-status').textContent = 'Ready — ' + _pncFmtTime(_pncAudioDur);
+    });
+
+    _pncAudio.addEventListener('error', () => {
+      document.getElementById('pnc-ap-status').textContent = 'Error loading file';
+    });
+
+    _pncAudio.addEventListener('ended', () => {
+      document.getElementById('pnc-ap-play').textContent = '▶ Play';
+      document.getElementById('pnc-ap-status').textContent = 'Stopped';
+      if (_pncAudioRAF) { cancelAnimationFrame(_pncAudioRAF); _pncAudioRAF = null; }
+    });
+
+    _pncAudio.play().then(() => {
+      document.getElementById('pnc-ap-play').textContent = '⏸ Pause';
+      document.getElementById('pnc-ap-status').textContent = 'Playing';
+      _pncAudioRAF = requestAnimationFrame(_pncUpdatePlayhead);
+    }).catch(() => {
+      document.getElementById('pnc-ap-status').textContent = 'Tap Play to start';
+    });
   }
 
   function pncAudioPlayPause() {
-    if (!_pncAudioBuf) return;
-    if (_pncAudioPlaying) {
-      // Pause — record offset
-      _pncAudioOffset += _pncAudioCtx.currentTime - _pncAudioStart;
-      try { _pncAudioSrc.stop(); } catch(e){}
-      _pncAudioPlaying = false;
-      if (_pncAudioRAF) cancelAnimationFrame(_pncAudioRAF);
+    if (!_pncAudio) return;
+    if (!_pncAudio.paused) {
+      _pncAudio.pause();
       document.getElementById('pnc-ap-play').textContent = '▶ Play';
-      document.getElementById('pnc-ap-status').textContent = 'Paused — ' + _pncFmtTime(_pncAudioOffset);
+      document.getElementById('pnc-ap-status').textContent = 'Paused — ' + _pncFmtTime(_pncAudio.currentTime);
+      if (_pncAudioRAF) { cancelAnimationFrame(_pncAudioRAF); _pncAudioRAF = null; }
     } else {
-      _pncAudioStart_play();
+      _pncAudio.play().then(() => {
+        document.getElementById('pnc-ap-play').textContent = '⏸ Pause';
+        document.getElementById('pnc-ap-status').textContent = 'Playing';
+        _pncAudioRAF = requestAnimationFrame(_pncUpdatePlayhead);
+      });
     }
   }
 
   function pncAudioStop() {
-    if (_pncAudioSrc) { try { _pncAudioSrc.stop(); } catch(e){} _pncAudioSrc = null; }
+    if (_pncAudio) { _pncAudio.pause(); _pncAudio.currentTime = 0; }
     if (_pncAudioRAF) { cancelAnimationFrame(_pncAudioRAF); _pncAudioRAF = null; }
-    _pncAudioPlaying = false;
-    _pncAudioOffset  = 0;
-    const ph = document.getElementById('pnc-ap-playhead');
-    const sel = document.getElementById('pnc-ap-selection');
-    const scrub = document.getElementById('pnc-ap-scrub');
-    const btn = document.getElementById('pnc-ap-play');
-    const status = document.getElementById('pnc-ap-status');
-    if (ph) ph.style.left = '0';
-    if (sel) sel.style.width = '0';
-    if (scrub) scrub.value = 0;
-    if (btn) btn.textContent = '▶ Play';
-    if (status) status.textContent = 'Stopped';
+    const els = {
+      ph: document.getElementById('pnc-ap-playhead'),
+      sel: document.getElementById('pnc-ap-selection'),
+      scrub: document.getElementById('pnc-ap-scrub'),
+      btn: document.getElementById('pnc-ap-play'),
+      status: document.getElementById('pnc-ap-status'),
+    };
+    if (els.ph) els.ph.style.left = '0';
+    if (els.sel) els.sel.style.width = '0';
+    if (els.scrub) els.scrub.value = 0;
+    if (els.btn) els.btn.textContent = '▶ Play';
+    if (els.status) els.status.textContent = 'Stopped';
   }
 
   function pncAudioScrub(val) {
-    if (!_pncAudioBuf) return;
+    if (!_pncAudio || !_pncAudioDur) return;
     const frac = val / 1000;
-    _pncAudioOffset = frac * _pncAudioDur;
-    const wf = document.getElementById('pnc-ap-waveform');
-    const ph = document.getElementById('pnc-ap-playhead');
+    _pncAudio.currentTime = frac * _pncAudioDur;
+    const wf  = document.getElementById('pnc-ap-waveform');
+    const ph  = document.getElementById('pnc-ap-playhead');
     const sel = document.getElementById('pnc-ap-selection');
     if (wf && ph) ph.style.left = (frac * wf.offsetWidth) + 'px';
     if (sel) sel.style.width = (frac * (wf ? wf.offsetWidth : 344)) + 'px';
-    document.getElementById('pnc-ap-time').textContent = _pncFmtTime(_pncAudioOffset) + ' / ' + _pncFmtTime(_pncAudioDur);
-    if (_pncAudioPlaying) {
-      try { _pncAudioSrc.stop(); } catch(e){}
-      _pncAudioStart_play();
-    }
+    document.getElementById('pnc-ap-time').textContent = _pncFmtTime(_pncAudio.currentTime) + ' / ' + _pncFmtTime(_pncAudioDur);
   }
 
   function pncAudioScrubClick(e) {
-    if (!_pncAudioBuf) return;
+    if (!_pncAudio) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const frac = (e.clientX - rect.left) / rect.width;
     document.getElementById('pnc-ap-scrub').value = Math.round(frac * 1000);
     pncAudioScrub(Math.round(frac * 1000));
   }
-
 
   // Stills data
 // FIX 8: single shared stills array — used by both pncOpenFolder and pncViewStill
