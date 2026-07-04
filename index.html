@@ -1088,6 +1088,13 @@
       });
       window.scrollTo(0, 0);
       if (id === 'map') setTimeout(() => { syncMapGlow(); if(window._drawMapLights) window._drawMapLights(); }, 50);
+      if (id === 'film-division') {
+        setTimeout(() => {
+          if (typeof _fridgeOpen !== 'undefined' && !_fridgeOpen) {
+            window.revealFridgeSynopsis();
+          }
+        }, 3000);
+      }
     }
     window.showSection = showSection; // expose for inline onclick handlers
 
