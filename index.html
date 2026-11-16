@@ -154,6 +154,11 @@
     .contact-submit:hover { background: #ffd870; transform: translateY(-1px); }
     .contact-submit:active { transform: translateY(0); }
 
+    /* ── LOGO PNGs: their baked-in near-black box (~#030303) is crushed to
+       pure #000 so it disappears into the page background ── */
+    img[src="New district logo.png"],
+    img[src="New district graphic.png"] { filter: contrast(1.1); }
+
     /* ── HEADER LOGO (fixed size for top bar) ── */
     .header-logo-img {
       height: 48px; width: auto;
@@ -161,7 +166,7 @@
     }
     .contact-logo-img {
       width: 260px; max-width: 100%; height: auto;
-      margin-bottom: 0; display: block; filter: brightness(1);
+      margin-bottom: 0; display: block;
     }
 
     /* ── RESET & BASE ── */
@@ -1610,16 +1615,17 @@
       padding: 1px 4px; flex: 1;
     }
 
-    /* Credits window */
+    /* Credits window — Win98 Notepad */
     #pnc-credits {
-      position: absolute; top: 80px; left: 180px;
-      width: 480px; max-width: calc(100% - 160px);
-      background: #fff;
+      position: absolute; top: 60px; left: 170px;
+      width: 540px; max-width: calc(100% - 40px);
+      background: #c0c0c0;
       border-top: 2px solid #fff; border-left: 2px solid #fff;
       border-right: 2px solid #404040; border-bottom: 2px solid #404040;
       box-shadow: 2px 2px 0 #000;
       display: none; z-index: 10;
-      font-family: 'Courier New', Courier, monospace;
+      font-family: 'MS Sans Serif', 'Tahoma', Arial, sans-serif;
+      font-size: 12px; color: #000;
     }
     #pnc-credits.open { display: block; }
     #pnc-cred-titlebar {
@@ -1629,12 +1635,64 @@
       align-items: center; justify-content: space-between;
       cursor: move; user-select: none; touch-action: none;
     }
-    #pnc-cred-body {
-      padding: 16px; font-size: 12px; line-height: 1.9;
-      color: #000; background: #fff; max-height: 360px;
-      overflow-y: auto; white-space: pre;
+    #pnc-cred-titlebar-left { display: flex; align-items: center; gap: 5px; }
+    #pnc-cred-menubar {
+      display: flex; gap: 2px; padding: 2px 2px 3px;
+      background: #c0c0c0; user-select: none;
     }
-
+    #pnc-cred-frame {
+      margin: 0 2px 2px;
+      border-top: 1px solid #808080; border-left: 1px solid #808080;
+      border-right: 1px solid #fff; border-bottom: 1px solid #fff;
+      box-shadow: inset 1px 1px 0 #000, inset -1px -1px 0 #dfdfdf;
+      background: #fff; position: relative;
+    }
+    #pnc-cred-body {
+      height: min(470px, 62vh);
+      overflow-y: scroll; overflow-x: auto;
+      padding: 10px 10px 10px max(10px, calc((100% - 50ch) / 2 - 8px));
+      margin: 0;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: clamp(9px, calc((100vw - 90px) / 31.5), 13px);
+      line-height: 1.55; color: #000;
+      background: #fff; white-space: pre;
+    }
+    @supports (-moz-appearance: none) {
+      #pnc-cred-body { scrollbar-color: #c0c0c0 #e0e0e0; }
+    }
+    /* Win98 scrollbar */
+    #pnc-cred-body::-webkit-scrollbar { width: 16px; height: 16px; }
+    #pnc-cred-body::-webkit-scrollbar-track {
+      background: repeating-conic-gradient(#c0c0c0 0% 25%, #fff 0% 50%) 0 0 / 2px 2px;
+    }
+    #pnc-cred-body::-webkit-scrollbar-thumb {
+      background: #c0c0c0;
+      border-top: 1px solid #dfdfdf; border-left: 1px solid #dfdfdf;
+      border-right: 1px solid #000; border-bottom: 1px solid #000;
+      box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
+    }
+    #pnc-cred-body::-webkit-scrollbar-button:single-button {
+      display: block; height: 16px; width: 16px;
+      background-color: #c0c0c0;
+      border-top: 1px solid #dfdfdf; border-left: 1px solid #dfdfdf;
+      border-right: 1px solid #000; border-bottom: 1px solid #000;
+      box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
+      background-repeat: no-repeat; background-position: center;
+    }
+    #pnc-cred-body::-webkit-scrollbar-button:single-button:vertical:decrement {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='4'%3E%3Cpath d='M3.5 0L7 4H0z'/%3E%3C/svg%3E");
+    }
+    #pnc-cred-body::-webkit-scrollbar-button:single-button:vertical:increment {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='4'%3E%3Cpath d='M0 0h7L3.5 4z'/%3E%3C/svg%3E");
+    }
+    #pnc-cred-body::-webkit-scrollbar-button:horizontal { display: none; }
+    #pnc-cred-body::-webkit-scrollbar-corner { background: #c0c0c0; }
+    .pnc-caret {
+      display: inline-block; width: 1px; height: 1.15em;
+      margin-right: -1px; vertical-align: text-bottom;
+      background: #000; animation: pncCaret 1.06s steps(1) infinite;
+    }
+    @keyframes pncCaret { 50% { opacity: 0; } }
 
     /* Individual folder windows */
     .pnc-folder-win-frame {
@@ -2006,25 +2064,121 @@
       </div>
     </div>
 
-    <!-- Credits window -->
+    <!-- Credits window — Win98 Notepad -->
     <div id="pnc-credits">
       <div id="pnc-cred-titlebar" onmousedown="pncDragStart(event,'pnc-credits')" ontouchstart="pncDragStart(event,'pnc-credits')">
-        <span>📄 CREDITS.txt — Notepad</span>
+        <div id="pnc-cred-titlebar-left">
+          <svg width="14" height="14" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="5" y="3" width="22" height="26" fill="#fff" stroke="#000" stroke-width="1.5"/>
+            <circle cx="9" cy="7" r="1.6" fill="#000"/><circle cx="9" cy="13" r="1.6" fill="#000"/>
+            <circle cx="9" cy="19" r="1.6" fill="#000"/><circle cx="9" cy="25" r="1.6" fill="#000"/>
+            <rect x="13" y="8" width="11" height="1.6" fill="#000"/><rect x="13" y="13" width="11" height="1.6" fill="#000"/>
+            <rect x="13" y="18" width="9" height="1.6" fill="#000"/><rect x="13" y="23" width="10" height="1.6" fill="#000"/>
+          </svg>
+          <span>CREDITS.txt - Notepad</span>
+        </div>
         <div style="display:flex;gap:2px;">
           <div class="pnc-win-btn">_</div>
           <div class="pnc-win-btn">□</div>
           <div class="pnc-win-btn pnc-win-close" onclick="document.getElementById('pnc-credits').classList.remove('open')">✕</div>
         </div>
       </div>
-      <div id="pnc-cred-body">FRIDGE (2026)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      <div id="pnc-cred-menubar">
+        <span class="pnc-menu-item"><u>F</u>ile</span>
+        <span class="pnc-menu-item"><u>E</u>dit</span>
+        <span class="pnc-menu-item"><u>S</u>earch</span>
+        <span class="pnc-menu-item"><u>H</u>elp</span>
+      </div>
+      <div id="pnc-cred-frame">
+        <pre id="pnc-cred-body"><span class="pnc-caret"></span>
+             ════════════════════════
+                 F  R  I  D  G  E
+             ════════════════════════
 
-A New District Productions film.
 
-CREDITS TO BE UPDATED.
+                   DIRECTED BY
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-newdistrict.co.uk</div>
+               Reuben Van Tankeren
+
+
+                    WRITTEN BY
+
+                  Louis Martino
+
+
+                   PRODUCED BY
+
+                  Charlotte Hall
+                  Louis Martino
+
+
+             DIRECTOR OF PHOTOGRAPHY
+
+                  Fabian Wanner
+
+
+          COSTUME &amp; PRODUCTION DESIGNER
+
+                  Charlotte Hall
+
+
+                    EDITED BY
+
+                   Akash Singh
+
+
+                ORIGINAL SCORE BY
+
+                  Herodot Maric
+
+
+             ────────────────────────
+
+
+                       CAST
+
+Dr. Isobel Grey ................. Bluebell Freeman
+Aaron Turner ........................... Sam Bates
+Harvey Burns ....................... Louis Martino
+Darren Arkov ....................... Jorge Pereira
+Bailiff .......................... Milosh Darkovic
+
+      With Gracie Macgonigal as "Newsreader"
+
+           And Jon Gries as DCI Nielson
+
+
+             ────────────────────────
+
+
+                       CREW
+
+1st Assistant Director ............ Charlotte Hall
+Script Supervisor ............... Matthew Bradbury
+Gaffer ........................... Sebastian Hinds
+Sound Recordist &amp; On-Set Mixer ........ Cooper Roy
+Assistant Sound ...................... Isaac Eadon
+Colourist ............................ Akash Singh
+
+
+             ────────────────────────
+
+
+                  SPECIAL THANKS
+
+                   Crown House
+     Jim Tang &amp; the Dreamscape Rave Community
+
+
+
+             ════════════════════════
+
+         A NEW DISTRICT PRODUCTIONS Film
+         © 2026 New District Productions
+
+             ════════════════════════
+</pre>
+      </div>
     </div>
 
 
@@ -2306,6 +2460,8 @@ newdistrict.co.uk</div>
   function pncOpenCredits() {
     const el = document.getElementById('pnc-credits');
     el.classList.add('open');
+    const body = document.getElementById('pnc-cred-body');
+    if (body) body.scrollTop = 0;
     pncFitPopupPhone(el);
   }
 
